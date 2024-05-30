@@ -1,5 +1,8 @@
 ---
 import FilteredProductsGallery from "../components/filteredProductsGallery.astro";
+import Hero from "../components/hero.astro";
+
+import "../styles/instagram.min.css";
 ---
 
 <html lang="en">
@@ -11,7 +14,35 @@ import FilteredProductsGallery from "../components/filteredProductsGallery.astro
     <title>Velletaz Groupe</title>
   </head>
   <body>
-    <h1>Velletaz Groupe</h1>
+    <Hero />
     <FilteredProductsGallery />
   </body>
 </html>
+
+<style is:global>
+  @font-face {
+    font-family: "Mattone";
+    src: url("/fonts/Mattone-Regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Mattone";
+    src: url("/fonts/Mattone-Bold.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Mattone";
+    src: url("/fonts/Mattone-Black.woff2") format("woff2");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  .mattone {
+    font-family: "Mattone";
+  }
+</style>
