@@ -2,23 +2,25 @@
 const year = new Date().getFullYear() - 1987;
 ---
 
-<section class="hero w-full min-h-[50vh] flex items-center filter-sutro">
-  <div class="texte p-8 text-white">
+<section class="hero w-full min-h-[50vh]">
+  <img
+    src="/images/plant-de-vigne-velletaz-groupe-min-scaled.jpg"
+    class="object-cover absolute h-[50vh] w-full"
+    data-philter-duotone="#00705F #5D2F3F"
+  />
+  <div
+    class="texte p-8 text-white flex items-left justify-center relative min-h-[50vh] flex-col">
     <h1
       class="mattone font-bold text-3xl md:text-5xl leading-tight w-full md:w-2/3 mb-4">
       Pépinières Viticoles VELLETAZ GROUPE
     </h1>
-    <p class="mattone text-lg md:text-xl w-full md:w-1/2">
+    <p class="mattone text-lg md:text-xl w-full md:w-2/3">
       Notre savoir-faire au service de votre vignoble depuis {year} ans
     </p>
   </div>
 </section>
 
-<style>
-  .hero {
-    background-image: url("/images/plant-de-vigne-velletaz-groupe-min-scaled.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    object-fit: cover;
-  }
-</style>
+<script>
+  import "../scripts/philter.min.js";
+  new Philter();
+</script>
