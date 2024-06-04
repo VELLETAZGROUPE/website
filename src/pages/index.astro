@@ -1,6 +1,7 @@
 ---
 import FilteredProductsGallery from "../components/filteredProductsGallery.astro";
-import Hero from "../components/hero.astro";
+import Hero1 from "../components/hero1.astro";
+import Hero2 from "../components/hero2.astro";
 
 import "../styles/instagram.min.css";
 ---
@@ -14,9 +15,23 @@ import "../styles/instagram.min.css";
     <title>Velletaz Groupe</title>
   </head>
   <body>
-    <Hero />
+    <Hero1 />
+    <Hero2 />
     <FilteredProductsGallery />
   </body>
+  <script>
+    import "../scripts/philter.min.js";
+    import "../scripts/parallax.min.js";
+    import "../scripts/lenis.js";
+    new Philter();
+    import simpleParallax from "simple-parallax-js";
+    let images = document.querySelectorAll(".scene");
+    new simpleParallax(images, {
+      scale: 1.5,
+      delay: 0.6,
+      transition: "cubic-bezier(0,0,0,1)",
+    });
+  </script>
 </html>
 
 <style is:global>
