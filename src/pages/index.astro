@@ -3,6 +3,7 @@ import FilteredProductsGallery from "../components/filteredProductsGallery.astro
 import Hero1 from "../components/hero1.astro";
 import Hero2 from "../components/hero2.astro";
 import Features from "../components/features.astro";
+import VideoBg from "../components/videoBg.astro";
 
 import "../styles/instagram.min.css";
 ---
@@ -20,6 +21,7 @@ import "../styles/instagram.min.css";
     <Hero2 />
     <FilteredProductsGallery />
     <Features />
+    <VideoBg />
   </body>
   <script>
     import "../scripts/philter.min.js";
@@ -58,12 +60,39 @@ import "../styles/instagram.min.css";
     font-style: normal;
     font-display: swap;
   }
+  @font-face {
+    font-family: "Redaction";
+    src: url("/fonts/Redaction-Bold.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Redaction";
+    src: url("/fonts/Redaction-regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 
   .mattone {
     font-family: "Mattone";
   }
 
+  .redaction {
+    font-family: "Redaction";
+  }
+
   body {
     color: #5d2f3f;
+  }
+
+  :root {
+    --vert-clair: #6ba896;
+    --vert: #006346;
+    --bordeau: #470b2b;
+    --bordeau-clair: #5d2f3f;
+    --rouge: #91283b;
+    --rouge-clair: #5e2129;
   }
 </style>
