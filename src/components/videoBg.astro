@@ -1,0 +1,123 @@
+---
+import YouTube from "./YouTube.astro";
+// https://i.ytimg.com/vi/TtRtkTzHVBU/maxresdefault.jpg
+---
+
+<section data-custom-cursor="cursor-1">
+  <YouTube id="fFGtxqrfHwk" posterQuality="max" />
+</section>
+
+<div id="cursor-1" class="c-cursor js-c-cursor" aria-hidden="true">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    class="c-cursor__img icon inline-block text-inherit fill-current leading-none shrink-0 w-[100px] h-[100px]"
+    viewBox="0 0 64 64">
+    <defs>
+      <path
+        id="circlePath"
+        d=" M 32, 32 m -32, 0 a 32,32 0 1,0 64,0 a 32,32 0 1,0 -64,0 "></path>
+    </defs>
+
+    <!-- <circle cx="150" cy="150" r="150" fill="#000"/> -->
+    <g>
+      <use xlink:href="#circlePath" fill="none"></use>
+      <text fill="#FFF" class="circle">
+        <textPath font-size="0.82rem" xlink:href="#circlePath">
+          Lancer la vidéo - Lancez la vidéo -
+        </textPath>
+      </text>
+    </g>
+    <path
+      fill="white"
+      transform="translate(16 16) rotate(-6.598)"
+      d="M6.5 4A4.5 4.5 0 0 0 2 8.5v15A4.5 4.5 0 0 0 6.5 28h19a4.5 4.5 0 0 0 4.5-4.5v-15A4.5 4.5 0 0 0 25.5 4zM4 8.5A2.5 2.5 0 0 1 6.5 6h19A2.5 2.5 0 0 1 28 8.5v15a2.5 2.5 0 0 1-2.5 2.5h-19A2.5 2.5 0 0 1 4 23.5zM25 8a1 1 0 0 0-1 1v2a1 1 0 1 0 2 0V9a1 1 0 0 0-1-1m-1 7a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0zm1 5a1 1 0 0 0-1 1v2a1 1 0 1 0 2 0v-2a1 1 0 0 0-1-1M6 9a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0zm1 5a1 1 0 0 0-1 1v2a1 1 0 1 0 2 0v-2a1 1 0 0 0-1-1m-1 7a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0zm7-7.95c0-.81.878-1.313 1.576-.905l5.6 3.272a.895.895 0 0 1 0 1.546l-5.6 3.272A1.048 1.048 0 0 1 13 19.331z">
+    </path>
+  </svg>
+</div>
+
+<style>
+  /* --------------------------------
+
+File#: _1_custom-cursor
+Title: Custom Cursor
+Descr: A JavaScript plugin to create animated custom cursors
+Usage: codyhouse.co/license
+
+-------------------------------- */
+  @keyframes circle {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+
+  .c-cursor__img .circle {
+    animation: circle infinite linear 8s;
+    transform-origin: center;
+  }
+  .c-cursor {
+    position: fixed;
+    z-index: 9999;
+    /* use highest z-index value */
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+
+  .c-cursor__img {
+    display: block;
+    position: relative;
+    margin: -50% 0 0 -50%;
+    -webkit-filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+    opacity: 0;
+    --translate: 0;
+    --rotate: 0;
+    --skew: 0;
+    --scale: 0;
+    -webkit-transform: translate3d(
+        var(--translate-x, var(--translate)),
+        var(--translate-y, var(--translate)),
+        var(--translate-z, 0)
+      )
+      rotateX(var(--rotate-x, 0)) rotateY(var(--rotate-y, 0))
+      rotateZ(var(--rotate-z, var(--rotate))) skewX(var(--skew-x, var(--skew)))
+      skewY(var(--skew-y, 0)) scaleX(var(--scale-x, var(--scale)))
+      scaleY(var(--scale-y, var(--scale)));
+    transform: translate3d(
+        var(--translate-x, var(--translate)),
+        var(--translate-y, var(--translate)),
+        var(--translate-z, 0)
+      )
+      rotateX(var(--rotate-x, 0)) rotateY(var(--rotate-y, 0))
+      rotateZ(var(--rotate-z, var(--rotate))) skewX(var(--skew-x, var(--skew)))
+      skewY(var(--skew-y, 0)) scaleX(var(--scale-x, var(--scale)))
+      scaleY(var(--scale-y, var(--scale)));
+    transition:
+      opacity 0.2s,
+      -webkit-transform 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition:
+      opacity 0.2s,
+      transform 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition:
+      opacity 0.2s,
+      transform 0.2s cubic-bezier(0.215, 0.61, 0.355, 1),
+      -webkit-transform 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .c-cursor--in .c-cursor__img {
+    /* enter animation */
+    --scale: 1;
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-custom-cursor],
+    [data-custom-cursor] * {
+      cursor: none;
+    }
+  }
+</style>
