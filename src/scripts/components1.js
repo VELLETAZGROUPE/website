@@ -18,12 +18,14 @@
   };
 
   function initCustomCursor(obj) {
-    if (obj.targets.length == 0) return;
-    // init events
-    for (var i = 0; i < obj.targets.length; i++) {
-      (function (i) {
-        obj.targets[i].addEventListener("mouseenter", handleEvent.bind(obj));
-      })(i);
+    if (!window.matchMedia("(pointer: coarse)").matches) {
+      if (obj.targets.length == 0) return;
+      // init events
+      for (var i = 0; i < obj.targets.length; i++) {
+        (function (i) {
+          obj.targets[i].addEventListener("mouseenter", handleEvent.bind(obj));
+        })(i);
+      }
     }
   }
 

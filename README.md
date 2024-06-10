@@ -2,4 +2,4 @@
 
 ## Framework : Astro v4
 
-## Adds-on : Sitemap, Tailwind
+## Adds-on : Sitemap, Tailwind, Lenis scroll, instagram filters, philters, lite yt embed, parallax
