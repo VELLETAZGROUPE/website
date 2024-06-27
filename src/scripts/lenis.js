@@ -16,10 +16,10 @@ function raf(time) {
 
 requestAnimationFrame(raf);
 
-const snap = new Snap(lenis, {});
+// const snap = new Snap(lenis);
 
-const listSnapPoints = document.querySelectorAll("section");
+// const listSnapPoints = document.querySelectorAll("section");
 
-listSnapPoints.forEach((el) => {
-  snap.addElement(el);
-});
+// listSnapPoints.forEach((el) => {
+//   snap.addElement(el, { type: "proximity" });
+// });
