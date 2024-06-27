@@ -1,4 +1,5 @@
 import Lenis from "lenis";
+import Snap from "lenis/snap";
 
 const scrollwrapper = document.querySelector("html");
 
@@ -14,3 +15,11 @@ function raf(time) {
 }
 
 requestAnimationFrame(raf);
+
+const snap = new Snap(lenis, {});
+
+const listSnapPoints = document.querySelectorAll("section");
+
+listSnapPoints.forEach((el) => {
+  snap.addElement(el);
+});
