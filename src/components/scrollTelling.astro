@@ -1,0 +1,166 @@
+<div class="scrollTelling my-[25vh]">
+  <section class="section">
+    <div class="content">
+      <div class="text relative">
+        <img
+          src="/images/vignes1.jpg"
+          alt=""
+          class="w-full h-screen object-cover"
+        />
+        <div
+          class="h-full w-full absolute top-0 mx-4 text-white max-w-prose text-xl mattone flex justify-center items-center">
+          Non esse et qui dolor occaecat Lorem laboris anim. Dolor commodo
+          consectetur eu elit aliqua reprehenderit velit culpa anim eiusmod
+          veniam. Reprehenderit et ea sunt ea cillum anim enim culpa ad fugiat
+          qui.
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="content">
+      <div class="text relative">
+        <img
+          src="/images/vignes2.jpg"
+          alt=""
+          class="w-full h-screen object-cover"
+        />
+        <div
+          class="h-full w-full absolute top-0 mx-4 text-white max-w-prose text-xl mattone flex justify-center items-center">
+          Non esse et qui dolor occaecat Lorem laboris anim. Dolor commodo
+          consectetur eu elit aliqua reprehenderit velit culpa anim eiusmod
+          veniam. Reprehenderit et ea sunt ea cillum anim enim culpa ad fugiat
+          qui.
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="content">
+      <div class="text relative">
+        <img
+          src="/images/vignes3.jpg"
+          alt=""
+          class="w-full h-screen object-cover"
+        />
+        <div
+          class="h-full w-full absolute top-0 mx-4 text-white max-w-prose text-xl mattone flex justify-center items-center">
+          Non esse et qui dolor occaecat Lorem laboris anim. Dolor commodo
+          consectetur eu elit aliqua reprehenderit velit culpa anim eiusmod
+          veniam. Reprehenderit et ea sunt ea cillum anim enim culpa ad fugiat
+          qui.
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="content">
+      <div class="text relative">
+        <img
+          src="/images/vignes4.jpg"
+          alt=""
+          class="w-full h-screen object-cover"
+        />
+        <div
+          class="h-full w-full absolute top-0 mx-4 text-white max-w-prose text-xl mattone flex justify-center items-center">
+          Non esse et qui dolor occaecat Lorem laboris anim. Dolor commodo
+          consectetur eu elit aliqua reprehenderit velit culpa anim eiusmod
+          veniam. Reprehenderit et ea sunt ea cillum anim enim culpa ad fugiat
+          qui.
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="content">
+      <div class="text relative">
+        <img
+          src="/images/vignes5.jpg"
+          alt=""
+          class="w-full h-screen object-cover"
+        />
+        <div
+          class="h-full w-full absolute top-0 mx-4 text-white max-w-prose text-xl mattone flex justify-center items-center">
+          Non esse et qui dolor occaecat Lorem laboris anim. Dolor commodo
+          consectetur eu elit aliqua reprehenderit velit culpa anim eiusmod
+          veniam. Reprehenderit et ea sunt ea cillum anim enim culpa ad fugiat
+          qui.
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  :root {
+    timeline-scope: --section, --main, --site-header;
+  }
+
+  .scrollTelling {
+    view-timeline: --main;
+    scroll-snap-type: x mandatory;
+  }
+
+  .section {
+    /* Creating a snapping rule on the section element */
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+
+    /* Attach the timeline to the section element*/
+    view-timeline: --section;
+
+    /* Set each section to the full dynamic height of the viewport */
+    height: 100dvh;
+  }
+
+  .content {
+    /* Fix the content, so it doesn't scroll with the section */
+    overflow: hidden;
+    position: fixed;
+    inset: 0;
+
+    /* Animate the content based on the section scrolling */
+    --contrast: 4;
+    --blur: 0.5rem;
+
+    animation: horizontal-scroll ease-in-out both;
+    animation-timeline: --section;
+  }
+
+  section:last-child .content {
+    animation: scale-and-move ease-in-out both;
+    animation-timeline: --section;
+  }
+
+  @keyframes horizontal-scroll {
+    0% {
+      transform: translate3d(100%, 0%, 0);
+    }
+
+    50% {
+      transform: none;
+    }
+
+    100% {
+      transform: translate3d(-100%, 0%, 0);
+    }
+  }
+
+  @keyframes scale-and-move {
+    0% {
+      transform: translate3d(100%, 0%, 0);
+    }
+
+    50% {
+      transform: none;
+      scale: 1;
+      opacity: 1;
+    }
+
+    100% {
+      transform: translate3d(0, -200%, 0);
+      scale: 0.35 0.5;
+      opacity: 0;
+    }
+  }
+</style>

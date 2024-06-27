@@ -5,6 +5,7 @@ import Hero2 from "../components/hero2.astro";
 import Features from "../components/features.astro";
 import VideoBg from "../components/videoBg.astro";
 import MotionDesign from "../components/motionDesign.astro";
+import ScrollTelling from "../components/scrollTelling.astro";
 
 import "../styles/instagram.min.css";
 ---
@@ -20,20 +21,21 @@ import "../styles/instagram.min.css";
   <body>
     <MotionDesign />
     <Hero1 />
-    <Hero2 />
+    <ScrollTelling />
     <FilteredProductsGallery />
     <Features />
     <VideoBg />
   </body>
   <script>
     import "../scripts/philter.min.js";
-    import "../scripts/parallax.min.js";
+
     import "../scripts/lenis.js";
+
     new Philter();
     import simpleParallax from "simple-parallax-js";
     let images = document.querySelectorAll(".scene");
     new simpleParallax(images, {
-      scale: 1.5,
+      scale: 1.2,
       delay: 0.6,
       transition: "cubic-bezier(0,0,0,1)",
     });
@@ -71,7 +73,7 @@ import "../styles/instagram.min.css";
   }
   @font-face {
     font-family: "Redaction";
-    src: url("/fonts/Redaction-regular.woff2") format("woff2");
+    src: url("/fonts/Redaction-Regular.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -96,5 +98,9 @@ import "../styles/instagram.min.css";
     --bordeau-clair: #5d2f3f;
     --rouge: #91283b;
     --rouge-clair: #5e2129;
+  }
+
+  html {
+    overflow-x: hidden;
   }
 </style>
