@@ -178,9 +178,20 @@
   }
 
   .text {
-    @apply h-full lg:w-1/2 absolute top-16 mx-4 md:mx-16;
+    @apply h-full absolute top-16 mx-4 md:mx-16;
     animation: horizontal-scroll-text ease-in-out both;
     animation-timeline: --section;
+  }
+
+  .text h2 {
+    font-family: "Boska";
+    font-weight: 600;
+    @apply text-4xl md:text-9xl;
+  }
+
+  .text p {
+    font-family: "Cabinet";
+    font-weight: 500;
   }
 
   .section {
