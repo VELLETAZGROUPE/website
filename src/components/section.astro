@@ -271,4 +271,16 @@
     font-family: "Cabinet";
     font-weight: 400;
   }
+  blockquote {
+    @apply text-4xl md:text-5xl lg:text-7xl xl:text-9xl leading-tight w-full my-16 pb-8 px-4 indent-16 xl:indent-32 italic;
+    font-family: "Boska";
+  }
+  blockquote:before {
+    content: "\201C";
+    position: absolute;
+    font-size: 6em;
+    z-index: -1;
+    opacity: 0.5;
+    @apply left-[-0.4em] top-[-0.05em] xl:top-[-0.08em] xl:left-[-0.42em];
+  }
 </style>
