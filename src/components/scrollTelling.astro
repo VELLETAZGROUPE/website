@@ -1,11 +1,11 @@
-<div class="scrollTelling my-[25vh]">
-  <section class="section">
+<div class="scrollTelling py-[25vh]">
+  <section>
     <div class="content">
-      <div class="relative">
+      <div class="relative bg-white">
         <img
           src="/images/vignes1.jpg"
           alt=""
-          class="w-full h-screen object-cover"
+          class="w-full h-screen object-cover opacity-50"
           data-philter-duotone="#00705F #FFFFFF"
         />
         <div class="text">
@@ -25,14 +25,14 @@
       </div>
     </div>
   </section>
-  <section class="section">
+  <section>
     <div class="content">
-      <div class="relative">
+      <div class="relative bg-white">
         <img
           src="/images/vignes2.jpg"
           alt=""
-          class="w-full h-screen object-cover"
-          data-philter-duotone="#00705F #FFFFFF"
+          class="w-full h-screen object-cover opacity-50"
+          data-philter-duotone="#5d2f3f #FFFFFF"
         />
         <div class="text">
           <h2>
@@ -54,20 +54,17 @@
       </div>
     </div>
   </section>
-  <section class="section">
+  <section>
     <div class="content">
-      <div class="relative">
+      <div class="relative bg-white">
         <img
           src="/images/vignes3.jpg"
           alt=""
           class="w-full h-screen object-cover"
-          data-philter-duotone="#FFFFFF #00705F "
+          data-philter-duotone="#00705F #5d2f3f"
         />
-        <div class="text">
-          <h2>
-            Incididunt cillum proident officia tempor non incididunt ullamco
-            culpa.
-          </h2>
+        <div class="text white">
+          <h2>Incididunt cillum proident officia tempor.</h2>
           <p>
             Aliqua esse laborum ea qui deserunt fugiat ad excepteur cupidatat
             sit ut. Anim cillum eu laborum occaecat nisi consequat amet anim
@@ -87,20 +84,17 @@
       </div>
     </div>
   </section>
-  <section class="section">
+  <section>
     <div class="content">
-      <div class="relative">
+      <div class="relative bg-white">
         <img
           src="/images/vignes4.jpg"
           alt=""
           class="w-full h-screen object-cover"
-          data-philter-duotone="#00705F #FFFFFF"
+          data-philter-duotone="#5d2f3f #331a22"
         />
-        <div class="text">
-          <h2>
-            Duis Lorem labore id dolor tempor ex aute in nulla exercitation sit
-            commodo elit dolore.
-          </h2>
+        <div class="text white">
+          <h2>Duis Lorem labore id dolor tempor ex aute.</h2>
           <p>
             Non esse et qui dolor occaecat Lorem laboris anim. Dolor commodo
             consectetur eu elit aliqua reprehenderit velit culpa anim eiusmod
@@ -119,16 +113,16 @@
       </div>
     </div>
   </section>
-  <section class="section">
+  <section>
     <div class="content">
-      <div class="relative">
+      <div class="relative bg-white">
         <img
           src="/images/vignes5.jpg"
           alt=""
           class="w-full h-screen object-cover"
-          data-philter-duotone="#FFFFFF #00705F "
+          data-philter-vintage="1"
         />
-        <div class="text">
+        <div class="text white">
           <h2>
             Laborum ea occaecat ea labore sit non proident deserunt nisi ex
             consectetur aliquip.
@@ -153,20 +147,6 @@
   </section>
 </div>
 
-<style is:global>
-  p + p {
-    @apply mt-4;
-  }
-  h2 {
-    @apply font-bold text-3xl md:text-5xl leading-tight w-full mb-16;
-  }
-  p {
-    @apply text-rose-950 max-w-prose text-base md:text-xl;
-    font-family: "Mattone";
-    font-weight: 400;
-  }
-</style>
-
 <style>
   :root {
     timeline-scope: --section, --main, --site-header;
@@ -177,24 +157,41 @@
     scroll-snap-type: y mandatory;
   }
 
-  .text {
+  .text:not(.white) {
     @apply h-full absolute top-16 mx-4 md:mx-16;
     animation: horizontal-scroll-text ease-in-out both;
     animation-timeline: --section;
   }
 
-  .text h2 {
+  .text:not(.white) h2 {
     font-family: "Boska";
     font-weight: 600;
-    @apply text-4xl md:text-9xl;
+    @apply pb-8 border-b-2 border-[#5d2f3f];
   }
 
-  .text p {
+  .text:not(.white) p {
     font-family: "Cabinet";
     font-weight: 500;
   }
 
-  .section {
+  .text.white {
+    @apply h-full absolute top-16 mx-4 md:mx-16 text-white;
+    animation: horizontal-scroll-text ease-in-out both;
+    animation-timeline: --section;
+  }
+
+  .text.white h2 {
+    font-family: "Boska";
+    font-weight: 600;
+    @apply pb-8 border-b-2;
+  }
+
+  .text.white p {
+    font-family: "Cabinet";
+    font-weight: 500;
+  }
+
+  section {
     /* Creating a snapping rule on the section element */
     scroll-snap-align: start;
     scroll-snap-stop: always;
