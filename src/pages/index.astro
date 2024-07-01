@@ -35,8 +35,15 @@ import "../styles/instagram.min.css";
 
     new Philter();
     import simpleParallax from "simple-parallax-js";
-    let images = document.querySelectorAll(".scene");
-    new simpleParallax(images, {
+    let parallaxVertical = document.querySelectorAll(".sceneVertical");
+    new simpleParallax(parallaxVertical, {
+      scale: 1.2,
+      delay: 0.6,
+      transition: "cubic-bezier(0,0,0,1)",
+    });
+    let parallaxHorizontal = document.querySelectorAll(".sceneHorizontal");
+    new simpleParallax(parallaxHorizontal, {
+      orientation: "right",
       scale: 1.2,
       delay: 0.6,
       transition: "cubic-bezier(0,0,0,1)",
