@@ -44,9 +44,17 @@ import "../styles/instagram.min.css";
     let parallaxHorizontal = document.querySelectorAll(".sceneHorizontal");
     new simpleParallax(parallaxHorizontal, {
       orientation: "right",
-      scale: 1.2,
+      scale: 1.8,
       delay: 0.6,
       transition: "cubic-bezier(0,0,0,1)",
+    });
+    let parallaxTextRight = document.querySelectorAll(".sceneTextRight");
+    new simpleParallax(parallaxTextRight, {
+      orientation: "right",
+      scale: 1.1,
+      delay: 0.6,
+      transition: "cubic-bezier(0,0,0,1)",
+      overflow: "true",
     });
   </script>
 </html>
