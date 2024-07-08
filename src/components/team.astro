@@ -1,0 +1,210 @@
+<div class="app mx-auto">
+  <div class="main">
+    <div class="main-content">
+      <div class="card card-2 card-img flex justify-center items-center">
+        <div class="bio px-4">
+          <h3>
+            Commodo adipisicing excepteur in cillum reprehenderit qui consequat
+            Lorem ullamco nostrud.
+          </h3>
+          <p>
+            Ea tempor fugiat quis velit quis Lorem ea culpa eu cillum pariatur
+            dolor cupidatat. Aute aute aliquip magna amet sint ipsum nisi mollit
+            amet. Dolore ut sit amet aliquip minim reprehenderit cillum mollit
+            ex voluptate cupidatat.
+          </p>
+          <p>
+            Ea tempor fugiat quis velit quis Lorem ea culpa eu cillum pariatur
+            dolor cupidatat. Aute aute aliquip magna amet sint ipsum nisi mollit
+            amet. Dolore ut sit amet aliquip minim reprehenderit cillum mollit
+            ex voluptate cupidatat.
+          </p>
+        </div>
+      </div>
+      <div class="card card-3 card-img"></div>
+      <div class="card card-img card-1 card-main"></div>
+      <div class="card card-4 card-img"></div>
+      <div class="card card-img card-5"></div>
+      <div class="card card-6 card-img"></div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  .app {
+    background-color: var(--theme-bg-color);
+    width: 100%;
+    max-width: 1200px;
+    height: 92vh;
+    max-height: 900px;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    position: relative;
+  }
+
+  .main {
+    display: flex;
+
+    flex-direction: column;
+    flex-grow: 1;
+
+    @media (max-width: 480px) {
+      padding: 40px 20px;
+    }
+  }
+
+  .main-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
+    @media (max-width: 480px) {
+      gap: 10px;
+    }
+  }
+
+  .card:not(.active) .bio {
+    display: none;
+  }
+
+  .card.active .bio {
+    display: block;
+  }
+
+  .card {
+    border-radius: 20px;
+    overflow: hidden;
+    max-width: 100%;
+    contain: layout;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    width: auto;
+    aspect-ratio: 1/1;
+
+    @media (max-width: 480px) {
+      aspect-ratio: 1/1.4;
+    }
+
+    &.clicked {
+      position: absolute;
+      width: 500px;
+      height: 600px;
+      z-index: 2;
+    }
+
+    &.card-1 {
+      background-image: url("https://www.groupe-velletaz.com/wp-content/uploads/2022/12/Nathanael-Velletaz-Team-min.png");
+      view-transition-name: c1;
+    }
+
+    &.card-2 {
+      view-transition-name: c2;
+      background-image: url("https://www.groupe-velletaz.com/wp-content/uploads/2024/03/Eleonore-Velletaz-Team.png");
+    }
+    &.card-3 {
+      view-transition-name: c3;
+      background-image: url("https://www.groupe-velletaz.com/wp-content/uploads/2022/12/Eric-Velletaz-Team-min.png");
+    }
+    &.card-4 {
+      background-color: #e3dfec;
+      view-transition-name: c4;
+      background-image: url("https://www.groupe-velletaz.com/wp-content/uploads/2022/12/Chloe-Velletaz-Team-min.png");
+    }
+    &.card-5 {
+      background-image: url("https://www.groupe-velletaz.com/wp-content/uploads/2022/12/Jimmy-Velletaz-Team-min.png");
+      view-transition-name: c5;
+    }
+    &.card-6 {
+      background-color: #f8d7cd;
+      view-transition-name: c6;
+      background-image: url("https://www.groupe-velletaz.com/wp-content/uploads/2023/10/Solene-Velletaz-Team-min.webp");
+    }
+  }
+
+  .card-img {
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .card-main {
+    view-transition-name: card1;
+  }
+
+  .card.active {
+    grid-column: 1;
+    grid-column-end: 3;
+    grid-row: 1;
+    grid-row-end: 6;
+    z-index: 999;
+    aspect-ratio: 1/1;
+
+    background-color: rgba(255, 255, 255, 0.8);
+    background-blend-mode: lighten;
+
+    @media (max-width: 480px) {
+      grid-column-end: 4;
+      aspect-ratio: 2/1;
+    }
+  }
+
+  .main-content.expanded .card:not(.active) {
+    opacity: 0.4;
+    pointer-events: none;
+    aspect-ratio: 3/1;
+    grid-column-start: 3;
+
+    @media (max-width: 480px) {
+      aspect-ratio: 1;
+      grid-column-start: auto;
+    }
+  }
+</style>
+
+<script>
+  const menuItems = document.querySelectorAll(".sidebar-menu__link");
+
+  const navItems = document.querySelectorAll(".nav-item");
+
+  menuItems.forEach((menuItem) => {
+    menuItem.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("active")) {
+        document
+          .querySelector(".sidebar-menu__link.active")
+          .classList.remove("active");
+        e.target.classList.add("active");
+      }
+    });
+  });
+
+  navItems.forEach((navItem) => {
+    navItem.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("active")) {
+        document.querySelector(".nav-item.active").classList.remove("active");
+        e.target.classList.add("active");
+      }
+    });
+  });
+
+  const cards = document.querySelectorAll(".card");
+  const mainContent = document.querySelector(".main-content");
+
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      console.log("");
+      document.startViewTransition(() => {
+        if (!card.classList.contains("active")) {
+          mainContent.classList.add("expanded");
+          card.classList.add("active");
+        } else {
+          card.classList.remove("active");
+          mainContent.classList.remove("expanded");
+        }
+      });
+    });
+  });
+</script>
+-->
+
