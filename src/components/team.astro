@@ -1,4 +1,4 @@
-<div class="app mx-auto">
+<div class="app mx-4">
   <div class="main">
     <div class="main-content">
       <div class="card card-2 card-img flex justify-center items-center">
@@ -33,19 +33,18 @@
 <style lang="scss">
   .app {
     background-color: var(--theme-bg-color);
-    width: 100%;
-    max-width: 1200px;
     height: 92vh;
     max-height: 900px;
     border-radius: 20px;
     overflow: hidden;
     display: flex;
     position: relative;
+    justify-content: center;
   }
 
   .main {
     display: flex;
-
+    max-width: 1200px;
     flex-direction: column;
     flex-grow: 1;
 
@@ -152,7 +151,7 @@
 
   .main-content.expanded .card:not(.active) {
     opacity: 0.4;
-    pointer-events: none;
+    // pointer-events: none;
     aspect-ratio: 3/1;
     grid-column-start: 3;
 
@@ -164,39 +163,17 @@
 </style>
 
 <script>
-  const menuItems = document.querySelectorAll(".sidebar-menu__link");
-
-  const navItems = document.querySelectorAll(".nav-item");
-
-  menuItems.forEach((menuItem) => {
-    menuItem.addEventListener("click", (e) => {
-      if (!e.target.classList.contains("active")) {
-        document
-          .querySelector(".sidebar-menu__link.active")
-          .classList.remove("active");
-        e.target.classList.add("active");
-      }
-    });
-  });
-
-  navItems.forEach((navItem) => {
-    navItem.addEventListener("click", (e) => {
-      if (!e.target.classList.contains("active")) {
-        document.querySelector(".nav-item.active").classList.remove("active");
-        e.target.classList.add("active");
-      }
-    });
-  });
-
   const cards = document.querySelectorAll(".card");
   const mainContent = document.querySelector(".main-content");
 
   cards.forEach((card) => {
-    card.addEventListener("click", () => {
-      console.log("");
+    card.addEventListener("click", (event) => {
       document.startViewTransition(() => {
         if (!card.classList.contains("active")) {
           mainContent.classList.add("expanded");
+          cards.forEach((item) => {
+            item.classList.remove("active");
+          });
           card.classList.add("active");
         } else {
           card.classList.remove("active");
