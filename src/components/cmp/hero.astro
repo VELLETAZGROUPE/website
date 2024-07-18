@@ -29,7 +29,12 @@ node.img = {
 
 <style>
   .hero {
-    max-height: 100vh;
+    height: 100vh;
     position: relative;
+  }
+  :global(.hero-img) {
+    object-fit: cover;
+    height: 100%;
+    max-width: 100%;
   }
 </style>
