@@ -18,7 +18,7 @@ export async function getStaticPaths() {
       content[]{
         _type == "block" => {...},
         _type == "feature" => {_type, id, heading, subheading, factsHeadingLevel, listOfFacts[]{heading, subheading, img{alt,'src':asset->url}}},
-        _type == "hero" => {_type, id},
+        _type == "hero" => {_type, id, heading, subheading,img{alt,duotone,'src':asset->url}},
       }
     }`
   );

@@ -1,25 +1,39 @@
 ---
 import NetlifyImage from "../NetlifyImage.astro";
+import HN from "../HN.astro";
+import { PortableText } from "astro-portabletext";
+
 const year = new Date().getFullYear() - 1987;
 
 let { node } = Astro.props;
-
-node.img = {
-  src: "https://cdn.sanity.io/images/39ozs2jh/production/d91da6ba0ab534dbcb381237c390af5879c4dd55-2560x1707.jpg",
-};
 ---
 
 <section id={node.id || undefined} class="hero remove-margin">
-  <NetlifyImage src={node.img.src} class="hero-img" duotone="#00705F #5D2F3F" />
-  <div
-    class="texte absolute top-0 p-8 text-white flex items-left justify-center min-h-[50vh] flex-col">
-    <h1
-      class="mattone font-bold text-3xl md:text-5xl leading-tight w-full md:w-2/3 mb-4 border-white">
-      Pépinières Viticoles VELLETAZ GROUPE
-    </h1>
-    <p class="boska text-xl md:text-3xl w-full md:w-2/3 text-white">
-      Notre savoir-faire au service de votre vignoble depuis {year} ans
-    </p>
+  {
+    node.img && (
+      <NetlifyImage
+        src={node.img.src}
+        alt={node.img.alt}
+        class="hero-img"
+        duotone={node.img.duotone ? "#00705F #5D2F3F" : undefined}
+      />
+    )
+  }
+  <div class="texte">
+    {
+      node.heading && (
+        <HN class="h1" Level={node.heading.level}>
+          {node.heading.content}
+        </HN>
+      )
+    }
+    {
+      node.subheading && (
+        <div class="h4" data-year={year}>
+          <PortableText value={node.subheading} />
+        </div>
+      )
+    }
   </div>
 </section>
 
@@ -33,4 +47,30 @@ node.img = {
     height: 100%;
     max-width: 100%;
   }
+  .texte {
+    position: absolute;
+    top: 25%;
+    padding: var(--space-l);
+    color: var(--color-bg);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .texte :global(.h1) {
+    border-color: var(--color-bg);
+  }
 </style>
+
+<script>
+  let heroContent = document.querySelectorAll(".hero .texte .h4");
+
+  if (heroContent.length > 0) {
+    heroContent.forEach((node) => {
+      node.innerHTML = node.innerHTML.replaceAll(
+        "%year%",
+        heroContent[0].dataset.year
+      );
+    });
+  }
+</script>
