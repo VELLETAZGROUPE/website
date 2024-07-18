@@ -1,0 +1,104 @@
+---
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const { seo } = Astro.props;
+
+let QUERY, URLQUERY;
+
+//FETCH THEME COLOR FROM GLOBAL
+QUERY = encodeURIComponent(
+  `*[_type == "global"]{"themeColor":themeColor.hex,"ogImageFallback":ogImageFallback.asset->url,titleExtension}`
+);
+
+// Compose the URL for your project's endpoint and add the query
+URLQUERY = `https://${
+  import.meta.env.PROJECT_ID
+}.api.sanity.io/v2021-10-21/data/query/${
+  import.meta.env.DATASET
+}?query=${QUERY}`;
+
+// fetch the content
+let data = await fetch(URLQUERY)
+  .then((res) => res.json())
+  .then(({ result }) => {
+    return result[0];
+  })
+  .catch((err) => console.error(err));
+
+if (seo.canonical === null) {
+  seo.canonical = canonicalURL;
+}
+---
+
+<head>
+  <meta charset="UTF-8" />
+  {data.themeColor && <meta name="theme-color" content={data.themeColor.hex} />}
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- 🤔 // need some limiting for scaling ? impact on a11y -->
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=5"
+  />
+  <link rel="canonical" href={canonicalURL} />
+  <title>{seo.title}{data.titleExtension}</title>
+  <meta name="description" content={seo.description} />
+
+  <meta name="robots" content={seo.robots} />
+
+  {seo.next && <link rel="next" href={seo.next} />}
+  {seo.prev && <link rel="prev" href={seo.prev} />}
+
+  <!-- 🎅 // This is the only OG block of the site. We need more control on this. -->
+  <meta name="og:title" content={seo.title} />
+  <meta name="og:description" content={seo.description} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={import.meta.env.PUBLIC_SITENAME} />
+  <meta property="og:image" content={seo.ogimage || data.ogImageFallback} />
+
+  <!-- 🎅 // Favicons -->
+  <!-- normal SVG favicon -->
+  <link rel="icon" href="/favicon/favicon.svg" />
+  <!-- mask icon for pinned tab on Safari -->
+  {
+    data.themeColor && (
+      <link
+        rel="mask-icon"
+        href="/favicon/mask-icon.svg"
+        color={data.themeColor.hex}
+      />
+    )
+  }
+  {
+    !data.themeColor && (
+      <link rel="mask-icon" href="/favicon/mask-icon.svg" color={"#000000"} />
+    )
+  }
+  <!-- Touch icon -->
+  <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+  <!-- Old favicon sizes for compat -->
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/favicon/favicon-32x32.png"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/favicon/favicon-16x16.png"
+  />
+  <!-- manifest -->
+  <!-- <link rel="manifest" href="/favicon/site.webmanifest" /> -->
+
+  <!-- 🎅 // Schema.org -->
+  {seo.schema && <script type="application/ld+json" set:html={seo.schema} />}
+
+  <!-- scripts -->
+  <script
+    data-goatcounter=`https://${import.meta.env.GOAT_URL}.goatcounter.com/count`
+    async
+    src="//gc.zgo.at/count.js"></script>
+</head>

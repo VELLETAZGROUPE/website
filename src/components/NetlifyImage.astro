@@ -1,0 +1,48 @@
+---
+import probe from "probe-image-size";
+
+const origin = Astro.url.origin;
+
+const {
+  src,
+  alt,
+  sizes = "100vw",
+  class: classList,
+  loading = "lazy",
+  nocomp = "0",
+} = Astro.props;
+
+let url300, url600, url1400, newUrl, width, height;
+
+if (src) {
+  newUrl = new URL(".netlify/images", "https://velletaz-draft.netlify.app");
+  newUrl.searchParams.set("url", src);
+
+  let urlw = new URL(newUrl);
+  urlw.searchParams.set("w", "300");
+  url300 = urlw.href;
+  urlw.searchParams.set("w", "600");
+  url600 = urlw.href;
+  urlw.searchParams.set("w", "1400");
+  url1400 = urlw.href;
+
+  let meta = await probe(src);
+  width = meta.width;
+  height = meta.height;
+}
+---
+
+{
+  src && (
+    <img
+      srcset={`${url300} 300w, ${url600} 600w, ${url1400} 1400w`}
+      sizes={sizes}
+      src={newUrl.href}
+      alt={alt}
+      class={classList}
+      width={width}
+      height={height}
+      loading={loading}
+    />
+  )
+}

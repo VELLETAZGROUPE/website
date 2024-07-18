@@ -1,0 +1,37 @@
+---
+let QUERY, URLQUERY;
+
+//FETCH MENU ORGANISATION AND LOGO FROM GLOBAL
+QUERY = encodeURIComponent(`
+*[_type == "global"]{
+  accent2dimColor,accent2Color,accent1dimColor,accent1Color,bgColor,bodydim1Color,bodydim2Color,bodyColor
+}`);
+// Compose the URL for your project's endpoint and add the query
+// ⚠️ Don't forget to change PROJECT_ID & DATASET from .env
+URLQUERY = `https://${
+  import.meta.env.PROJECT_ID
+}.api.sanity.io/v2021-10-21/data/query/${
+  import.meta.env.DATASET
+}?query=${QUERY}`;
+// fetch the content
+// Global is a singleton, so you return the first element of the array (result[0])
+let data = await fetch(URLQUERY)
+  .then((res) => res.json())
+  .then(({ result }) => {
+    return result[0];
+  })
+  .catch((err) => console.error(err));
+
+let css = `:root{
+  --color-bg: ${data.bgColor.hex};
+  --color-body: ${data.bodyColor.hex};
+  --color-body-dim1: ${data.bodydim1Color.hex};
+  --color-body-dim2: ${data.bodydim2Color.hex};
+  --color-accent1: ${data.accent1Color.hex};
+  --color-accent1-dim: ${data.accent1dimColor.hex};
+  --color-accent2: ${data.accent2Color.hex};
+  --color-accent2-dim: ${data.accent2dimColor.hex};
+}`;
+---
+
+<style set:html={css}></style>

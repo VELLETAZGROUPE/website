@@ -1,12 +1,18 @@
 ---
+import NetlifyImage from "../NetlifyImage.astro";
 const year = new Date().getFullYear() - 1987;
+
+let { node } = Astro.props;
+
+node.img = {
+  src: "https://cdn.sanity.io/images/39ozs2jh/production/d91da6ba0ab534dbcb381237c390af5879c4dd55-2560x1707.jpg",
+};
 ---
 
-<section
-  class="hero w-full min-h-[100vh] lg:min-h-0 lg:max-h-[100vh] overflow-hidden relative">
-  <img
-    src="/images/plant-de-vigne-velletaz-groupe-min-scaled.jpg"
-    class="object-cover sceneVertical w-full h-screen lg:h-auto"
+<section id={node.id || undefined} class="hero remove-margin">
+  <NetlifyImage
+    src={node.img.src}
+    class="hero-img"
     data-philter-duotone="#00705F #5D2F3F"
   />
   <div
@@ -22,7 +28,8 @@ const year = new Date().getFullYear() - 1987;
 </section>
 
 <style>
-  p {
-    letter-spacing: 0.1rem;
+  .hero {
+    max-height: 100vh;
+    position: relative;
   }
 </style>

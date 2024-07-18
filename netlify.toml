@@ -1,0 +1,5 @@
+
+[images]
+  remote_images = ["https://cdn.sanity.io/images/39ozs2jh/production/.*"]
+  
+

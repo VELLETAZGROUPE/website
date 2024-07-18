@@ -1,0 +1,9 @@
+---
+let { node } = Astro.props;
+
+if (node.markDef.href.endsWith("/") === false) {
+  node.markDef.href += "/";
+}
+---
+
+<a href={node.markDef.href}>{node.children[0].text}</a>

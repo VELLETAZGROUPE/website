@@ -1,0 +1,21 @@
+---
+const { node } = Astro.props;
+
+let Cmp;
+
+switch (node.listItem) {
+  case "bullet":
+    Cmp = "ul";
+    break;
+  case "number":
+    Cmp = "ol";
+    break;
+  case "menu":
+    Cmp = "menu";
+    break;
+  default:
+    Cmp = "div";
+}
+---
+
+<Cmp class="texte-libre"><slot /></Cmp>

@@ -1,0 +1,116 @@
+---
+import Head from "../components/Head.astro";
+import Render from "../components/Render.astro";
+import Fonts from "../styles/fonts.astro";
+import Colors from "../styles/colors.astro";
+
+import Header from "../components/Header.astro";
+
+import "../styles/global.css";
+
+export async function getStaticPaths() {
+  let QUERY, URL;
+
+  //FETCH PAGE, CAT CONTENT
+  QUERY = encodeURIComponent(
+    `*[_type == "page"]{
+      "seo": {title,description,slug,robots,canonical,schema,"ogimage":ogimage.asset->url},
+      content[]{
+        _type == "block" => {...},
+        _type == "feature" => {_type, id, heading, subheading, factsHeadingLevel, listOfFacts[]{heading, subheading, img{alt,'src':asset->url}}},
+        _type == "hero" => {_type, id},
+      }
+    }`
+  );
+
+  // Compose the URL for your project's endpoint and add the query
+  URL = `https://${
+    import.meta.env.PROJECT_ID
+  }.api.sanity.io/v2021-10-21/data/query/${
+    import.meta.env.DATASET
+  }?query=${QUERY}`;
+  // fetch the content
+  let data = await fetch(URL)
+    .then((res) => res.json())
+    .then(({ result }) => {
+      return result;
+    })
+    .catch((err) => console.error(err));
+
+  let pages = data.map((page) => {
+    return {
+      pageslug: page.seo.slug,
+      seo: page.seo,
+      content: page.content,
+    };
+  });
+  return pages.map(({ pageslug, seo, content }) => {
+    if (pageslug == null) {
+      pageslug = undefined;
+    }
+    return {
+      params: { pageslug },
+      props: { seo, content },
+    };
+  });
+}
+
+const { pageslug } = Astro.params;
+console.log(pageslug);
+const { seo, content } = Astro.props;
+
+//ADD EAGER LOADING TO FIRST IMAGE
+let eager = 0;
+for (let i = 0; i < content.length; i++) {
+  if (!eager) {
+    if ("img" in content[i]) {
+      if (content[i].img) {
+        eager = 1;
+        content[i].img.eager = true;
+      }
+    }
+  }
+}
+---
+
+<html lang="fr">
+  <Head seo={seo} />
+  <Fonts />
+  <Colors />
+  <body>
+    <Header />
+    <div class="wrap-margin">
+      <Render data={content} />
+    </div>
+    <script>
+      import "../scripts/components1";
+      import "../scripts/components2";
+      import "../scripts/components3";
+      import "../scripts/lenis.js";
+
+      // new Philter();
+      // import simpleParallax from "simple-parallax-js";
+      // let parallaxVertical = document.querySelectorAll(".sceneVertical");
+      // new simpleParallax(parallaxVertical, {
+      //   scale: 1.2,
+      //   delay: 0.6,
+      //   transition: "cubic-bezier(0,0,0,1)",
+      // });
+      // let parallaxHorizontal = document.querySelectorAll(".sceneHorizontal");
+      // new simpleParallax(parallaxHorizontal, {
+      //   orientation: "right",
+      //   scale: 1.8,
+      //   delay: 0.6,
+      //   transition: "cubic-bezier(0,0,0,1)",
+      // });
+      // let parallaxTextRight = document.querySelectorAll(".sceneTextRight");
+      // new simpleParallax(parallaxTextRight, {
+      //   orientation: "right",
+      //   scale: 1.1,
+      //   delay: 0.6,
+      //   transition: "cubic-bezier(0,0,0,1)",
+      //   overflow: "true",
+      // });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+---
+let { class: classList, anim, Level = "p" } = Astro.props;
+
+if (Level == null) {
+  Level = "p";
+}
+---
+
+{
+  anim && (
+    <Level class={classList} data-anim={anim}>
+      <slot />
+    </Level>
+  )
+}
+{
+  !anim && (
+    <Level class={classList}>
+      <slot />
+    </Level>
+  )
+}

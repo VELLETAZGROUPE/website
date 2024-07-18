@@ -1,0 +1,257 @@
+---
+import HN from "../HN.astro";
+import { PortableText } from "astro-portabletext";
+
+const { node } = Astro.props;
+---
+
+<section id={node.id || undefined}>
+  <div class="intro remove-margin">
+    <div class="container">
+      {
+        node.heading && (
+          <HN class="heading" Level={node.heading.level}>
+            {node.heading.content}
+          </HN>
+        )
+      }
+      {
+        node.subheading && (
+          <div class="subheading">
+            <PortableText value={node.subheading} />
+          </div>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="sticky-feature js-sticky-feature">
+    <div class="sticky-feature__container">
+      <div class="sticky-feature__grid-1">
+        <div>
+          <ul
+            class="sticky-feature__content-list sticky-feature__grid-2 js-sticky-feature__content-list">
+            {
+              node.listOfFacts &&
+                node.listOfFacts.map((fact) => (
+                  <li class="js-sticky-feature__content-item">
+                    {fact.heading && (
+                      <HN
+                        Level={node.factsHeadingLevel}
+                        class="h1 sticky-feature__title js-sticky-feature__title">
+                        {fact.heading}
+                      </HN>
+                    )}
+                    {fact.subheading && (
+                      <div>
+                        <PortableText value={fact.subheading} />
+                      </div>
+                    )}
+                    {fact.img && (
+                      <figure class="sticky-feature__content-figure">
+                        <img src={fact.img.src} alt={fact.img.alt} />
+                      </figure>
+                    )}
+                  </li>
+                ))
+            }
+          </ul>
+        </div>
+
+        <div class="sticky-feature-display@md" aria-hidden="true">
+          <ul class="sticky-feature__media-list js-sticky-feature__media-list">
+            {
+              node.listOfFacts &&
+                node.listOfFacts.map((fact) => (
+                  <li class="sticky-feature__media-item js-sticky-feature__media-item">
+                    <figure class="sticky-feature__media-figure">
+                      <img src={fact.img.src} alt={fact.img.alt} />
+                    </figure>
+                  </li>
+                ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .intro {
+    padding-block: var(--space-2xl);
+    background-color: var(--color-accent1);
+  }
+
+  .intro * {
+    text-align: center;
+  }
+
+  .intro :global(.heading) {
+    color: var(--color-bg);
+    border-bottom-color: var(--color-bg);
+  }
+
+  .intro .subheading {
+    color: var(--color-bg);
+  }
+
+  .js-sticky-feature__content-item:first-of-type {
+    margin-top: var(--space-s);
+  }
+
+  /* component */
+  .sticky-feature {
+    position: relative;
+    z-index: 1;
+  }
+
+  .sticky-feature__container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 32rem;
+  }
+
+  @media (min-width: 48rem) {
+    .sticky-feature__container {
+      max-width: 48rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .sticky-feature__container {
+      max-width: 64rem;
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .sticky-feature__container {
+      max-width: 80rem;
+    }
+  }
+
+  .sticky-feature__grid-1 {
+    display: grid;
+  }
+
+  @media (min-width: 64rem) {
+    .sticky-feature__grid-1 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .js-sticky-feature__content-item {
+    min-height: 250px;
+    margin-block-end: var(--space-xl);
+  }
+
+  .js-sticky-feature__content-item figure {
+    margin-block-start: var(--space-s);
+  }
+
+  .js-sticky-feature__content-item > :global(*) {
+    text-align: center;
+  }
+
+  .js-sticky-feature__content-item > p {
+    margin-block-start: calc(-1 * var(--space-xl));
+  }
+
+  .sticky-feature__content-figure {
+    /* images visible on small screens */
+    border-radius: 0.375em;
+    overflow: hidden;
+    max-width: 450px;
+    margin-inline: auto;
+  }
+
+  .sticky-feature__content-figure img {
+    display: block;
+    width: 100%;
+  }
+
+  .sticky-feature__media-list {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+
+  .sticky-feature__media-item {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sticky-feature__media-figure {
+    /* images visible on bigger screens */
+    border-radius: 0.75em;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  .sticky-feature__media-figure img {
+    display: block;
+    width: 100%;
+    max-height: 90vh;
+  }
+
+  .sticky-feature-current-item .sticky-feature__media-figure {
+    opacity: 1;
+  }
+
+  @media (min-width: 64rem) {
+    .sticky-feature__content-list {
+      padding-top: 50vh;
+      padding-bottom: 50vh;
+    }
+
+    :global(.sticky-feature__title) {
+      cursor: pointer;
+      opacity: 0.3;
+      font-family: var(--body);
+    }
+
+    :global(.sticky-feature__title:hover),
+    :global(.sticky-feature-current-item .sticky-feature__title) {
+      opacity: 1;
+    }
+
+    .sticky-feature__content-figure {
+      /* show only to screen readers */
+      position: absolute;
+      clip: rect(1px, 1px, 1px, 1px);
+      -webkit-clip-path: inset(50%);
+      clip-path: inset(50%);
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      padding: 0;
+      border: 0;
+      white-space: nowrap;
+    }
+
+    .sticky-feature__media-list::before,
+    .sticky-feature__media-list::after {
+      /* text overlay gradients */
+      content: "";
+      position: absolute;
+      right: 0;
+      width: 100vw;
+      height: 100px;
+      pointer-events: none;
+    }
+  }
+
+  /* utility classes */
+  @media not all and (min-width: 64rem) {
+    .sticky-feature-display\@md {
+      display: none !important;
+    }
+  }
+</style>

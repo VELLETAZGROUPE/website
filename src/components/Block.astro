@@ -1,0 +1,33 @@
+---
+const { node } = Astro.props;
+
+let Cmp;
+
+switch (node.style) {
+  case "normal":
+    Cmp = "p";
+    break;
+  case "h1":
+    Cmp = "h1";
+    break;
+  case "h2":
+    Cmp = "h2";
+    break;
+  case "h3":
+    Cmp = "h3";
+    break;
+  case "h4":
+    Cmp = "h4";
+    break;
+  case "h5":
+    Cmp = "h5";
+    break;
+  case "h6":
+    Cmp = "h6";
+    break;
+  default:
+    Cmp = "div";
+}
+---
+
+<Cmp class="texte-libre"><slot /></Cmp>

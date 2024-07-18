@@ -17,10 +17,14 @@
     "dotenv": "^16.4.5",
     "gsap": "^3.12.5",
     "lenis": "^1.1.1",
+    "probe-image-size": "^7.2.3",
     "simple-parallax-js": "^5.6.2",
     "tailwindcss": "^3.4.3"
   },
   "devDependencies": {
+    "@stackbit/cms-sanity": "^0.2.61",
+    "@stackbit/types": "^2.0.3",
+    "ase-util": "^1.0.3",
     "sass": "^1.77.6"
   }
 }
