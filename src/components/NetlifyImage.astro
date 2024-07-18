@@ -10,6 +10,7 @@ const {
   class: classList,
   loading = "lazy",
   nocomp = "0",
+  duotone,
 } = Astro.props;
 
 let url300, url600, url1400, newUrl, width, height;
@@ -43,6 +44,7 @@ if (src) {
       width={width}
       height={height}
       loading={loading}
+      data-philter-duotone={duotone}
     />
   )
 }
