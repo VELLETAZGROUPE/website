@@ -1,5 +1,6 @@
 ---
 import HN from "../HN.astro";
+import NetlifyImage from "../NetlifyImage.astro";
 import { PortableText } from "astro-portabletext";
 
 const { node } = Astro.props;
@@ -49,7 +50,7 @@ const { node } = Astro.props;
                     )}
                     {fact.img && (
                       <figure class="sticky-feature__content-figure">
-                        <img src={fact.img.src} alt={fact.img.alt} />
+                        <NetlifyImage src={fact.img.src} alt={fact.img.alt} />
                       </figure>
                     )}
                   </li>
@@ -65,7 +66,7 @@ const { node } = Astro.props;
                 node.listOfFacts.map((fact) => (
                   <li class="sticky-feature__media-item js-sticky-feature__media-item">
                     <figure class="sticky-feature__media-figure">
-                      <img src={fact.img.src} alt={fact.img.alt} />
+                      <NetlifyImage src={fact.img.src} alt={fact.img.alt} />
                     </figure>
                   </li>
                 ))
