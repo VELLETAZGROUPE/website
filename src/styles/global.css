@@ -28,7 +28,7 @@ html {
 
 /* Grainy background */
 
-body:before,
+/* body:before,
 body:after {
   content: "";
   position: fixed;
@@ -47,7 +47,7 @@ body:after {
       #fff0 0.000025%);
   opacity: 0.3;
   filter: blur(0.7px);
-}
+} */
 
 section {
   opacity: 1;
