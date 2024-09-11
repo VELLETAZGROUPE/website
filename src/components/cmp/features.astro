@@ -1,12 +1,12 @@
 ---
 import HN from "../HN.astro";
 import NetlifyImage from "../NetlifyImage.astro";
-import { PortableText } from "astro-portabletext";
+import {PortableText} from "astro-portabletext";
 
-const { node } = Astro.props;
+const {node} = Astro.props;
 ---
 
-<section id={node.id || undefined}>
+<section id={node.id || undefined} class="max-w-7xl mx-auto">
   <div class="intro remove-margin">
     <div class="container">
       {

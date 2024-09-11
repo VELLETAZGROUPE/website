@@ -1,0 +1,726 @@
+---
+import {PortableText} from "astro-portabletext";
+import NetlifyImage from "../NetlifyImage.astro";
+import HN from "../HN.astro";
+
+const {node} = Astro.props;
+---
+
+<section id={node.id || undefined} class="tableofcontent max-w-7xl mx-auto">
+  <div class="hiw-v4__container">
+    <div class="hiw-v4__grid-1">
+      <div>
+        <div class="hiw-v4__flex-container-1">
+          <div class="hiw-v4__title">
+            <PortableText value={node.title} />
+            <div class="toc toc--static@md js-toc">
+              <nav class="toc__nav">
+                <ul class="toc__list js-toc__list">
+                  {
+                    node.items.map((item, idx) => (
+                      <li>
+                        <a
+                          class="toc__link js-smooth-scroll"
+                          href={`#item${idx + 1}`}>
+                          {item.toctitle}
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="toc-content js-toc-content">
+          <ul class="hiw-v4__grid-2">
+            {
+              node.items.map((item, idx) => (
+                <li id={`item${idx + 1}`} class="toc-content__target">
+                  {item.img && (
+                    <NetlifyImage
+                      src={item.img.src}
+                      alt={item.img.alt}
+                      class={`hiw-v4__img ${item.img.duotone || ""}`}
+                    />
+                  )}
+
+                  <div class="hy3-text-component">
+                    <HN class="hy3-text-lg h4" Level={item.level}>
+                      {item.toctitle}
+                    </HN>
+                    <p set:html={item.toctext} />
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tableofcontent {
+    position: relative;
+    z-index: 1;
+    padding-block: var(--space-l);
+    padding-inline: var(--space-xs);
+    @apply md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)];
+  }
+
+  .hiw-v4__container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+  }
+
+  .hiw-v4__grid-1 {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .hiw-v4__grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  :global(.hy3-text-lg.h4) {
+    margin-block: var(--space-l);
+  }
+
+  :global(.hiw-v4__img) {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    margin-bottom: var(--space-s);
+  }
+
+  @media (min-width: 64rem) {
+    .hiw-v4__grid-1 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hiw-v4__flex-container-1 {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .hiw-v4__title {
+      position: sticky;
+      top: var(--space-xl);
+    }
+
+    .tableofcontent .toc {
+      margin-block-start: var(--space-l);
+    }
+  }
+
+  @media not all and (min-width: 64rem) {
+    .tableofcontent .toc {
+      display: none !important;
+    }
+  }
+
+  @media (min-width: 90rem) {
+    .hiw-v4__grid-2 {
+      gap: var(--space-xl);
+    }
+  }
+
+  .hy3-text-component > * {
+    margin-bottom: var(--space-s);
+  }
+
+  .hy3-text-component h1,
+  .hy3-text-component h2,
+  .hy3-text-component h3,
+  .hy3-text-component h4 {
+    line-height: 1.2;
+    margin-top: var(--space-m);
+  }
+
+  .hy3-text-component > *:first-child {
+    margin-top: 0;
+  }
+
+  .hy3-text-component > *:last-child {
+    margin-bottom: 0;
+  }
+
+  /* icons */
+  .tb9-icon {
+    height: 1em;
+    width: 1em;
+    display: inline-block;
+    color: inherit;
+    fill: currentColor;
+    line-height: 1;
+    flex-shrink: 0;
+    max-width: initial;
+  }
+
+  /* component */
+  :root {
+    --toc-border-width: 2px;
+    /* static version only */
+  }
+
+  /* #region (style affecting collapsed + static versions) 👇 */
+  .toc {
+    --space-unit: 1rem;
+    /* use rem units for spacing */
+  }
+
+  .toc__list {
+    position: relative;
+  }
+  .toc__list .toc__list .toc__link {
+    padding-left: var(--space-xs);
+    /* offset sub nav */
+  }
+
+  .toc__link,
+  .toc__label {
+    padding: 0 var(--space-s);
+  }
+
+  .toc__list > li {
+    margin-block: var(--space-3xs);
+  }
+
+  .toc__link {
+    position: relative;
+    color: color-mix(in srgb, var(--color-accent2), transparent 50%);
+    text-decoration: none;
+  }
+  .toc__link::before {
+    /* left mark */
+    content: "";
+    width: var(--toc-border-width);
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .toc__link:hover {
+    color: var(--color-accent2);
+  }
+
+  .toc__link--selected {
+    color: var(--color-accent1);
+  }
+
+  .toc__label {
+    /* label style */
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: var(--size-s);
+  }
+
+  .toc__control {
+    /* control button */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .toc__control-text {
+    /* text inside control button */
+    position: relative;
+  }
+  .toc__control-text > * {
+    display: inline-block;
+    transition:
+      opacity 0.4s,
+      -webkit-transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition:
+      opacity 0.4s,
+      transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition:
+      opacity 0.4s,
+      transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
+      -webkit-transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .toc__control-text > *:last-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+
+  .toc__icon-arrow {
+    /* arrow icon  */
+  }
+  .toc__icon-arrow .icon__group {
+    will-change: transform;
+    -webkit-transform-origin: 8px 8px;
+    transform-origin: 8px 8px;
+    transition: -webkit-transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition:
+      transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1),
+      -webkit-transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .toc__icon-arrow .icon__group > * {
+    -webkit-transform-origin: 8px 8px;
+    transform-origin: 8px 8px;
+    stroke-dasharray: 17;
+    -webkit-transform: translateY(3px);
+    transform: translateY(3px);
+    transition:
+      stroke-dashoffset 0.3s,
+      -webkit-transform 0.3s;
+    transition:
+      transform 0.3s,
+      stroke-dashoffset 0.3s;
+    transition:
+      transform 0.3s,
+      stroke-dashoffset 0.3s,
+      -webkit-transform 0.3s;
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .toc__icon-arrow .icon__group > *:first-child {
+    stroke-dashoffset: 10;
+  }
+  .toc__icon-arrow .icon__group > *:last-child {
+    stroke-dashoffset: 10;
+  }
+
+  .toc-content__target {
+    scroll-margin-top: var(--space-3xs);
+    margin-block: var(--space-l);
+  }
+
+  /* #endregion */
+  /* #region (collapsed version only - mobile 👇) */
+  .toc:not(.toc--static) {
+    border-radius: 0.25em;
+    background-color: hsl(var(--tb9-color-bg-light-hsl));
+    box-shadow:
+      inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075),
+      0 0.3px 0.4px rgba(0, 0, 0, 0.025),
+      0 0.9px 1.5px rgba(0, 0, 0, 0.05),
+      0 3.5px 6px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+  }
+  .toc:not(.toc--static):hover {
+    box-shadow:
+      inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075),
+      0 0.9px 1.5px rgba(0, 0, 0, 0.03),
+      0 3.1px 5.5px rgba(0, 0, 0, 0.08),
+      0 14px 25px rgba(0, 0, 0, 0.12);
+  }
+  .toc:not(.toc--static) .toc__nav {
+    /* navigation */
+    display: none;
+    margin: var(--space-2xs) 0;
+  }
+  .toc:not(.toc--static) .toc__list {
+    padding-bottom: var(--space-xs);
+  }
+  .toc:not(.toc--static) .toc__label {
+    display: none;
+  }
+  .toc:not(.toc--static) .toc__link {
+    display: flex;
+  }
+  .toc:not(.toc--static).toc--expanded .toc__control-text > *:first-child {
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .toc:not(.toc--static).toc--expanded .toc__control-text > *:last-child {
+    opacity: 1;
+    pointer-events: auto;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  .toc:not(.toc--static).toc--expanded .toc__nav {
+    display: block;
+    -webkit-animation: toc-entry-animation 0.4s
+      cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation: toc-entry-animation 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .toc:not(.toc--static).toc--expanded .toc__icon-arrow .icon__group {
+    /* animate arrow icon */
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
+  .toc:not(.toc--static).toc--expanded
+    .toc__icon-arrow
+    .icon__group
+    > *:first-child,
+  .toc:not(.toc--static).toc--expanded
+    .toc__icon-arrow
+    .icon__group
+    *:last-child {
+    stroke-dashoffset: 0;
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px);
+  }
+
+  /* #endregion */
+  /* #region (static version only - desktop 👇) */
+  .toc--static {
+    box-shadow: inset var(--toc-border-width) 0 0
+      color-mix(in srgb, var(--color-accent2), transparent 80%);
+    /* left border */
+  }
+  .toc--static[class*="position-sticky"] {
+    top: var(--space-m);
+    /* used if position = sticky */
+    max-height: calc(100vh - var(--space-m) * 2);
+    /* set max height */
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .toc--static .toc__link {
+    display: inline-flex;
+  }
+  .toc--static .toc__link--selected::before {
+    background-color: var(--color-accent1);
+  }
+  .toc--static .toc__control {
+    /* control - static version only */
+    display: none;
+  }
+
+  .toc-content--toc-static *:target {
+    -webkit-animation: toc-target 2s;
+    animation: toc-target 2s;
+    /* highlight section on target */
+  }
+
+  /* #endregion */
+  @-webkit-keyframes toc-target {
+    0%,
+    50% {
+      outline: 2px solid hsla(var(--color-accent1), 0.5);
+    }
+    100% {
+      outline: 2px solid hsla(var(--color-accent1), 0);
+    }
+  }
+  @keyframes toc-target {
+    0%,
+    50% {
+      outline: 2px solid hsla(var(--color-accent1), 0.5);
+    }
+    100% {
+      outline: 2px solid hsla(var(--color-accent1), 0);
+    }
+  }
+  @-webkit-keyframes toc-entry-animation {
+    from {
+      opacity: 0;
+      -webkit-transform: translateY(-10px);
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      -webkit-transform: translateY(0px);
+      transform: translateY(0px);
+    }
+  }
+  @keyframes toc-entry-animation {
+    from {
+      opacity: 0;
+      -webkit-transform: translateY(-10px);
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      -webkit-transform: translateY(0px);
+      transform: translateY(0px);
+    }
+  }
+  /* used in JS - detect when the TOC needs to switch from a collapsed to a static version */
+  [class*="toc--static"]::before {
+    display: none;
+    content: "collapsed";
+  }
+
+  @media (min-width: 32rem) {
+    .toc--static\@xs::before {
+      content: "static";
+    }
+  }
+  @media (min-width: 48rem) {
+    .toc--static\@sm::before {
+      content: "static";
+    }
+  }
+  @media (min-width: 64rem) {
+    .toc--static\@md::before {
+      content: "static";
+    }
+  }
+  @media (min-width: 80rem) {
+    .toc--static\@lg::before {
+      content: "static";
+    }
+  }
+  @media (min-width: 90rem) {
+    .toc--static\@xl::before {
+      content: "static";
+    }
+  }
+</style>
+
+<script>
+  // utility functions
+  if (!Util) function Util() {}
+
+  Util.hasClass = function (el, className) {
+    return el.classList.contains(className);
+  };
+
+  Util.addClass = function (el, className) {
+    var classList = className.split(" ");
+    el.classList.add(classList[0]);
+    if (classList.length > 1) Util.addClass(el, classList.slice(1).join(" "));
+  };
+
+  Util.removeClass = function (el, className) {
+    var classList = className.split(" ");
+    el.classList.remove(classList[0]);
+    if (classList.length > 1)
+      Util.removeClass(el, classList.slice(1).join(" "));
+  };
+
+  Util.toggleClass = function (el, className, bool) {
+    if (bool) Util.addClass(el, className);
+    else Util.removeClass(el, className);
+  };
+
+  // File#: _2_table-of-contents
+  // Usage: codyhouse.co/license
+  (function () {
+    var Toc = function (element) {
+      this.element = element;
+      this.list = this.element.getElementsByClassName("js-toc__list")[0];
+      this.anchors = this.list.querySelectorAll('a[href^="#"]');
+      this.sections = getSections(this);
+      this.controller = this.element.getElementsByClassName("js-toc__control");
+      this.controllerLabel = this.element.getElementsByClassName(
+        "js-toc__control-label"
+      );
+      this.content = getTocContent(this);
+      this.clickScrolling = false;
+      this.intervalID = false;
+      this.staticLayoutClass = "toc--static";
+      this.contentStaticLayoutClass = "toc-content--toc-static";
+      this.expandedClass = "toc--expanded";
+      this.isStatic = Util.hasClass(this.element, this.staticLayoutClass);
+      this.layout = "static";
+      initToc(this);
+    };
+
+    function getSections(toc) {
+      var sections = [];
+      // get all content sections
+      for (var i = 0; i < toc.anchors.length; i++) {
+        var section = document.getElementById(
+          toc.anchors[i].getAttribute("href").replace("#", "")
+        );
+        if (section) sections.push(section);
+      }
+      return sections;
+    }
+
+    function getTocContent(toc) {
+      if (toc.sections.length < 1) return false;
+      var content = toc.sections[0].closest(".js-toc-content");
+      return content;
+    }
+
+    function initToc(toc) {
+      checkTocLayour(toc); // switch between mobile and desktop layout
+      if (toc.sections.length > 0) {
+        // listen for click on anchors
+        toc.list.addEventListener("click", function (event) {
+          var anchor = event.target.closest('a[href^="#"]');
+          if (!anchor) return;
+          // reset link apperance
+          toc.clickScrolling = true;
+          resetAnchors(toc, anchor);
+          // close toc if expanded on mobile
+          toggleToc(toc, true);
+        });
+
+        // check when a new section enters the viewport
+        var intersectionObserverSupported =
+          "IntersectionObserver" in window &&
+          "IntersectionObserverEntry" in window &&
+          "intersectionRatio" in window.IntersectionObserverEntry.prototype;
+        if (intersectionObserverSupported) {
+          var observer = new IntersectionObserver(
+            function (entries, observer) {
+              entries.forEach(function (entry) {
+                if (!toc.clickScrolling) {
+                  // do not update classes if user clicked on a link
+                  getVisibleSection(toc);
+                }
+              });
+            },
+            {
+              threshold: [0, 0.1],
+              rootMargin: "0px 0px -70% 0px",
+            }
+          );
+
+          for (var i = 0; i < toc.sections.length; i++) {
+            observer.observe(toc.sections[i]);
+          }
+        }
+
+        // detect the end of scrolling -> reactivate IntersectionObserver on scroll
+        toc.element.addEventListener("toc-scroll", function (event) {
+          toc.clickScrolling = false;
+        });
+      }
+
+      // custom event emitted when window is resized
+      toc.element.addEventListener("toc-resize", function (event) {
+        checkTocLayour(toc);
+      });
+
+      // collapsed version only (mobile)
+      initCollapsedVersion(toc);
+    }
+
+    function resetAnchors(toc, anchor) {
+      if (!anchor) return;
+      for (var i = 0; i < toc.anchors.length; i++)
+        Util.removeClass(toc.anchors[i], "toc__link--selected");
+      Util.addClass(anchor, "toc__link--selected");
+    }
+
+    function getVisibleSection(toc) {
+      if (toc.intervalID) {
+        clearInterval(toc.intervalID);
+      }
+      toc.intervalID = setTimeout(function () {
+        var halfWindowHeight = window.innerHeight / 2,
+          index = -1;
+        for (var i = 0; i < toc.sections.length; i++) {
+          var top = toc.sections[i].getBoundingClientRect().top;
+          if (top < halfWindowHeight) index = i;
+        }
+        if (index > -1) {
+          resetAnchors(toc, toc.anchors[index]);
+        }
+        toc.intervalID = false;
+      }, 100);
+    }
+
+    function checkTocLayour(toc) {
+      if (toc.isStatic) return;
+      toc.layout = getComputedStyle(toc.element, ":before")
+        .getPropertyValue("content")
+        .replace(/\'|"/g, "");
+      Util.toggleClass(
+        toc.element,
+        toc.staticLayoutClass,
+        toc.layout == "static"
+      );
+      if (toc.content)
+        Util.toggleClass(
+          toc.content,
+          toc.contentStaticLayoutClass,
+          toc.layout == "static"
+        );
+    }
+
+    function initCollapsedVersion(toc) {
+      // collapsed version only (mobile)
+      if (toc.controller.length < 1) return;
+
+      // toggle nav visibility
+      toc.controller[0].addEventListener("click", function (event) {
+        var isOpen = Util.hasClass(toc.element, toc.expandedClass);
+        toggleToc(toc, isOpen);
+      });
+
+      // close expanded version on esc
+      toc.element.addEventListener("keydown", function (event) {
+        if (toc.layout == "static") return;
+        if (
+          (event.keyCode && event.keyCode == 27) ||
+          (event.key && event.key.toLowerCase() == "escape")
+        ) {
+          toggleToc(toc, true);
+          toc.controller[0].focus();
+        }
+      });
+    }
+
+    function toggleToc(toc, bool) {
+      // collapsed version only (mobile)
+      if (toc.controller.length < 1) return;
+      // toggle mobile version
+      Util.toggleClass(toc.element, toc.expandedClass, !bool);
+      bool
+        ? toc.controller[0].removeAttribute("aria-expanded")
+        : toc.controller[0].setAttribute("aria-expanded", "true");
+      if (!bool && toc.anchors.length > 0) {
+        toc.anchors[0].focus();
+      }
+    }
+
+    var tocs = document.getElementsByClassName("js-toc");
+
+    var tocsArray = [];
+    if (tocs.length > 0) {
+      for (var i = 0; i < tocs.length; i++) {
+        (function (i) {
+          tocsArray.push(new Toc(tocs[i]));
+        })(i);
+      }
+
+      // listen to window scroll -> reset clickScrolling property
+      var scrollId = false,
+        resizeId = false,
+        scrollEvent = new CustomEvent("toc-scroll"),
+        resizeEvent = new CustomEvent("toc-resize");
+
+      window.addEventListener("scroll", function () {
+        clearTimeout(scrollId);
+        scrollId = setTimeout(doneScrolling, 100);
+      });
+
+      window.addEventListener("resize", function () {
+        clearTimeout(resizeId);
+        scrollId = setTimeout(doneResizing, 100);
+      });
+
+      function doneScrolling() {
+        for (var i = 0; i < tocsArray.length; i++) {
+          (function (i) {
+            tocsArray[i].element.dispatchEvent(scrollEvent);
+          })(i);
+        }
+      }
+
+      function doneResizing() {
+        for (var i = 0; i < tocsArray.length; i++) {
+          (function (i) {
+            tocsArray[i].element.dispatchEvent(resizeEvent);
+          })(i);
+        }
+      }
+    }
+  })();
+</script>

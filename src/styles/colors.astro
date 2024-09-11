@@ -17,7 +17,7 @@ URLQUERY = `https://${
 // Global is a singleton, so you return the first element of the array (result[0])
 let data = await fetch(URLQUERY)
   .then((res) => res.json())
-  .then(({ result }) => {
+  .then(({result}) => {
     return result[0];
   })
   .catch((err) => console.error(err));

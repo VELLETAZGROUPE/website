@@ -1,11 +1,12 @@
 ---
 import NetlifyImage from "../NetlifyImage.astro";
 import HN from "../HN.astro";
-import { PortableText } from "astro-portabletext";
+import {PortableText} from "astro-portabletext";
+import Button from "../Button.astro";
 
 const year = new Date().getFullYear() - 1987;
 
-let { node } = Astro.props;
+let {node} = Astro.props;
 ---
 
 <section id={node.id || undefined} class="hero remove-margin">
@@ -14,8 +15,7 @@ let { node } = Astro.props;
       <NetlifyImage
         src={node.img.src}
         alt={node.img.alt}
-        class="hero-img"
-        duotone={node.img.duotone ? "#00705F #5D2F3F" : undefined}
+        class={`hero-img sceneVertical ${node.img.duotone || undefined}`}
       />
     )
   }
@@ -30,7 +30,14 @@ let { node } = Astro.props;
     {
       node.subheading && (
         <div class="h4" data-year={year}>
-          <PortableText value={node.subheading} />
+          <PortableText
+            value={node.subheading}
+            components={{
+              type: {
+                button: Button,
+              },
+            }}
+          />
         </div>
       )
     }

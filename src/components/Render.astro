@@ -1,5 +1,5 @@
 ---
-import { PortableText } from "astro-portabletext";
+import {PortableText} from "astro-portabletext";
 
 import Block from "./Block.astro";
 import List from "./List.astro";
@@ -7,10 +7,10 @@ import Link from "./Link.astro";
 
 const composants = await Astro.glob("./cmp/*.astro");
 
-const { data, context } = Astro.props;
+const {data, context} = Astro.props;
 let value;
 if (data) {
-  value = data.map((e) => ({ ...e, ...context }));
+  value = data.map((e) => ({...e, ...context}));
 }
 ---
 
@@ -39,33 +39,15 @@ if (data) {
       feature: composants.find((cmp) => cmp.default.name === "features")
         .default,
       hero: composants.find((cmp) => cmp.default.name === "hero").default,
+      section: composants.find((cmp) => cmp.default.name === "section").default,
+      tableofcontent: composants.find((cmp) => cmp.default.name === "layoutToc")
+        .default,
+      biglist: composants.find((cmp) => cmp.default.name === "bigListWithLogo")
+        .default,
+      productlist: composants.find(
+        (cmp) => cmp.default.name === "filteredProductsGallery"
+      ).default,
+      map: composants.find((cmp) => cmp.default.name === "map").default,
     },
-    // type: {
-    //   hero: composants.find((cmp) => cmp.default.name === "Hero").default,
-    //   services: composants.find((cmp) => cmp.default.name === "Services")
-    //     .default,
-    //   servicesimg: composants.find(
-    //     (cmp) => cmp.default.name === "ServicesImages"
-    //   ).default,
-    //   feature: composants.find((cmp) => cmp.default.name === "Feature").default,
-    //   cta: composants.find((cmp) => cmp.default.name === "Cta").default,
-    //   etapes: composants.find((cmp) => cmp.default.name === "Etapes").default,
-    //   faq: composants.find((cmp) => cmp.default.name === "Faq").default,
-    //   team: composants.find((cmp) => cmp.default.name === "Team").default,
-    //   contact: composants.find((cmp) => cmp.default.name === "Contact").default,
-    //   motionlogo: composants.find((cmp) => cmp.default.name === "MotionLogo")
-    //     .default,
-    //   section: composants.find((cmp) => cmp.default.name === "Section").default,
-    //   marquee: composants.find((cmp) => cmp.default.name === "Marquee").default,
-    //   button: composants.find((cmp) => cmp.default.name === "Button").default,
-    //   displayimage: composants.find(
-    //     (cmp) => cmp.default.name === "DisplayImage"
-    //   ).default,
-    //   scrollinvitation: composants.find(
-    //     (cmp) => cmp.default.name === "ScrollInvitation"
-    //   ).default,
-    //   tabs: composants.find((cmp) => cmp.default.name === "Tabs").default,
-    //   profile: composants.find((cmp) => cmp.default.name === "Profile").default,
-    // },
   }}
 />

@@ -3,6 +3,7 @@ import Head from "../components/Head.astro";
 import Render from "../components/Render.astro";
 import Fonts from "../styles/fonts.astro";
 import Colors from "../styles/colors.astro";
+import Filters from "../styles/filters.astro";
 
 import Header from "../components/Header.astro";
 
@@ -16,9 +17,14 @@ export async function getStaticPaths() {
     `*[_type == "page"]{
       "seo": {title,description,slug,robots,canonical,schema,"ogimage":ogimage.asset->url},
       content[]{
-        _type == "block" => {...},
-        _type == "feature" => {_type, id, heading, subheading, factsHeadingLevel, listOfFacts[]{heading, subheading, img{alt,'src':asset->url}}},
-        _type == "hero" => {_type, id, heading, subheading,img{alt,duotone,'src':asset->url}},
+        _type == "block" => {..., _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}},
+        _type == "feature" => {_type, id, heading, subheading, factsHeadingLevel, listOfFacts[]{heading, subheading, img{alt,duotone,'src':asset->url}}},
+        _type == "hero" => {_type, id, heading, subheading[]{...,_type=="button"=>{color,content,href{isExt,linkExt,'linkInt':linkInt->slug}}},img{alt,duotone,'src':asset->url}},
+        _type == "section" => {_type, id, text[]{...,_type=="button"=>{color,content,href{isExt,linkExt,'linkInt':linkInt->slug}}}, useCol, bg, img{alt,duotone,'src':asset->url}},
+        _type == "tableofcontent" => {_type, id, title, items[]{toctext,toctitle,level,img{alt,duotone,'src':asset->url}}},
+        _type == "biglist" => {_type, id, size, title, items[]{itemtitle, itemtext, img{'src':asset->url}}},
+        _type == "productlist" => {_type, height, col, id, title, hasfilter, products[]{producttitle, filters, 'link':link->slug, level, img{alt, duotone, 'src':asset->url}, itemtext[]{..., _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}}},
+        _type == "map" => {_type, id, img{alt,duotone,'src':asset->url},title[]{..., _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}},
       }
     }`
   );
@@ -32,7 +38,7 @@ export async function getStaticPaths() {
   // fetch the content
   let data = await fetch(URL)
     .then((res) => res.json())
-    .then(({ result }) => {
+    .then(({result}) => {
       return result;
     })
     .catch((err) => console.error(err));
@@ -44,29 +50,31 @@ export async function getStaticPaths() {
       content: page.content,
     };
   });
-  return pages.map(({ pageslug, seo, content }) => {
+  return pages.map(({pageslug, seo, content}) => {
     if (pageslug == null) {
       pageslug = undefined;
     }
     return {
-      params: { pageslug },
-      props: { seo, content },
+      params: {pageslug},
+      props: {seo, content},
     };
   });
 }
 
-const { pageslug } = Astro.params;
+const {pageslug} = Astro.params;
 console.log(pageslug);
-const { seo, content } = Astro.props;
+const {seo, content} = Astro.props;
 
 //ADD EAGER LOADING TO FIRST IMAGE
 let eager = 0;
-for (let i = 0; i < content.length; i++) {
-  if (!eager) {
-    if ("img" in content[i]) {
-      if (content[i].img) {
-        eager = 1;
-        content[i].img.eager = true;
+if (content) {
+  for (let i = 0; i < content.length; i++) {
+    if (!eager) {
+      if ("img" in content[i]) {
+        if (content[i].img) {
+          eager = 1;
+          content[i].img.eager = true;
+        }
       }
     }
   }
@@ -82,6 +90,7 @@ for (let i = 0; i < content.length; i++) {
     <div class="wrap-margin">
       <Render data={content} />
     </div>
+    <Filters />
     <script>
       import "../scripts/components1";
       import "../scripts/components2";
@@ -90,28 +99,28 @@ for (let i = 0; i < content.length; i++) {
       import "../scripts/philter.min.js";
 
       new Philter();
-      // import simpleParallax from "simple-parallax-js";
-      // let parallaxVertical = document.querySelectorAll(".sceneVertical");
-      // new simpleParallax(parallaxVertical, {
-      //   scale: 1.2,
-      //   delay: 0.6,
-      //   transition: "cubic-bezier(0,0,0,1)",
-      // });
-      // let parallaxHorizontal = document.querySelectorAll(".sceneHorizontal");
-      // new simpleParallax(parallaxHorizontal, {
-      //   orientation: "right",
-      //   scale: 1.8,
-      //   delay: 0.6,
-      //   transition: "cubic-bezier(0,0,0,1)",
-      // });
-      // let parallaxTextRight = document.querySelectorAll(".sceneTextRight");
-      // new simpleParallax(parallaxTextRight, {
-      //   orientation: "right",
-      //   scale: 1.1,
-      //   delay: 0.6,
-      //   transition: "cubic-bezier(0,0,0,1)",
-      //   overflow: "true",
-      // });
+      import simpleParallax from "simple-parallax-js";
+      let parallaxVertical = document.querySelectorAll(".sceneVertical");
+      new simpleParallax(parallaxVertical, {
+        scale: 1.5,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+      });
+      let parallaxHorizontal = document.querySelectorAll(".sceneHorizontal");
+      new simpleParallax(parallaxHorizontal, {
+        orientation: "right",
+        scale: 1.8,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+      });
+      let parallaxTextRight = document.querySelectorAll(".sceneTextRight");
+      new simpleParallax(parallaxTextRight, {
+        orientation: "right",
+        scale: 1.1,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+        overflow: "true",
+      });
     </script>
   </body>
 </html>

@@ -57,7 +57,7 @@ export default {
       description:
         "Vous pouvez utiliser %year% pour afficher le nombre d'année écoulée depuis la création de l'entreprise (1987)",
       type: 'array',
-      of: [{type: 'block'}],
+      of: [{type: 'block'}, {type: 'button'}],
     },
     {
       name: 'img',
@@ -68,7 +68,16 @@ export default {
       },
       fields: [
         {name: 'alt', type: 'string'},
-        {name: 'duotone', type: 'boolean'},
+        {
+          name: 'duotone',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'Accent1', value: 'duoAccent1'},
+              {title: 'Accent2', value: 'duoAccent2'},
+            ],
+          },
+        },
       ],
     },
   ],

@@ -1,23 +1,26 @@
+---
+import {PortableText} from "astro-portabletext";
+import NetlifyImage from "../NetlifyImage.astro";
+
+const {node} = Astro.props;
+---
+
 <section
   class="map flex justify-center items-center flex-col lg:flex-row py-32">
-  <div class="text-center mx-4">
-    <h2 class="mb-2 border-white">PRODUCTEUR DE PLANTS DE VIGNE</h2>
-    <p class="mx-auto text-lg font-bold">
-      Notre pépinière viticole familiale est productrice de l’ensemble de ses
-      plants de vigne afin de garantir la meilleure qualité sanitaire et
-      physique des plants, au prix le plus juste pour tous nos partenaires !
-      Afin de répondre au mieux à vos projets de plantations ou de
-      complantations, nos plants de vigne sont conçus pour la réussite et la
-      durabilité de votre vignoble.
-    </p>
+  <div class="mx-8">
+    <PortableText value={node.title} />
   </div>
 
   <figure class="relative z-[1] pt-16 mr-4">
-    <img
-      class="block h-full w-auto mx-auto"
-      src="/images/france.png"
-      alt="Product Image"
-    />
+    {
+      node.img && (
+        <NetlifyImage
+          src={node.img.src}
+          alt={node.img.alt}
+          class={`block h-full w-auto mx-auto ${node.img.duotone || undefined}`}
+        />
+      )
+    }
 
     <ul class="poi js-poi">
       <li style="top: 71%; left: 63%;" class="poi__item js-poi__item">
@@ -28,11 +31,11 @@
           <svg
             class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
             viewBox="0 0 12 12"
-            aria-hidden="true"
-            ><path
-              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z"
-            ></path></svg
-          >
+            aria-hidden="true">
+            <path
+              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z">
+            </path>
+          </svg>
         </button>
       </li>
 
@@ -44,11 +47,11 @@
           <svg
             class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
             viewBox="0 0 12 12"
-            aria-hidden="true"
-            ><path
-              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z"
-            ></path></svg
-          >
+            aria-hidden="true">
+            <path
+              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z">
+            </path>
+          </svg>
         </button>
       </li>
 
@@ -60,11 +63,11 @@
           <svg
             class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
             viewBox="0 0 12 12"
-            aria-hidden="true"
-            ><path
-              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z"
-            ></path></svg
-          >
+            aria-hidden="true">
+            <path
+              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z">
+            </path>
+          </svg>
         </button>
       </li>
 
@@ -76,11 +79,11 @@
           <svg
             class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
             viewBox="0 0 12 12"
-            aria-hidden="true"
-            ><path
-              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z"
-            ></path></svg
-          >
+            aria-hidden="true">
+            <path
+              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z">
+            </path>
+          </svg>
         </button>
       </li>
     </ul>
@@ -120,8 +123,9 @@
         <footer class="mt-3 lg:mt-5 flex justify-between items-center">
           <a
             class="bg-[var(--vert)] text-white shadow-md text-[1em] px-4 py-2 rounded-md relative inline-flex justify-center items-center whitespace-nowrap cursor-pointer no-underline leading-tight transition-all duration-200 hover:bg-[var(--vert-clair)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-            href="#0">Nous contacter</a
-          >
+            href="#0">
+            Nous contacter
+          </a>
         </footer>
       </div>
     </div>
@@ -179,8 +183,9 @@
         <footer class="mt-3 lg:mt-5 flex justify-between items-center">
           <a
             class="bg-[var(--vert)] text-white shadow-md text-[1em] px-4 py-2 rounded-md relative inline-flex justify-center items-center whitespace-nowrap cursor-pointer no-underline leading-tight transition-all duration-200 hover:bg-[var(--vert-clair)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-            href="#0">Nous contacter</a
-          >
+            href="#0">
+            Nous contacter
+          </a>
         </footer>
       </div>
     </div>
@@ -238,8 +243,9 @@
         <footer class="mt-3 lg:mt-5 flex justify-between items-center">
           <a
             class="bg-[var(--vert)] text-white shadow-md text-[1em] px-4 py-2 rounded-md relative inline-flex justify-center items-center whitespace-nowrap cursor-pointer no-underline leading-tight transition-all duration-200 hover:bg-[var(--vert-clair)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-            href="#0">Nous contacter</a
-          >
+            href="#0">
+            Nous contacter
+          </a>
         </footer>
       </div>
     </div>
@@ -297,8 +303,9 @@
         <footer class="mt-3 lg:mt-5 flex justify-between items-center">
           <a
             class="bg-[var(--vert)] text-white shadow-md text-[1em] px-4 py-2 rounded-md relative inline-flex justify-center items-center whitespace-nowrap cursor-pointer no-underline leading-tight transition-all duration-200 hover:bg-[var(--vert-clair)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-            href="#0">Nous contacter</a
-          >
+            href="#0">
+            Nous contacter
+          </a>
         </footer>
       </div>
     </div>

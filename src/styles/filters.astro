@@ -1,0 +1,124 @@
+---
+let QUERY, URLQUERY;
+
+//FETCH MENU ORGANISATION AND LOGO FROM GLOBAL
+QUERY = encodeURIComponent(`
+*[_type == "global"]{
+  accent2dimColor,accent2Color,accent1dimColor,accent1Color,bgColor,bodydim1Color,bodydim2Color,bodyColor
+}`);
+// Compose the URL for your project's endpoint and add the query
+// ⚠️ Don't forget to change PROJECT_ID & DATASET from .env
+URLQUERY = `https://${
+  import.meta.env.PROJECT_ID
+}.api.sanity.io/v2021-10-21/data/query/${
+  import.meta.env.DATASET
+}?query=${QUERY}`;
+// fetch the content
+// Global is a singleton, so you return the first element of the array (result[0])
+let data = await fetch(URLQUERY)
+  .then((res) => res.json())
+  .then(({result}) => {
+    return result[0];
+  })
+  .catch((err) => console.error(err));
+
+let css = `:root{
+  --color-bg: ${data.bgColor.hex};
+  --color-body: ${data.bodyColor.hex};
+  --color-body-dim1: ${data.bodydim1Color.hex};
+  --color-body-dim2: ${data.bodydim2Color.hex};
+  --color-accent1: ${data.accent1Color.hex};
+  --color-accent1-dim: ${data.accent1dimColor.hex};
+  --color-accent2: ${data.accent2Color.hex};
+  --color-accent2-dim: ${data.accent2dimColor.hex};
+}`;
+---
+
+<svg>
+  <filter
+    id="duotone-accent1"
+    x="-10%"
+    y="-10%"
+    width="120%"
+    height="120%"
+    filterUnits="objectBoundingBox"
+    primitiveUnits="userSpaceOnUse"
+    color-interpolation-filters="sRGB">
+    <feColorMatrix
+      type="matrix"
+      values="0 0 1 0 0
+            0 0 1 0 0
+            0 0 1 0 0
+            0 0 0 1 0"
+      in="SourceGraphic"
+      result="colormatrix">
+    </feColorMatrix>
+    <feComponentTransfer in="colormatrix" result="componentTransfer">
+      <feFuncR
+        type="table"
+        tableValues={`${data.accent1Color.rgb.r / 255} ${data.accent2Color.rgb.r / 255}`}>
+      </feFuncR>
+      <feFuncG
+        type="table"
+        tableValues={`${data.accent1Color.rgb.g / 255} ${data.accent2Color.rgb.g / 255}`}>
+      </feFuncG>
+      <feFuncB
+        type="table"
+        tableValues={`${data.accent1Color.rgb.b / 255} ${data.accent2Color.rgb.b / 255}`}>
+      </feFuncB>
+      <feFuncA type="table" tableValues="0 1"></feFuncA>
+    </feComponentTransfer>
+    <feBlend
+      mode="normal"
+      in="componentTransfer"
+      in2="SourceGraphic"
+      result="blend">
+    </feBlend>
+  </filter>
+  <filter
+    id="duotone-accent2"
+    x="-10%"
+    y="-10%"
+    width="120%"
+    height="120%"
+    filterUnits="objectBoundingBox"
+    primitiveUnits="userSpaceOnUse"
+    color-interpolation-filters="sRGB">
+    <feColorMatrix
+      type="matrix"
+      values="0 0 1 0 0
+            0 0 1 0 0
+            0 0 1 0 0
+            0 0 0 1 0"
+      in="SourceGraphic"
+      result="colormatrix">
+    </feColorMatrix>
+    <feComponentTransfer in="colormatrix" result="componentTransfer">
+      <feFuncR
+        type="table"
+        tableValues={`${data.accent2Color.rgb.r / 255} ${data.accent1dimColor.rgb.r / 255}`}>
+      </feFuncR>
+      <feFuncG
+        type="table"
+        tableValues={`${data.accent2Color.rgb.g / 255} ${data.accent1dimColor.rgb.g / 255}`}>
+      </feFuncG>
+      <feFuncB
+        type="table"
+        tableValues={`${data.accent2Color.rgb.b / 255} ${data.accent1dimColor.rgb.b / 255}`}>
+      </feFuncB>
+      <feFuncA type="table" tableValues="0 1"></feFuncA>
+    </feComponentTransfer>
+    <feBlend
+      mode="normal"
+      in="componentTransfer"
+      in2="SourceGraphic"
+      result="blend">
+    </feBlend>
+  </filter>
+</svg>
+
+<style>
+  svg {
+    display: none;
+  }
+</style>

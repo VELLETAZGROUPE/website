@@ -1,303 +1,166 @@
-<section class="py-12 lg:py-20 mattone">
-  <div
-    class="w-[calc(100%_-_2.5rem)] lg:w-[calc(100%_-_4rem)] mx-auto max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-7xl">
-    <div class="mb-5 lg:mb-8">
-      <h1 class="text-center">Nos produits</h1>
-    </div>
+---
+import {PortableText} from "astro-portabletext";
+import Button from "../Button.astro";
+import NetlifyImage from "../NetlifyImage.astro";
 
-    <div class="filter-nav filter-nav--v3 filter-nav--expanded js-filter-nav">
-      <button
-        class="bg-white text-gray-900 shadow-md text-[1em] px-4 py-2 rounded-md relative inline-flex justify-center items-center whitespace-nowrap cursor-pointer no-underline leading-tight transition-all duration-200 hover:shadow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700 hidden js-filter-nav__control"
-        aria-label="Select a filter option"
-        aria-controls="filter-nav">
-        <span class="js-filter-nav__placeholder" aria-hidden="true">
-          Nos produits
-        </span>
+const {node} = Astro.props;
 
-        <svg
-          class="icon inline-block text-inherit fill-current leading-none shrink-0 w-[12px] h-[12px] ml-1.5 lg:ml-2"
-          aria-hidden="true"
-          viewBox="0 0 12 12"
-          ><polyline
-            points="0.5 3.5 6 9.5 11.5 3.5"
-            fill="none"
-            stroke-width="1"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"></polyline></svg
-        >
-      </button>
+let allFilters = [];
 
-      <div class="filter-nav__wrapper js-filter-nav__wrapper" id="filter-nav">
-        <nav class="filter-nav__nav justify-center js-filter-nav__nav">
-          <ul
-            class="filter-nav__list js-filter-nav__list"
-            aria-controls="product-gallery">
-            <li class="filter-nav__item">
-              <button
-                class="filter-nav__btn js-filter-nav__btn js-tab-focus"
-                aria-current="true"
-                data-filter="*">Tous les produits</button
-              >
-            </li>
+if (node.hasfilter) {
+  for (let i = 0; i < node.products.length; i++) {
+    allFilters.push(node.products[i].filters);
+    node.products[i].filters = node.products[i].filters
+      .map((filter) => filter.replaceAll(" ", "-"))
+      .join(" ");
+  }
+  allFilters = allFilters.flat();
+}
 
-            <li class="filter-nav__item">
-              <button
-                class="filter-nav__btn js-filter-nav__btn js-tab-focus"
-                data-filter="porte-greffes">Porte-greffes</button
-              >
-            </li>
+let uniqueFilters = [...new Set(allFilters)];
 
-            <li class="filter-nav__item">
-              <button
-                class="filter-nav__btn js-filter-nav__btn js-tab-focus"
-                data-filter="plans-de-vigne">Plants de vigne</button
-              >
-            </li>
+let datafilter = [];
+for (let filter of uniqueFilters) {
+  datafilter.push({
+    name: filter.replaceAll(" ", "-"),
+    display: filter,
+  });
+}
+---
 
-            <li class="filter-nav__item">
-              <button
-                class="filter-nav__btn js-filter-nav__btn js-tab-focus"
-                data-filter="raisins-de-cuve">Raisins de cuve</button
-              >
-            </li>
+<section
+  class="py-12 lg:py-20 max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
+  <div class="mb-5 lg:mb-8">
+    <PortableText
+      value={node.title}
+      components={{
+        type: {
+          button: Button,
+        },
+      }}
+    />
+  </div>
 
-            <li class="filter-nav__item">
-              <button
-                class="filter-nav__btn js-filter-nav__btn js-tab-focus"
-                data-filter="raisins-de-table">Raisins de table</button
-              >
-            </li>
+  {
+    node.hasfilter && (
+      <div class="filter-nav filter-nav--v3 filter-nav--expanded js-filter-nav">
+        <button
+          class="bg-white text-gray-900 shadow-md text-[1em] px-4 py-2 rounded-md relative inline-flex justify-center items-center whitespace-nowrap cursor-pointer no-underline leading-tight transition-all duration-200 hover:shadow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700 hidden js-filter-nav__control"
+          aria-label="Select a filter option"
+          aria-controls="filter-nav">
+          <span class="js-filter-nav__placeholder" aria-hidden="true">
+            Filtres
+          </span>
 
-            <li class="filter-nav__item">
-              <button
-                class="filter-nav__btn js-filter-nav__btn js-tab-focus"
-                data-filter="sur-mesure">Produits sur-mesure</button
-              >
-            </li>
-            <li
-              class="filter-nav__marker js-filter-nav__marker"
-              aria-hidden="true">
-            </li>
-          </ul>
+          <svg
+            class="icon inline-block text-inherit fill-current leading-none shrink-0 w-[12px] h-[12px] ml-1.5 lg:ml-2"
+            aria-hidden="true"
+            viewBox="0 0 12 12">
+            <polyline
+              points="0.5 3.5 6 9.5 11.5 3.5"
+              fill="none"
+              stroke-width="1"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
 
-          <button
-            class="filter-nav__close-btn hidden js-filter-nav__close-btn js-tab-focus p-1"
-            aria-label="Close navigation">
-            <svg
-              class="icon inline-block text-inherit fill-current leading-none shrink-0"
-              viewBox="0 0 16 16"
-              aria-hidden="true"
-              ><g
-                stroke-width="1"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
-                ><line x1="13.5" y1="2.5" x2="2.5" y2="13.5"></line><line
-                  x1="2.5"
-                  y1="2.5"
-                  x2="13.5"
-                  y2="13.5"></line></g
-              ></svg
-            >
-          </button>
-        </nav>
+        <div class="filter-nav__wrapper js-filter-nav__wrapper" id="filter-nav">
+          <nav class="filter-nav__nav justify-center js-filter-nav__nav">
+            <ul
+              class="filter-nav__list js-filter-nav__list"
+              aria-controls="product-gallery">
+              <li class="filter-nav__item">
+                <button
+                  class="filter-nav__btn js-filter-nav__btn js-tab-focus"
+                  aria-current="true"
+                  data-filter="*">
+                  Tous les produits
+                </button>
+              </li>
+
+              {datafilter.map((filter) => (
+                <li class="filter-nav__item">
+                  <button
+                    class="filter-nav__btn js-filter-nav__btn js-tab-focus"
+                    data-filter={filter.name}>
+                    {filter.display}
+                  </button>
+                </li>
+              ))}
+
+              <li
+                class="filter-nav__marker js-filter-nav__marker"
+                aria-hidden="true"
+              />
+            </ul>
+
+            <button
+              class="filter-nav__close-btn hidden js-filter-nav__close-btn js-tab-focus p-1"
+              aria-label="Fermer la navigation">
+              <svg
+                class="icon inline-block text-inherit fill-current leading-none shrink-0"
+                viewBox="0 0 16 16"
+                aria-hidden="true">
+                <g
+                  stroke-width="1"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10">
+                  <>
+                    <line x1="13.5" y1="2.5" x2="2.5" y2="13.5" />
+                    <line x1="2.5" y1="2.5" x2="13.5" y2="13.5" />
+                  </>
+                </g>
+              </svg>
+            </button>
+          </nav>
+        </div>
       </div>
-    </div>
+    )
+  }
 
-    <div class="mt-5 lg:mt-8">
-      <ul
-        class="grid grid-cols-12 gap-3 lg:gap-5 js-filter"
-        id="product-gallery">
-        <li
-          class="col-span-12 md:col-span-6 lg:col-span-4 js-filter__item"
-          data-filter="porte-greffes">
-          <div class="prod-card">
-            <a
-              class="prod-card__img-link"
-              href="#0"
-              aria-label="Description of the link">
-              <figure class="prod-card__img aspect-w-1 aspect-h-1 relative">
-                <img
-                  src="/images/vignes1.jpg"
-                  alt="Product preview image"
-                  data-philter-duotone="#5D2F3F #00705F"
-                  class="opacity-50 absolute"
-                />
-                <img
-                  src="/images/vignes1.jpg"
-                  alt="Product preview image"
-                  class="opacity-50 mix-blend-overlay"
-                />
-              </figure>
-            </a>
+  <div class="mt-5 lg:mt-8">
+    <ul class="grid grid-cols-12 gap-3 lg:gap-5 js-filter" id="product-gallery">
+      {
+        node.products &&
+          node.products.map((product) => (
+            <li
+              class={`col-span-12 md:col-span-6 lg:col-span-${node.col || "4"} js-filter__item`}
+              data-filter={product.filters}>
+              <div class="prod-card">
+                <a
+                  class="prod-card__img-link"
+                  href={product.link}
+                  aria-label={product.title}>
+                  <figure class="prod-card__img aspect-w-1 aspect-h-1 relative">
+                    <NetlifyImage
+                      src={product.img.src}
+                      alt={product.img.alt}
+                      class={`${product.img.duotone || ""} ${node.height || "small"}`}
+                    />
+                  </figure>
+                </a>
 
-            <div class="p-3 lg:p-5 text-center">
-              <h3 class="text-2xl">
-                <a class="underline text-inherit" href="#0">Produit 1</a>
-              </h3>
-
-              <div class="mt-2 lg:mt-3">
-                <span class="prod-card__price">En savoir +</span>
+                <div class="p-3 lg:p-5">
+                  <PortableText
+                    value={product.itemtext}
+                    components={{
+                      type: {
+                        button: Button,
+                      },
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-          </div>
-        </li>
-
-        <li
-          class="col-span-12 md:col-span-6 lg:col-span-4 js-filter__item"
-          data-filter="plans-de-vigne sur-mesure">
-          <div class="prod-card">
-            <a
-              class="prod-card__img-link"
-              href="#0"
-              aria-label="Description of the link">
-              <figure class="prod-card__img aspect-w-1 aspect-h-1">
-                <img
-                  src="/images/vignes2.jpg"
-                  alt="Product preview image"
-                  data-philter-duotone="#5D2F3F #00705F"
-                  class="absolute opacity-50"
-                />
-                <img
-                  src="/images/vignes2.jpg"
-                  alt="Product preview image"
-                  class="mix-blend-overlay opacity-50"
-                />
-              </figure>
-            </a>
-
-            <div class="p-3 lg:p-5 text-center">
-              <h3 class="text-2xl">
-                <a class="underline text-inherit" href="#0">Produit 2</a>
-              </h3>
-
-              <div class="mt-2 lg:mt-3">
-                <span class="prod-card__price">En savoir +</span>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li
-          class="col-span-12 md:col-span-6 lg:col-span-4 js-filter__item"
-          data-filter="plans-de-vigne raisins-de-table">
-          <div class="prod-card">
-            <a
-              class="prod-card__img-link"
-              href="#0"
-              aria-label="Description of the link">
-              <figure class="prod-card__img aspect-w-1 aspect-h-1">
-                <img
-                  src="/images/vignes3.jpg"
-                  alt="Product preview image"
-                  data-philter-duotone="#5D2F3F #00705F"
-                />
-              </figure>
-            </a>
-
-            <div class="p-3 lg:p-5 text-center">
-              <h3 class="text-2xl">
-                <a class="underline text-inherit" href="#0">Produit 3</a>
-              </h3>
-
-              <div class="mt-2 lg:mt-3">
-                <span class="prod-card__price">En savoir +</span>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li
-          class="col-span-12 md:col-span-6 lg:col-span-4 js-filter__item"
-          data-filter="raisins-de-cuve sur-mesure">
-          <div class="prod-card">
-            <a
-              class="prod-card__img-link"
-              href="#0"
-              aria-label="Description of the link">
-              <figure class="prod-card__img aspect-w-1 aspect-h-1">
-                <img
-                  src="/images/vignes4.jpg"
-                  alt="Product preview image"
-                  data-philter-duotone="#5D2F3F #00705F"
-                />
-              </figure>
-            </a>
-
-            <div class="p-3 lg:p-5 text-center">
-              <h3 class="text-2xl">
-                <a class="underline text-inherit" href="#0">Produit 4</a>
-              </h3>
-
-              <div class="mt-2 lg:mt-3">
-                <span class="prod-card__price">En savoir +</span>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li
-          class="col-span-12 md:col-span-6 lg:col-span-4 js-filter__item"
-          data-filter="porte-greffes raisins-de-cuve">
-          <div class="prod-card">
-            <a
-              class="prod-card__img-link"
-              href="#0"
-              aria-label="Description of the link">
-              <figure class="prod-card__img aspect-w-1 aspect-h-1">
-                <img
-                  src="/images/vignes5.jpg"
-                  alt="Product preview image"
-                  data-philter-vintage="2"
-                />
-              </figure>
-            </a>
-
-            <div class="p-3 lg:p-5 text-center">
-              <h3 class="text-2xl">
-                <a class="underline text-inherit" href="#0">Produit 5</a>
-              </h3>
-
-              <div class="mt-2 lg:mt-3">
-                <span class="prod-card__price">En savoir +</span>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li
-          class="col-span-12 md:col-span-6 lg:col-span-4 js-filter__item"
-          data-filter="plans-de-vigne raisins-de-table">
-          <div class="prod-card">
-            <a
-              class="prod-card__img-link"
-              href="#0"
-              aria-label="Description of the link">
-              <figure class="prod-card__img aspect-w-1 aspect-h-1">
-                <img
-                  src="/images/vignes6.jpg"
-                  alt="Product preview image"
-                  data-philter-vintage="2"
-                />
-              </figure>
-            </a>
-
-            <div class="p-3 lg:p-5 text-center">
-              <h3 class="text-2xl">
-                <a class="underline text-inherit" href="#0">Produit 6</a>
-              </h3>
-
-              <div class="mt-2 lg:mt-3">
-                <span class="prod-card__price">En savoir +</span>
-              </div>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
+            </li>
+          ))
+      }
+    </ul>
   </div>
 </section>
 
@@ -496,11 +359,22 @@
   .prod-card__img {
     transition: opacity 0.2s;
   }
-  .prod-card__img img {
+  .prod-card__img :global(img) {
     display: block;
     width: 100%;
-    height: 500px;
     object-fit: cover;
+  }
+
+  .prod-card__img :global(img.small) {
+    height: 250px;
+  }
+
+  .prod-card__img :global(img.medium) {
+    height: 350px;
+  }
+
+  .prod-card__img :global(img.large) {
+    height: 500px;
   }
 
   .prod-card__badge {

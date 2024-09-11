@@ -1,0 +1,74 @@
+---
+import {PortableText} from "astro-portabletext";
+import NetlifyImage from "../NetlifyImage.astro";
+
+const {node} = Astro.props;
+---
+
+<section
+  id={node.id || undefined}
+  class="biglist py-12 lg:py-20 relative z-[1] max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
+  <div class="mb-16">
+    <PortableText value={node.title} />
+  </div>
+
+  <ul class="grid grid-cols-12 gap-y-12 lg:gap-12">
+    {
+      node.items &&
+        node.items.map((item) => (
+          <li class="col-span-12 lg:col-span-6">
+            <div
+              class={`flex gap-4 items-center justify-center ${item.img ? node.size : ""}`}>
+              {item.img && (
+                <>
+                  <figure class="shrink-0 inline-flex items-center justify-center w-full max-w-80 mb-4">
+                    <NetlifyImage src={item.img.src} alt="logo" class="p-8" />
+                  </figure>
+                  <p class="sr-only">{item.itemtitle}</p>
+                </>
+              )}
+            </div>
+
+            <div class="gap-4 textcontent">
+              <PortableText value={item.itemtext} />
+            </div>
+          </li>
+        ))
+    }
+  </ul>
+</section>
+
+<style>
+  .biglist .textcontent :global(h1),
+  .biglist .textcontent :global(h2),
+  .biglist .textcontent :global(h3),
+  .biglist .textcontent :global(h4),
+  .biglist .textcontent :global(h5),
+  .biglist .textcontent :global(h6) {
+    text-align: center;
+  }
+
+  .biglist .large {
+    @apply h-64;
+  }
+
+  .biglist .large figure {
+    @apply max-w-80;
+  }
+
+  .biglist .medium {
+    @apply h-48;
+  }
+
+  .biglist .medium figure {
+    @apply max-w-64;
+  }
+
+  .biglist .small {
+    @apply h-32;
+  }
+
+  .biglist .small figure {
+    @apply max-w-48;
+  }
+</style>
