@@ -59,7 +59,7 @@ export default {
             {
               name: 'producttitle',
               type: 'string',
-              title: 'Nom',
+              title: 'Nom du produit',
             },
             {
               name: 'level',
@@ -78,11 +78,29 @@ export default {
               },
             },
             {
-              name: 'link',
+              name: 'isExt',
+              type: 'boolean',
+              title: 'Lien externe ?',
+            },
+            {
+              name: 'linkInt',
               type: 'reference',
               to: [{type: 'page'}],
-              title: 'Lien',
+              title: 'Lien interne',
+              hidden: ({parent}) => {
+                return parent?.isExt !== false
+              },
             },
+            {
+              name: 'linkExt',
+              type: 'string',
+              title: 'Lien externe',
+              description: 'https://www.exemple.com/url',
+              hidden: ({parent}) => {
+                return parent?.isExt !== true
+              },
+            },
+
             {
               name: 'filters',
               title: 'Filtres',

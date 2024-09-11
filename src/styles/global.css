@@ -77,6 +77,7 @@ h6 {
   font-family: var(--headings);
   line-height: 1.2;
   letter-spacing: -0.02em;
+  white-space: break-spaces;
 }
 
 h1,
@@ -92,6 +93,15 @@ h5 {
 
 h6 {
   font-weight: 500;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  white-space: break-spaces;
 }
 
 .h1 {
@@ -174,6 +184,7 @@ h4.texte-libre,
 h5.texte-libre,
 h6.texte-libre {
   text-align: center;
+  white-space: break-spaces;
 }
 
 .texte-libre {
@@ -218,6 +229,7 @@ ol.texte-libre ul {
 .texte-libre a {
   text-decoration: underline;
   cursor: pointer;
+  white-space: break-spaces;
 }
 
 /* blockquote {

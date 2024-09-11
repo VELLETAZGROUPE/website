@@ -1,8 +1,11 @@
 ---
 import {PortableText} from "astro-portabletext";
 import NetlifyImage from "../NetlifyImage.astro";
+import Button from "../Button.astro";
 
 const {node} = Astro.props;
+
+console.log(node.poi[0]);
 ---
 
 <section
@@ -17,318 +20,93 @@ const {node} = Astro.props;
         <NetlifyImage
           src={node.img.src}
           alt={node.img.alt}
-          class={`block h-full w-auto mx-auto ${node.img.duotone || undefined}`}
+          class={`block h-full max-h-[75vh] w-auto mx-auto ${node.img.duotone || undefined}`}
         />
       )
     }
 
     <ul class="poi js-poi">
-      <li style="top: 71%; left: 63%;" class="poi__item js-poi__item">
-        <button
-          class="poi__btn"
-          aria-label="Point 1. Click for more info."
-          aria-controls="poi-modal-1">
-          <svg
-            class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
-            viewBox="0 0 12 12"
-            aria-hidden="true">
-            <path
-              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z">
-            </path>
-          </svg>
-        </button>
-      </li>
-
-      <li style="top: 58%; left: 72%;" class="poi__item js-poi__item">
-        <button
-          class="poi__btn"
-          aria-label="Point 2. Click for more info."
-          aria-controls="poi-modal-2">
-          <svg
-            class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
-            viewBox="0 0 12 12"
-            aria-hidden="true">
-            <path
-              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z">
-            </path>
-          </svg>
-        </button>
-      </li>
-
-      <li style="top: 64%; left: 32%;" class="poi__item js-poi__item">
-        <button
-          class="poi__btn"
-          aria-label="Point 3. Click for more info."
-          aria-controls="poi-modal-3">
-          <svg
-            class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
-            viewBox="0 0 12 12"
-            aria-hidden="true">
-            <path
-              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z">
-            </path>
-          </svg>
-        </button>
-      </li>
-
-      <li style="top: 56%; left: 33%;" class="poi__item js-poi__item">
-        <button
-          class="poi__btn"
-          aria-label="Point 3. Click for more info."
-          aria-controls="poi-modal-3">
-          <svg
-            class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
-            viewBox="0 0 12 12"
-            aria-hidden="true">
-            <path
-              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z">
-            </path>
-          </svg>
-        </button>
-      </li>
+      {
+        node.poi &&
+          node.poi.map((poi, idx) => (
+            <li
+              style={`top: ${poi.coord.top}%; left: ${poi.coord.left}%;`}
+              class="poi__item js-poi__item">
+              <button
+                class="poi__btn"
+                aria-label={poi.name}
+                aria-controls={`poi-modal-${idx + 1}`}>
+                <svg
+                  class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
+                  viewBox="0 0 12 12"
+                  aria-hidden="true">
+                  <path d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z" />
+                </svg>
+              </button>
+            </li>
+          ))
+      }
     </ul>
   </figure>
 
   <!-- Modal elements - one for each POI -->
   <!-- POI 1 -->
-  <div
-    id="poi-modal-1"
-    class="modal modal--animate-scale flex justify-center items-center bg-gray-900/90 p-5 lg:p-8 js-modal">
-    <div
-      class="modal__content w-full max-w-lg lg:max-w-xl max-h-full overflow-auto bg-white rounded shadow-lg"
-      role="alertdialog">
-      <div class="p-3 lg:p-5">
-        <div class="grid grid-cols-12 gap-3 lg:gap-5">
-          <figure class="col-span-12">
-            <img
-              class="block max-h-32 mx-auto"
-              src="/images/jonquieres.png"
-              alt="Image description"
-            />
-          </figure>
 
-          <h3 class="col-span-12">
-            Ipsum ipsum voluptate aliqua duis pariatur.
-          </h3>
-          <p class="col-span-12">
-            Lorem dolore tempor id mollit. Consectetur ea consequat adipisicing
-            sit consequat culpa proident veniam qui veniam. Velit ex nisi quis
-            enim officia eiusmod ullamco. Nulla excepteur ipsum incididunt anim.
-            Ut ullamco dolore ut culpa aute. Fugiat eiusmod consequat
-            reprehenderit dolor aliqua aliqua sint nulla sunt do eiusmod
-            deserunt.
-          </p>
+  {
+    node.poi &&
+      node.poi.map((poi, idx) => (
+        <div
+          id={`poi-modal-${idx + 1}`}
+          class="modal modal--animate-scale flex justify-center items-center bg-gray-900/90 p-5 lg:p-8 js-modal">
+          <div
+            class="modal__content w-full max-w-lg lg:max-w-xl max-h-full overflow-auto bg-[var(--color-bg)] shadow-lg"
+            role="alertdialog">
+            <div class="p-3 lg:p-5">
+              <div class="grid grid-cols-12 gap-3 lg:gap-5">
+                {poi.poiimg && (
+                  <figure class="col-span-12">
+                    <NetlifyImage
+                      src={poi.poiimg.src}
+                      alt={poi.poiimg.alt}
+                      class={`block max-h-60 mx-auto w-auto ${poi.poiimg.duotone ? poi.poiimg.duotone : ""}`}
+                    />
+                  </figure>
+                )}
+
+                <div class="col-span-12">
+                  <PortableText
+                    value={poi.content}
+                    components={{
+                      type: {
+                        button: Button,
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="modal__close-btn modal__close-btn--outer js-modal__close js-tab-focus">
+            <svg
+              class="icon inline-block text-inherit fill-current leading-none shrink-0 w-[24px] h-[24px]"
+              viewBox="0 0 24 24">
+              <title>Close modal window</title>
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-miterlimit="10"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="3" y1="3" x2="21" y2="21" />
+                <line x1="21" y1="3" x2="3" y2="21" />
+              </g>
+            </svg>
+          </button>
         </div>
-
-        <footer class="mt-3 lg:mt-5 flex justify-between items-center">
-          <a
-            class="bg-[var(--vert)] text-white shadow-md text-[1em] px-4 py-2 rounded-md relative inline-flex justify-center items-center whitespace-nowrap cursor-pointer no-underline leading-tight transition-all duration-200 hover:bg-[var(--vert-clair)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-            href="#0">
-            Nous contacter
-          </a>
-        </footer>
-      </div>
-    </div>
-
-    <button
-      class="modal__close-btn modal__close-btn--outer js-modal__close js-tab-focus">
-      <svg
-        class="icon inline-block text-inherit fill-current leading-none shrink-0 w-[24px] h-[24px]"
-        viewBox="0 0 24 24">
-        <title>Close modal window</title>
-        <g
-          fill="none"
-          stroke="currentColor"
-          stroke-miterlimit="10"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round">
-          <line x1="3" y1="3" x2="21" y2="21"></line>
-          <line x1="21" y1="3" x2="3" y2="21"></line>
-        </g>
-      </svg>
-    </button>
-  </div>
-
-  <!-- POI 2 -->
-  <div
-    id="poi-modal-2"
-    class="modal modal--animate-scale flex justify-center items-center bg-gray-900/90 p-5 lg:p-8 js-modal">
-    <div
-      class="modal__content w-full max-w-xl max-h-full overflow-auto bg-white rounded shadow-lg"
-      role="alertdialog">
-      <div class="p-3 lg:p-5">
-        <div class="grid grid-cols-12 gap-3 lg:gap-5">
-          <figure class="col-span-12">
-            <img
-              class="block max-h-32 mx-auto"
-              src="/images/jonquieres.png"
-              alt="Image description"
-            />
-          </figure>
-
-          <h3 class="col-span-12">
-            Ipsum ipsum voluptate aliqua duis pariatur.
-          </h3>
-          <p class="col-span-12">
-            Lorem dolore tempor id mollit. Consectetur ea consequat adipisicing
-            sit consequat culpa proident veniam qui veniam. Velit ex nisi quis
-            enim officia eiusmod ullamco. Nulla excepteur ipsum incididunt anim.
-            Ut ullamco dolore ut culpa aute. Fugiat eiusmod consequat
-            reprehenderit dolor aliqua aliqua sint nulla sunt do eiusmod
-            deserunt.
-          </p>
-        </div>
-
-        <footer class="mt-3 lg:mt-5 flex justify-between items-center">
-          <a
-            class="bg-[var(--vert)] text-white shadow-md text-[1em] px-4 py-2 rounded-md relative inline-flex justify-center items-center whitespace-nowrap cursor-pointer no-underline leading-tight transition-all duration-200 hover:bg-[var(--vert-clair)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-            href="#0">
-            Nous contacter
-          </a>
-        </footer>
-      </div>
-    </div>
-
-    <button
-      class="modal__close-btn modal__close-btn--outer js-modal__close js-tab-focus">
-      <svg
-        class="icon inline-block text-inherit fill-current leading-none shrink-0 w-[24px] h-[24px]"
-        viewBox="0 0 24 24">
-        <title>Close modal window</title>
-        <g
-          fill="none"
-          stroke="currentColor"
-          stroke-miterlimit="10"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round">
-          <line x1="3" y1="3" x2="21" y2="21"></line>
-          <line x1="21" y1="3" x2="3" y2="21"></line>
-        </g>
-      </svg>
-    </button>
-  </div>
-
-  <!-- POI 3 -->
-  <div
-    id="poi-modal-3"
-    class="modal modal--animate-scale flex justify-center items-center bg-gray-900/90 p-5 lg:p-8 js-modal">
-    <div
-      class="modal__content w-full max-w-xl max-h-full overflow-auto bg-white rounded shadow-lg"
-      role="alertdialog">
-      <div class="p-3 lg:p-5">
-        <div class="grid grid-cols-12 gap-3 lg:gap-5">
-          <figure class="col-span-12">
-            <img
-              class="block max-h-32 mx-auto"
-              src="/images/jonquieres.png"
-              alt="Image description"
-            />
-          </figure>
-
-          <h3 class="col-span-12">
-            Ipsum ipsum voluptate aliqua duis pariatur.
-          </h3>
-          <p class="col-span-12">
-            Lorem dolore tempor id mollit. Consectetur ea consequat adipisicing
-            sit consequat culpa proident veniam qui veniam. Velit ex nisi quis
-            enim officia eiusmod ullamco. Nulla excepteur ipsum incididunt anim.
-            Ut ullamco dolore ut culpa aute. Fugiat eiusmod consequat
-            reprehenderit dolor aliqua aliqua sint nulla sunt do eiusmod
-            deserunt.
-          </p>
-        </div>
-
-        <footer class="mt-3 lg:mt-5 flex justify-between items-center">
-          <a
-            class="bg-[var(--vert)] text-white shadow-md text-[1em] px-4 py-2 rounded-md relative inline-flex justify-center items-center whitespace-nowrap cursor-pointer no-underline leading-tight transition-all duration-200 hover:bg-[var(--vert-clair)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-            href="#0">
-            Nous contacter
-          </a>
-        </footer>
-      </div>
-    </div>
-
-    <button
-      class="modal__close-btn modal__close-btn--outer js-modal__close js-tab-focus">
-      <svg
-        class="icon inline-block text-inherit fill-current leading-none shrink-0 w-[24px] h-[24px]"
-        viewBox="0 0 24 24">
-        <title>Close modal window</title>
-        <g
-          fill="none"
-          stroke="currentColor"
-          stroke-miterlimit="10"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round">
-          <line x1="3" y1="3" x2="21" y2="21"></line>
-          <line x1="21" y1="3" x2="3" y2="21"></line>
-        </g>
-      </svg>
-    </button>
-  </div>
-
-  <!-- POI 4 -->
-  <div
-    id="poi-modal-4"
-    class="modal modal--animate-scale flex justify-center items-center bg-gray-900/90 p-5 lg:p-8 js-modal">
-    <div
-      class="modal__content w-full max-w-xl max-h-full overflow-auto bg-white rounded shadow-lg"
-      role="alertdialog">
-      <div class="p-3 lg:p-5">
-        <div class="grid grid-cols-12 gap-3 lg:gap-5">
-          <figure class="col-span-12">
-            <img
-              class="block max-h-32 mx-auto"
-              src="/images/jonquieres.png"
-              alt="Image description"
-            />
-          </figure>
-
-          <h3 class="col-span-12">
-            Ipsum ipsum voluptate aliqua duis pariatur.
-          </h3>
-          <p class="col-span-12">
-            Lorem dolore tempor id mollit. Consectetur ea consequat adipisicing
-            sit consequat culpa proident veniam qui veniam. Velit ex nisi quis
-            enim officia eiusmod ullamco. Nulla excepteur ipsum incididunt anim.
-            Ut ullamco dolore ut culpa aute. Fugiat eiusmod consequat
-            reprehenderit dolor aliqua aliqua sint nulla sunt do eiusmod
-            deserunt.
-          </p>
-        </div>
-
-        <footer class="mt-3 lg:mt-5 flex justify-between items-center">
-          <a
-            class="bg-[var(--vert)] text-white shadow-md text-[1em] px-4 py-2 rounded-md relative inline-flex justify-center items-center whitespace-nowrap cursor-pointer no-underline leading-tight transition-all duration-200 hover:bg-[var(--vert-clair)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
-            href="#0">
-            Nous contacter
-          </a>
-        </footer>
-      </div>
-    </div>
-
-    <button
-      class="modal__close-btn modal__close-btn--outer js-modal__close js-tab-focus">
-      <svg
-        class="icon inline-block text-inherit fill-current leading-none shrink-0 w-[24px] h-[24px]"
-        viewBox="0 0 24 24">
-        <title>Close modal window</title>
-        <g
-          fill="none"
-          stroke="currentColor"
-          stroke-miterlimit="10"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round">
-          <line x1="3" y1="3" x2="21" y2="21"></line>
-          <line x1="21" y1="3" x2="3" y2="21"></line>
-        </g>
-      </svg>
-    </button>
-  </div>
+      ))
+  }
 </section>
 
 <style>
@@ -586,48 +364,6 @@ Usage: codyhouse.co/license
     pointer-events: none;
   }
 
-  /* --image */
-  .modal-img-btn {
-    position: relative;
-    cursor: pointer;
-  }
-  .modal-img-btn::after {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    @apply bg-gray-900/0;
-    transition: background 0.2s;
-  }
-  .modal-img-btn:hover::after {
-    @apply bg-gray-900/70;
-  }
-  .modal-img-btn:hover .modal-img-btn__icon-wrapper {
-    opacity: 1;
-  }
-
-  .modal-img-btn__icon-wrapper {
-    position: absolute;
-    z-index: 2;
-    top: calc(50% - 24px);
-    left: calc(50% - 24px);
-    width: 48px;
-    height: 48px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    @apply bg-gray-900/70;
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  .modal-img-btn__icon-wrapper .icon {
-    @apply text-white;
-  }
-
   .modal .momentum-scrolling {
     -webkit-overflow-scrolling: touch;
   }
@@ -701,15 +437,6 @@ Usage: codyhouse.co/license
   }
   .poi__btn:hover .icon {
     transform: scale(1.1);
-  }
-
-  .poi__item--visited button {
-    /* style of clicked button */
-    @apply bg-gray-900/95;
-    backdrop-filter: blur(10px);
-  }
-  .poi__item--visited button::after {
-    display: none;
   }
 
   @-webkit-keyframes poi-pulse {

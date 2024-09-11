@@ -2,6 +2,7 @@
 import {PortableText} from "astro-portabletext";
 import Button from "../Button.astro";
 import NetlifyImage from "../NetlifyImage.astro";
+import HN from "../HN.astro";
 
 const {node} = Astro.props;
 
@@ -30,16 +31,20 @@ for (let filter of uniqueFilters) {
 
 <section
   class="py-12 lg:py-20 max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
-  <div class="mb-5 lg:mb-8">
-    <PortableText
-      value={node.title}
-      components={{
-        type: {
-          button: Button,
-        },
-      }}
-    />
-  </div>
+  {
+    node.title && (
+      <div class="mb-5 lg:mb-8">
+        <PortableText
+          value={node.title}
+          components={{
+            type: {
+              button: Button,
+            },
+          }}
+        />
+      </div>
+    )
+  }
 
   {
     node.hasfilter && (
@@ -133,29 +138,33 @@ for (let filter of uniqueFilters) {
               class={`col-span-12 md:col-span-6 lg:col-span-${node.col || "4"} js-filter__item`}
               data-filter={product.filters}>
               <div class="prod-card">
-                <a
-                  class="prod-card__img-link"
-                  href={product.link}
-                  aria-label={product.title}>
-                  <figure class="prod-card__img aspect-w-1 aspect-h-1 relative">
-                    <NetlifyImage
-                      src={product.img.src}
-                      alt={product.img.alt}
-                      class={`${product.img.duotone || ""} ${node.height || "small"}`}
-                    />
-                  </figure>
+                <a class="prod-card__img-link" href={product.link}>
+                  {product.img && (
+                    <figure class="prod-card__img aspect-w-1 aspect-h-1 relative">
+                      <NetlifyImage
+                        src={product.img.src}
+                        alt={product.img.alt}
+                        class={`${product.img.duotone || ""} ${node.height || "small"}`}
+                      />
+                    </figure>
+                  )}
                 </a>
 
-                <div class="p-3 lg:p-5">
-                  <PortableText
-                    value={product.itemtext}
-                    components={{
-                      type: {
-                        button: Button,
-                      },
-                    }}
-                  />
-                </div>
+                {product.itemtext && (
+                  <div class="producttext p-3 lg:p-5">
+                    {product.producttitle && (
+                      <HN Level={product.level}>{product.producttitle}</HN>
+                    )}
+                    <PortableText
+                      value={product.itemtext}
+                      components={{
+                        type: {
+                          button: Button,
+                        },
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             </li>
           ))
@@ -165,6 +174,14 @@ for (let filter of uniqueFilters) {
 </section>
 
 <style>
+  .producttext :global(h1),
+  .producttext :global(h2),
+  .producttext :global(h3),
+  .producttext :global(h4),
+  .producttext :global(h5),
+  .producttext :global(h6) {
+    margin-block: var(--space-m);
+  }
   /* --expanded version */
   .filter-nav--expanded {
     /* --v1 */

@@ -20,9 +20,6 @@ export default {
       name: 'img',
       title: 'Image',
       type: 'image',
-      initialValue: {
-        duotone: true,
-      },
       fields: [
         {name: 'alt', type: 'string'},
         {
@@ -34,6 +31,68 @@ export default {
               {title: 'Accent2', value: 'duoAccent2'},
             ],
           },
+        },
+      ],
+    },
+    {
+      name: 'poi',
+      title: "Point d'intérêt",
+      type: 'array',
+      of: [
+        {
+          name: 'poiobj',
+          type: 'object',
+          fields: [
+            {
+              name: 'coord',
+              type: 'object',
+              title: 'Coordonnées',
+              fields: [
+                {
+                  name: 'top',
+                  type: 'string',
+                  title: 'En partant du haut',
+                  description: 'en %',
+                },
+                {
+                  name: 'left',
+                  type: 'string',
+                  title: 'En partant du bas',
+                  description: 'en %',
+                },
+              ],
+            },
+            {
+              name: 'name',
+              title: 'Nom du point',
+              description: 'non utilisé',
+              type: 'string',
+            },
+            {
+              name: 'content',
+              title: "Texte de la fenêtre d'information",
+              type: 'array',
+              of: [{type: 'block'}, {type: 'button'}],
+            },
+            {
+              name: 'poiimg',
+              title: 'Image',
+              type: 'image',
+              fields: [
+                {name: 'alt', type: 'string'},
+                {
+                  name: 'duotone',
+                  type: 'string',
+                  options: {
+                    list: [
+                      {title: 'Accent1', value: 'duoAccent1'},
+                      {title: 'Accent2', value: 'duoAccent2'},
+                    ],
+                  },
+                },
+              ],
+            },
+          ],
         },
       ],
     },
