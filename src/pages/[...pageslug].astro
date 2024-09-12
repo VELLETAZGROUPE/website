@@ -6,6 +6,7 @@ import Colors from "../styles/colors.astro";
 import Filters from "../styles/filters.astro";
 
 import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 import "../styles/global.css";
 
@@ -92,6 +93,7 @@ if (content) {
     <div class="wrap-margin">
       <Render data={content} />
     </div>
+    <Footer />
     <Filters />
     <script>
       import "../scripts/components1";

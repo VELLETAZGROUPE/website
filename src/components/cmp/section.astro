@@ -8,7 +8,7 @@ const {node} = Astro.props;
 
 <section
   id={node.id || undefined}
-  class={`section wrap-margin remove-margin ${node.bg} ${node.useCol ? "doubleCol" : ""} ${node.img?.src ? "withimg" : ""}`}>
+  class={`section max-w-7xl mx-auto ${node.bg} ${node.useCol ? "doubleCol" : ""} ${node.img?.src ? "withimg" : ""}`}>
   {
     node.img?.src && (
       <div class="image">

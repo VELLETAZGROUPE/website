@@ -46,7 +46,7 @@ console.log(time);
               data-story-img-class="max-w-[300px] max-h-[300px] object-cover hidden lg:block">
               <div class="grid grid-cols-12 gap-5 lg:gap-8">
                 <div class="col-span-12 lg:col-span-3 xl:col-span-2">
-                  <p class="text-sm lg:text-base relative z-[2]">
+                  <p class="h6 text-sm lg:text-base relative z-[2]">
                     <time datetime={moment(actu.date).format("YYYY-MM-DD")}>
                       {moment(actu.date).format("LL")}
                     </time>
@@ -54,7 +54,7 @@ console.log(time);
                 </div>
 
                 <div class="col-span-12 lg:col-span-6 relative z-[2]">
-                  <p class="text-3xl mb-2 story-v3__title">{actu.h1}</p>
+                  <p class="h4 text-3xl mb-2 story-v3__title">{actu.h1}</p>
                   <div class="text-sm opacity-50">
                     <PortableText value={actu.abstract} />
                   </div>
