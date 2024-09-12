@@ -131,7 +131,7 @@ h6 {
 
 h1 {
   font-size: clamp(2.7994rem, 1.9432rem + 4.281vw, 5.2609rem);
-  margin-block-end: var(--space-3xl);
+  margin-block-end: var(--space-xl);
   padding-block-end: var(--space-s);
   border-bottom: var(--color-body) solid var(--fluid-2-6);
 }

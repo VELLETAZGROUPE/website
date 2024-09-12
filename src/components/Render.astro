@@ -4,6 +4,7 @@ import {PortableText} from "astro-portabletext";
 import Block from "./Block.astro";
 import List from "./List.astro";
 import Link from "./Link.astro";
+import actupreview from "../../sanity-studio/schemaTypes/cmp/actupreview";
 
 const composants = await Astro.glob("./cmp/*.astro");
 
@@ -48,6 +49,10 @@ if (data) {
         (cmp) => cmp.default.name === "filteredProductsGallery"
       ).default,
       map: composants.find((cmp) => cmp.default.name === "map").default,
+      logogallery: composants.find((cmp) => cmp.default.name === "logoGallery")
+        .default,
+      actupreview: composants.find((cmp) => cmp.default.name === "actuPreview")
+        .default,
     },
   }}
 />

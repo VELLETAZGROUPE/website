@@ -17,24 +17,6 @@ export default defineConfig({
   dataset: 'production',
 
   plugins: [
-    dashboardTool({
-      widgets: [
-        netlifyWidget({
-          title: 'Netlify',
-          sites: [
-            {
-              title: 'Website - Velletaz',
-              apiId: 'e2f8ef00-3797-4505-aff1-9daa39618835',
-              buildHookId: '668cf9f990e0611b46590c3d',
-              name: 'Website - Velletaz',
-            },
-          ],
-        }),
-      ],
-    }),
-    inlineSvgInput(),
-    colorInput(),
-    media(),
     structureTool({
       structure: (S) =>
         S.list()
@@ -56,6 +38,24 @@ export default defineConfig({
             S.documentTypeListItem('post').title('Articles de blog'),
           ]),
     }),
+    dashboardTool({
+      widgets: [
+        netlifyWidget({
+          title: 'Netlify',
+          sites: [
+            {
+              title: 'Website - Velletaz',
+              apiId: 'e2f8ef00-3797-4505-aff1-9daa39618835',
+              buildHookId: '668cf9f990e0611b46590c3d',
+              name: 'Website - Velletaz',
+            },
+          ],
+        }),
+      ],
+    }),
+    inlineSvgInput(),
+    colorInput(),
+    media(),
     visionTool(),
   ],
 

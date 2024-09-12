@@ -81,6 +81,14 @@ export default {
       },
     },
     {
+      name: 'date',
+      type: 'date',
+      title: 'Date du post',
+      options: {
+        dateFormat: 'DD-MM-YYYY',
+      },
+    },
+    {
       name: 'twitterText',
       title: 'Contenu du post sur X (Twitter)',
       description: '280 caractères max',

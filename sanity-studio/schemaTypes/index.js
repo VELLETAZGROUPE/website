@@ -10,6 +10,8 @@ import tableofcontent from './cmp/tableofcontent'
 import biglist from './cmp/biglist'
 import productlist from './cmp/productlist'
 import map from './cmp/map'
+import logogallery from './cmp/logogallery'
+import actupreview from './cmp/actupreview'
 
 export const schemaTypes = [
   global,
@@ -23,4 +25,6 @@ export const schemaTypes = [
   biglist,
   productlist,
   map,
+  logogallery,
+  actupreview,
 ]

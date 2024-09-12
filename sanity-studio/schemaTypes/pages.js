@@ -98,6 +98,8 @@ export default {
         {type: 'biglist'},
         {type: 'productlist'},
         {type: 'map'},
+        {type: 'logogallery'},
+        {type: 'actupreview'},
       ],
     },
   ],

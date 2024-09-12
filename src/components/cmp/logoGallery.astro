@@ -1,0 +1,28 @@
+---
+import {PortableText} from "astro-portabletext";
+import NetlifyImage from "../NetlifyImage.astro";
+
+const {node} = Astro.props;
+---
+
+<section class="customer-logos relative z-[1] mb-32">
+  <div class="text-center mb-12">
+    <PortableText value={node.title} />
+  </div>
+
+  <ul class="flex flex-wrap justify-center gap-12">
+    {
+      node.logos.map((logo) => (
+        <li>
+          <a href={logo.link}>
+            <NetlifyImage
+              src={logo.img.src}
+              alt={logo.img.alt}
+              class="max-w-32"
+            />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

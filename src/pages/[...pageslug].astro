@@ -25,6 +25,8 @@ export async function getStaticPaths() {
         _type == "biglist" => {_type, id, size, title, items[]{itemtitle, itemtext, img{'src':asset->url}}},
         _type == "productlist" => {_type, height, col, id, title, hasfilter, products[]{producttitle, filters, 'link':link->slug, level, img{alt, duotone, 'src':asset->url},isExt, 'linkInt':linkInt->slug, linkExt, itemtext[]{..., _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}}},
         _type == "map" => {_type, id, img{alt,duotone,'src':asset->url},title[]{..., _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}, poi[]{coord,name,content[]{..., _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}},poiimg{alt,duotone,'src':asset->url}}},
+        _type == "logogallery" => {_type, id, title[]{..., _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}, logos[]{link,img{alt,'src':asset->url}}},
+        _type == "actupreview" => {_type, id, "actus":actus[]->{h1,abstract,date,slug,img{alt, 'src':asset->url}}, title[]{..., _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}}
       }
     }`
   );
@@ -100,7 +102,7 @@ if (content) {
       import simpleParallax from "simple-parallax-js";
       let parallaxVertical = document.querySelectorAll(".sceneVertical");
       new simpleParallax(parallaxVertical, {
-        scale: 1.5,
+        scale: 1.4,
         delay: 0.6,
         transition: "cubic-bezier(0,0,0,1)",
       });

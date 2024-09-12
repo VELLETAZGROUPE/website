@@ -370,7 +370,7 @@
   };
 
   Modal.prototype.emitModalEvents = function (eventName) {
-    var event = new CustomEvent(eventName, { detail: this.selectedTrigger });
+    var event = new CustomEvent(eventName, {detail: this.selectedTrigger});
     this.element.dispatchEvent(event);
   };
 
@@ -1331,7 +1331,7 @@
     for (var i = 0; i < filterGallery.length; i++) {
       var duration = filterGallery[i].getAttribute("data-filter-duration");
       if (!duration) duration = Filter.defaults.duration;
-      new Filter({ element: filterGallery[i], duration: duration });
+      new Filter({element: filterGallery[i], duration: duration});
     }
   }
 })();

@@ -1,0 +1,319 @@
+---
+import NetlifyImage from "../NetlifyImage.astro";
+import {PortableText} from "astro-portabletext";
+import Button from "../Button.astro";
+import HN from "../HN.astro";
+import moment from "moment";
+
+const {node} = Astro.props;
+
+moment.locale("fr");
+
+let time = moment(node.actus[0].date);
+console.log(node.actus[0].date);
+console.log(time);
+---
+
+<section
+  class="actuPreview py-12 lg:py-20 max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
+  {
+    node.title && (
+      <div class="mb-5 lg:mb-8">
+        <PortableText
+          value={node.title}
+          components={{
+            type: {
+              button: Button,
+            },
+          }}
+        />
+      </div>
+    )
+  }
+
+  {
+    node.actus && (
+      <ul>
+        {node.actus.map((actu) => (
+          <li>
+            <a
+              class="story-v3 py-5 lg:py-8 js-story-v3"
+              href={actu.slug || "/"}
+              data-story-img-src={actu?.img.src}
+              data-story-img-align="right"
+              data-story-img-offset-x="60px"
+              data-story-img-width="100%"
+              data-story-img-class="max-w-[300px] max-h-[300px] object-cover hidden lg:block">
+              <div class="grid grid-cols-12 gap-5 lg:gap-8">
+                <div class="col-span-12 lg:col-span-3 xl:col-span-2">
+                  <p class="text-sm lg:text-base relative z-[2]">
+                    <time datetime={moment(actu.date).format("YYYY-MM-DD")}>
+                      {moment(actu.date).format("LL")}
+                    </time>
+                  </p>
+                </div>
+
+                <div class="col-span-12 lg:col-span-6 relative z-[2]">
+                  <p class="text-3xl mb-2 story-v3__title">{actu.h1}</p>
+                  <div class="text-sm opacity-50">
+                    <PortableText value={actu.abstract} />
+                  </div>
+                </div>
+
+                <div
+                  class="hidden lg:flex col-span-12 lg:col-span-3 xl:col-span-4 justify-end"
+                  aria-hidden="true">
+                  <svg
+                    class="story-v3__icon icon h-[1em] w-[1em] inline-block text-inherit fill-current leading-none shrink-0 relative z-[2]"
+                    viewBox="0 0 48 48">
+                    <g
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <line x1="37" y1="14" x2="47" y2="24" />
+                      <line x1="47" y1="24" x2="37" y2="34" />
+                      <line x1="47" y1="24" x2="1.5" y2="24" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</section>
+
+<script>
+  // File#: _1_article-preview-v3
+  // Usage: codyhouse.co/license
+  (function () {
+    var Story3 = function (element) {
+      this.element = element;
+      // data attributes
+      this.src = this.element.getAttribute("data-story-img-src");
+      this.align = this.element.getAttribute("data-story-img-align")
+        ? this.element.getAttribute("data-story-img-align")
+        : "right";
+      this.offset = this.element.getAttribute("data-story-img-offset-x")
+        ? this.element.getAttribute("data-story-img-offset-x")
+        : "0px";
+      this.width = this.element.getAttribute("data-story-img-width")
+        ? this.element.getAttribute("data-story-img-width")
+        : "30%";
+      this.customClasses = this.element.getAttribute("data-story-img-class")
+        ? this.element.getAttribute("data-story-img-class")
+        : "hidden lg:block";
+      // preview classes
+      this.previewClass =
+        "story-v3__preview-img js-story-v3__preview-img" +
+        " " +
+        this.customClasses;
+      this.previewVisibleClass = "story-v3__preview-img--is-visible";
+      this.preview = false; // will use this to store the preview img element
+      // params needed for event listening
+      this.eventBind = false;
+      this.mousePosition = false;
+      // used during mousemove
+      this.previewMoving = false;
+      initStory3(this);
+    };
+
+    function initStory3(story) {
+      // create img preview element
+      createPreview(story);
+      // bind events
+      story.eventBind = handleEvent.bind(story);
+      story.element.addEventListener("mouseenter", story.eventBind);
+    }
+
+    function createPreview(story) {
+      story.preview = document.createElement("img");
+      story.element.appendChild(story.preview);
+      story.preview.classList = story.previewClass;
+      story.preview.setAttribute("aria-hidden", true);
+      story.preview.setAttribute("src", story.src);
+    }
+
+    function handleEvent(event) {
+      switch (event.type) {
+        case "mouseenter": {
+          showPreview(this, event);
+          break;
+        }
+        case "mouseleave": {
+          hidePreview(this, event);
+          break;
+        }
+        case "mousemove": {
+          movePreview(this, event);
+          break;
+        }
+      }
+    }
+
+    function showPreview(story, event) {
+      // show preview
+      story.preview.setAttribute("style", getPreviewStyle(story));
+      story.preview.classList.add(story.previewVisibleClass);
+      // bind events
+      story.element.addEventListener("mouseleave", story.eventBind);
+      story.element.addEventListener("mousemove", story.eventBind);
+      // store mouse position
+      story.mousePosition = [event.clientX, event.clientY];
+    }
+
+    function hidePreview(story, event) {
+      // hide image
+      story.preview.classList.remove(story.previewVisibleClass);
+      story.preview.style.transform = "";
+      // remove events
+      story.element.removeEventListener("mouseleave", story.eventBind);
+      story.element.removeEventListener("mousemove", story.eventBind);
+    }
+
+    function movePreview(story, event) {
+      // parallax effect
+      if (story.previewMoving) return;
+      story.previewMoving = true;
+      window.requestAnimationFrame(function () {
+        updatePreviewPosition(story, event);
+        story.previewMoving = false;
+      });
+    }
+
+    function updatePreviewPosition(story, event) {
+      // move preview image
+      var translateX = event.clientX - story.mousePosition[0],
+        translateY = event.clientY - story.mousePosition[1];
+      translateX = resetTranslateValue(translateX);
+      translateY = resetTranslateValue(translateY);
+      story.preview.style.transform =
+        "translateY(calc(-50% + " +
+        translateY +
+        "px)) translateX(" +
+        translateX +
+        "px)";
+    }
+
+    function getPreviewStyle(story) {
+      var storyRect = story.element.getBoundingClientRect(),
+        horizontalStyle = "";
+      if (story.align == "right") {
+        horizontalStyle =
+          "right:" + getValue(storyRect.width, story.offset) + "px;";
+      } else {
+        horizontalStyle =
+          "left:" + getValue(storyRect.width, story.offset) + "px;";
+      }
+      var style =
+        "width: " +
+        getValue(storyRect.width, story.width) +
+        "px;" +
+        horizontalStyle;
+
+      return style;
+    }
+
+    function getValue(width, val) {
+      if (val.indexOf("%") > -1) {
+        return (width * parseInt(val)) / 100;
+      } else {
+        return parseInt(val);
+      }
+    }
+
+    function resetTranslateValue(val) {
+      return parseInt(val / 30);
+    }
+
+    window.Story3 = Story3;
+
+    // init the Story3 objects
+    var story3 = document.getElementsByClassName("js-story-v3");
+    if (story3.length > 0) {
+      for (var i = 0; i < story3.length; i++) {
+        (function (i) {
+          new Story3(story3[i]);
+        })(i);
+      }
+    }
+  })();
+</script>
+
+<style>
+  /* --------------------------------
+
+File#: _1_article-preview-v3
+Title: Article Preview v3
+Descr: Blog post excerpt, containing a link to the article page and a preview image animated on hover
+Usage: codyhouse.co/license
+
+-------------------------------- */
+  :root {
+    --story-v3-image-width: 30%;
+  }
+
+  .story-v3 {
+    position: relative;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    @apply border-t border-gray-300;
+    box-shadow: 0 1px 0 #d1d5db;
+    transition: 0.3s;
+  }
+  .story-v3:hover .story-v3__title {
+    text-decoration: underline;
+  }
+  .story-v3:hover .story-v3__icon line:nth-child(1) {
+    transform: rotate(180deg);
+  }
+  .story-v3:hover .story-v3__icon line:nth-child(2) {
+    transform: rotate(-180deg);
+  }
+  .story-v3:hover .story-v3__icon line:nth-child(3) {
+    stroke-dashoffset: 14;
+  }
+
+  .story-v3__icon {
+    font-size: 48px;
+  }
+  .story-v3__icon line:nth-child(1),
+  .story-v3__icon line:nth-child(2) {
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .story-v3__icon line:nth-child(1) {
+    transform-origin: 42px 19px;
+  }
+  .story-v3__icon line:nth-child(2) {
+    transform-origin: 42px 29px;
+  }
+  .story-v3__icon line:nth-child(3) {
+    stroke-dasharray: 48;
+    transition: stroke-dashoffset 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  :global(.story-v3__preview-img) {
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    top: 50%;
+    transform: translateY(-50%) scale(0.9);
+    transition:
+      opacity 0.2s,
+      visibility 0.2s,
+      transform 0.2s;
+    backface-visibility: hidden;
+    will-change: transform;
+  }
+
+  :global(.story-v3__preview-img--is-visible) {
+    transform: translateY(-50%);
+    opacity: 1;
+    visibility: visible;
+  }
+</style>
