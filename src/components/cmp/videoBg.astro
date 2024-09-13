@@ -1,6 +1,8 @@
 ---
 import YouTube from "../YouTube.astro";
 // https://i.ytimg.com/vi/TtRtkTzHVBU/maxresdefault.jpg
+
+const {node} = Astro.props;
 ---
 
 <section data-custom-cursor="cursor-1">
@@ -17,7 +19,8 @@ import YouTube from "../YouTube.astro";
     <defs>
       <path
         id="circlePath"
-        d=" M 32, 32 m -32, 0 a 32,32 0 1,0 64,0 a 32,32 0 1,0 -64,0 "></path>
+        d=" M 32, 32 m -32, 0 a 32,32 0 1,0 64,0 a 32,32 0 1,0 -64,0 ">
+      </path>
     </defs>
 
     <!-- <circle cx="150" cy="150" r="150" fill="#000"/> -->

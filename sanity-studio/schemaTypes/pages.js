@@ -100,6 +100,8 @@ export default {
         {type: 'map'},
         {type: 'logogallery'},
         {type: 'actupreview'},
+        {type: 'timeline'},
+        {type: 'video'},
       ],
     },
   ],

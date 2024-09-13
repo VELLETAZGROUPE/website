@@ -8,10 +8,6 @@ import moment from "moment";
 const {node} = Astro.props;
 
 moment.locale("fr");
-
-let time = moment(node.actus[0].date);
-console.log(node.actus[0].date);
-console.log(time);
 ---
 
 <section

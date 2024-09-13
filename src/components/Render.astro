@@ -4,7 +4,6 @@ import {PortableText} from "astro-portabletext";
 import Block from "./Block.astro";
 import List from "./List.astro";
 import Link from "./Link.astro";
-import actupreview from "../../sanity-studio/schemaTypes/cmp/actupreview";
 
 const composants = await Astro.glob("./cmp/*.astro");
 
@@ -53,6 +52,9 @@ if (data) {
         .default,
       actupreview: composants.find((cmp) => cmp.default.name === "actuPreview")
         .default,
+      timeline: composants.find((cmp) => cmp.default.name === "timeline")
+        .default,
+      video: composants.find((cmp) => cmp.default.name === "videoBg").default,
     },
   }}
 />

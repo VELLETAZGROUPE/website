@@ -12,6 +12,8 @@ import productlist from './cmp/productlist'
 import map from './cmp/map'
 import logogallery from './cmp/logogallery'
 import actupreview from './cmp/actupreview'
+import timeline from './cmp/timeline'
+import video from './cmp/video'
 
 export const schemaTypes = [
   global,
@@ -27,4 +29,6 @@ export const schemaTypes = [
   map,
   logogallery,
   actupreview,
+  timeline,
+  video,
 ]
