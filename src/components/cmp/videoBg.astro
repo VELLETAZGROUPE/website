@@ -1,12 +1,35 @@
 ---
 import YouTube from "../YouTube.astro";
+import {PortableText} from "astro-portabletext";
+import Button from "../Button.astro";
 // https://i.ytimg.com/vi/TtRtkTzHVBU/maxresdefault.jpg
 
 const {node} = Astro.props;
 ---
 
-<section data-custom-cursor="cursor-1">
-  <YouTube id="fFGtxqrfHwk" posterQuality="max" />
+<section>
+  <div class="mb-8 lg:mb-12 flex flex-col justify-center items-center title">
+    <PortableText
+      value={node.title}
+      components={{
+        type: {
+          button: Button,
+        },
+      }}
+    />
+  </div>
+  {
+    node.ytID && (
+      <div class="w-full max-w-[1024px] mx-auto" data-custom-cursor="cursor-1">
+        <YouTube
+          id={node.ytID}
+          class={node.img?.duotone || undefined}
+          posterQuality="max"
+          poster={node.img?.src}
+        />
+      </div>
+    )
+  }
 </section>
 
 <div id="cursor-1" class="c-cursor js-c-cursor" aria-hidden="true">
@@ -27,9 +50,11 @@ const {node} = Astro.props;
     <g>
       <use xlink:href="#circlePath" fill="none"></use>
       <text fill="#FFF" class="circle">
-        <textPath font-size="0.82rem" xlink:href="#circlePath">
-          Lancer la vidéo - Lancez la vidéo -
-        </textPath>
+        <textPath
+          font-size="0.87rem"
+          xlink:href="#circlePath"
+          set:text="Lancer la vidéo - Lancez la vidéo - "
+        />
       </text>
     </g>
     <path

@@ -29,7 +29,8 @@ export async function getStaticPaths() {
         _type == "logogallery" => {_type, id, title[]{..., _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}, logos[]{link,img{alt,'src':asset->url}}},
         _type == "actupreview" => {_type, id, "actus":actus[]->{h1,abstract,date,slug,img{alt, 'src':asset->url}}, title[]{..., _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}},
         _type == "timeline" => {_type,id,title,events},
-        _type == "video" => {_type, id, title},
+        _type == "video" => {_type, id, title, ytID, img{alt,duotone,'src':asset->url}},
+        _type == "team" => {_type, id,title,members[]{millesime, devise, parcours, poste,aime,aimepas,cepage,qualite,defaut,anecdote,img{'src':asset->url},name,}},
       }
     }`
   );

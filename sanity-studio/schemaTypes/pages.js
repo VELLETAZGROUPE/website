@@ -102,6 +102,7 @@ export default {
         {type: 'actupreview'},
         {type: 'timeline'},
         {type: 'video'},
+        {type: 'team'},
       ],
     },
   ],

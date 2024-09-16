@@ -8,7 +8,7 @@ const {node} = Astro.props;
 <section
   id={node.id || undefined}
   class="biglist py-12 lg:py-20 relative z-[1] max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
-  <div class="mb-16">
+  <div class="mb-32 text-center flex justify-center items-center flex-col">
     <PortableText value={node.title} />
   </div>
 
@@ -29,9 +29,11 @@ const {node} = Astro.props;
               )}
             </div>
 
-            <div class="gap-4 textcontent">
-              <PortableText value={item.itemtext} />
-            </div>
+            {item.itemtext && (
+              <div class="gap-4 textcontent">
+                <PortableText value={item.itemtext} />
+              </div>
+            )}
           </li>
         ))
     }

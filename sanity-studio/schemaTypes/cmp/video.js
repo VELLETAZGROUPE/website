@@ -16,5 +16,29 @@ export default {
       type: 'array',
       of: [{type: 'block'}, {type: 'button'}],
     },
+    {
+      name: 'ytID',
+      title: 'ID de la vidéo YouTube',
+      description: "https://www.youtube.com/watch?v=fFGtxqrfHwk. Dans ce cas l'ID est fFGtxqrfHwk.",
+      type: 'string',
+    },
+    {
+      name: 'img',
+      title: 'Image à afficher avant le lancement de la vidéo',
+      type: 'image',
+      fields: [
+        {name: 'alt', type: 'string'},
+        {
+          name: 'duotone',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'Accent1', value: 'duoAccent1'},
+              {title: 'Accent2', value: 'duoAccent2'},
+            ],
+          },
+        },
+      ],
+    },
   ],
 }

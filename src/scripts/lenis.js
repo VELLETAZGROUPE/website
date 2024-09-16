@@ -7,6 +7,7 @@ const lenis = new Lenis({
   lerp: 0.1,
   wheelMultiplier: 0.9,
   wrapper: scrollwrapper,
+  prevent: (node) => node.classList.contains("modal"),
 });
 
 function raf(time) {

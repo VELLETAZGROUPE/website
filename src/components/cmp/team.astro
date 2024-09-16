@@ -1,187 +1,691 @@
-<div class="app mx-4">
-  <div class="main">
-    <div class="main-content">
-      <div class="card card-2 card-img flex justify-center items-center">
-        <div class="bio px-4">
-          <h3>
-            Commodo adipisicing excepteur in cillum reprehenderit qui consequat
-            Lorem ullamco nostrud.
-          </h3>
-          <p>
-            Ea tempor fugiat quis velit quis Lorem ea culpa eu cillum pariatur
-            dolor cupidatat. Aute aute aliquip magna amet sint ipsum nisi mollit
-            amet. Dolore ut sit amet aliquip minim reprehenderit cillum mollit
-            ex voluptate cupidatat.
-          </p>
-          <p>
-            Ea tempor fugiat quis velit quis Lorem ea culpa eu cillum pariatur
-            dolor cupidatat. Aute aute aliquip magna amet sint ipsum nisi mollit
-            amet. Dolore ut sit amet aliquip minim reprehenderit cillum mollit
-            ex voluptate cupidatat.
-          </p>
-        </div>
+---
+import {PortableText} from "astro-portabletext";
+import Button from "../Button.astro";
+import NetlifyImage from "../NetlifyImage.astro";
+const {node} = Astro.props;
+---
+
+<section class="py-12 lg:py-20 max-w-7xl mx-auto">
+  {
+    node.title && (
+      <div class="mb-5 lg:mb-8 flex flex-col justify-center items-center">
+        <PortableText
+          value={node.title}
+          components={{
+            type: {
+              button: Button,
+            },
+          }}
+        />
       </div>
-      <div class="card card-3 card-img"></div>
-      <div class="card card-img card-1 card-main"></div>
-      <div class="card card-4 card-img"></div>
-      <div class="card card-img card-5"></div>
-      <div class="card card-6 card-img"></div>
-    </div>
+    )
+  }
+
+  <div class="mx-auto max-w-lg lg:max-w-5xl xl:max-w-7xl">
+    <ul class="feature-v20__list grid grid-cols-12 gap-0 lg:gap-8">
+      {
+        node.members.map((member, idx) => (
+          <li class="relative feature-v20__item min-w-0 col-span-12 md:col-span-6 lg:col-span-3 flex justify-center max-w-[300px]">
+            <button
+              class="modal-img-btn rounded"
+              aria-controls={`modal-${idx + 1}`}
+              aria-label="Show larger image preview">
+              <figure class="relative flex items-center justify-center mx-auto mt-0 mb-6">
+                <NetlifyImage src={member.img.src} alt={member.img.alt} />
+              </figure>
+
+              <div class="text-center -mt-32">
+                <p class="">{member.name}</p>
+              </div>
+            </button>
+            <div
+              id={`modal-${idx + 1}`}
+              class="modal modal--animate-scale flex justify-center items-center bg-gray-900/90 p-5 lg:p-8 js-modal"
+              data-modal-prevent-scroll="html">
+              <div
+                class="modal__content w-full max-h-full overflow-auto bg-white rounded shadow-lg max-w-5xl"
+                role="alertdialog"
+                aria-labelledby="modal-title-1"
+                aria-describedby="modal-description-1">
+                <header class="bg-gray-300/50 py-3 lg:py-5 px-5 lg:px-8 flex flex-col items-center justify-between">
+                  <p id="modal-title-1" class="truncate h3 font1">
+                    {`${member.name} - ${member.poste}`}
+                  </p>
+                  <p class="h5 font2">{`Millésime ${member.millesime}`}</p>
+                </header>
+
+                <div class="py-3 lg:py-5 px-5 lg:px-8">
+                  <p class="h4">Sa devise</p>
+                  <p set:text={member.devise} />
+                  <p class="h4">Son parcours</p>
+                  <p set:text={member.parcours} />
+                  <p class="h4">Ce qu'il ou elle aime</p>
+                  <p set:text={member.aime} />
+                  <p class="h4">Ce qu'il ou elle n'aime pas</p>
+                  <p set:text={member.aimepas} />
+                  <p class="h4">Son cépage préféré</p>
+                  <p set:text={member.cepage} />
+                  <p class="h4">Une de ses (nombreuses) qualités</p>
+                  <p set:text={member.qualite} />
+                  <p class="h4">Un de ses défauts</p>
+                  <p set:text={member.defaut} />
+                  <p class="h4">Une anecdote</p>
+                  <p set:text={member.anecdote} />
+                </div>
+              </div>
+
+              <button class="modal__close-btn modal__close-btn--outer hidden lg:flex js-modal__close js-tab-focus">
+                <svg
+                  class="icon inline-block text-inherit fill-current leading-none shrink-0 w-[24px] h-[24px]"
+                  viewBox="0 0 24 24">
+                  <title>Close modal window</title>
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-miterlimit="10"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="3" y1="3" x2="21" y2="21" />
+                    <line x1="21" y1="3" x2="3" y2="21" />
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
   </div>
-</div>
+</section>
 
-<style lang="scss">
-  .app {
-    background-color: var(--theme-bg-color);
-    height: 92vh;
-    max-height: 900px;
-    border-radius: 20px;
-    overflow: hidden;
+<style>
+  .modal__content :global(ul) {
+    list-style: inside disc;
+  }
+
+  .modal {
+    position: fixed;
+    @apply z-[15];
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
+  .modal:not(.modal--is-visible) {
+    pointer-events: none;
+    background-color: transparent;
+  }
+
+  .modal--is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* close button */
+  .modal__close-btn {
     display: flex;
-    position: relative;
-    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    transition: 0.2s;
   }
-
-  .main {
-    display: flex;
-    max-width: 1200px;
-    flex-direction: column;
-    flex-grow: 1;
-
-    @media (max-width: 480px) {
-      padding: 40px 20px;
-    }
-  }
-
-  .main-content {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-
-    @media (max-width: 480px) {
-      gap: 10px;
-    }
-  }
-
-  .card:not(.active) .bio {
-    display: none;
-  }
-
-  .card.active .bio {
+  .modal__close-btn .icon {
     display: block;
+    margin: auto;
   }
 
-  .card {
-    border-radius: 20px;
-    overflow: hidden;
-    max-width: 100%;
-    contain: layout;
+  .modal__close-btn--outer {
+    /* close button - outside the modal__content */
+    width: 48px;
+    height: 48px;
+    position: fixed;
+    @apply top-3 lg:top-5;
+    @apply right-3 lg:right-5;
+    @apply z-10;
+    @apply bg-gray-900/90;
+    transition: 0.2s;
+  }
+  .modal__close-btn--outer .icon {
+    @apply text-white;
+    /* icon color */
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .modal__close-btn--outer:hover {
+    @apply bg-gray-900/100;
+  }
+  .modal__close-btn--outer:hover .icon {
+    transform: scale(1.1);
+  }
+
+  .modal__close-btn--inner {
+    /* close button - inside the modal__content */
+    --size: 32px;
+    width: var(--size);
+    height: var(--size);
+    @apply bg-white;
+    @apply shadow-md;
+    transition: 0.2s;
+  }
+  .modal__close-btn--inner .icon {
+    color: inherit;
+    /* icon color */
+  }
+  .modal__close-btn--inner:hover {
+    @apply bg-white;
+    @apply shadow-lg;
+  }
+
+  /* animations */
+  :root {
+    --modal-transition-duration: 0.2s;
+    /* fallback (i.e., unless specified differently in the variations 👇) */
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .modal--animate-fade {
+      --modal-transition-duration: 0.2s;
+      transition:
+        opacity var(--modal-transition-duration),
+        background-color var(--modal-transition-duration),
+        visibility 0s var(--modal-transition-duration);
+    }
+    .modal--animate-fade.modal--is-visible {
+      transition:
+        opacity var(--modal-transition-duration),
+        background-color var(--modal-transition-duration),
+        visibility 0s;
+    }
+
+    .modal--animate-scale,
+    .modal--animate-translate-up,
+    .modal--animate-translate-down,
+    .modal--animate-translate-right,
+    .modal--animate-translate-left {
+      --modal-transition-duration: 0.2s;
+      transition:
+        opacity var(--modal-transition-duration),
+        background-color var(--modal-transition-duration),
+        visibility 0s var(--modal-transition-duration);
+    }
+    .modal--animate-scale .modal__content,
+    .modal--animate-translate-up .modal__content,
+    .modal--animate-translate-down .modal__content,
+    .modal--animate-translate-right .modal__content,
+    .modal--animate-translate-left .modal__content {
+      will-change: transform;
+      transition: -webkit-transform var(--modal-transition-duration)
+        cubic-bezier(0.215, 0.61, 0.355, 1);
+      transition: transform var(--modal-transition-duration)
+        cubic-bezier(0.215, 0.61, 0.355, 1);
+      transition:
+        transform var(--modal-transition-duration)
+          cubic-bezier(0.215, 0.61, 0.355, 1),
+        -webkit-transform var(--modal-transition-duration) cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    .modal--animate-scale.modal--is-visible,
+    .modal--animate-translate-up.modal--is-visible,
+    .modal--animate-translate-down.modal--is-visible,
+    .modal--animate-translate-right.modal--is-visible,
+    .modal--animate-translate-left.modal--is-visible {
+      transition:
+        opacity var(--modal-transition-duration),
+        background-color var(--modal-transition-duration),
+        visibility 0s;
+    }
+    .modal--animate-scale.modal--is-visible .modal__content,
+    .modal--animate-translate-up.modal--is-visible .modal__content,
+    .modal--animate-translate-down.modal--is-visible .modal__content,
+    .modal--animate-translate-right.modal--is-visible .modal__content,
+    .modal--animate-translate-left.modal--is-visible .modal__content {
+      transform: scale(1);
+      /* reset all transformations */
+    }
+
+    .modal--animate-slide-up,
+    .modal--animate-slide-down,
+    .modal--animate-slide-right,
+    .modal--animate-slide-left {
+      --modal-transition-duration: 0.3s;
+      transition:
+        opacity 0s var(--modal-transition-duration),
+        background-color var(--modal-transition-duration),
+        visibility 0s var(--modal-transition-duration);
+    }
+    .modal--animate-slide-up .modal__content,
+    .modal--animate-slide-down .modal__content,
+    .modal--animate-slide-right .modal__content,
+    .modal--animate-slide-left .modal__content {
+      will-change: transform;
+      transition: -webkit-transform var(--modal-transition-duration)
+        cubic-bezier(0.215, 0.61, 0.355, 1);
+      transition: transform var(--modal-transition-duration)
+        cubic-bezier(0.215, 0.61, 0.355, 1);
+      transition:
+        transform var(--modal-transition-duration)
+          cubic-bezier(0.215, 0.61, 0.355, 1),
+        -webkit-transform var(--modal-transition-duration) cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    .modal--animate-slide-up.modal--is-visible,
+    .modal--animate-slide-down.modal--is-visible,
+    .modal--animate-slide-right.modal--is-visible,
+    .modal--animate-slide-left.modal--is-visible {
+      transition:
+        background-color var(--modal-transition-duration),
+        visibility 0s;
+    }
+    .modal--animate-slide-up.modal--is-visible .modal__content,
+    .modal--animate-slide-down.modal--is-visible .modal__content,
+    .modal--animate-slide-right.modal--is-visible .modal__content,
+    .modal--animate-slide-left.modal--is-visible .modal__content {
+      transform: scale(1);
+      /* reset all transformations */
+    }
+
+    /* scale */
+    .modal--animate-scale .modal__content {
+      -webkit-transform: scale(0.95);
+      transform: scale(0.95);
+    }
+
+    /* translate */
+    .modal--animate-translate-up .modal__content {
+      -webkit-transform: translateY(40px);
+      transform: translateY(40px);
+    }
+
+    .modal--animate-translate-down .modal__content {
+      -webkit-transform: translateY(-40px);
+      transform: translateY(-40px);
+    }
+
+    .modal--animate-translate-right .modal__content {
+      -webkit-transform: translateX(-40px);
+      transform: translateX(-40px);
+    }
+
+    .modal--animate-translate-left .modal__content {
+      -webkit-transform: translateX(40px);
+      transform: translateX(40px);
+    }
+
+    /* slide */
+    .modal--animate-slide-up .modal__content {
+      transform: translateY(100%);
+    }
+
+    .modal--animate-slide-down .modal__content {
+      transform: translateY(-100%);
+    }
+
+    .modal--animate-slide-right .modal__content {
+      -webkit-transform: translateX(-100%);
+      transform: translateX(-100%);
+    }
+
+    .modal--animate-slide-left .modal__content {
+      -webkit-transform: translateX(100%);
+      transform: translateX(100%);
+    }
+  }
+  /* load content - optional */
+  .modal--is-loading .modal__content {
+    visibility: hidden;
+  }
+  .modal--is-loading .modal__loader {
+    display: flex;
+  }
+
+  .modal__loader {
+    /* loader icon */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    pointer-events: none;
+  }
+
+  /* --image */
+  .modal-img-btn {
     position: relative;
-    z-index: 1;
     cursor: pointer;
-    width: auto;
-    aspect-ratio: 1/1;
-
-    @media (max-width: 480px) {
-      aspect-ratio: 1/1.4;
-    }
-
-    &.clicked {
-      position: absolute;
-      width: 500px;
-      height: 600px;
-      z-index: 2;
-    }
-
-    &.card-1 {
-      background-image: url("https://www.groupe-velletaz.com/wp-content/uploads/2022/12/Nathanael-Velletaz-Team-min.png");
-      view-transition-name: c1;
-    }
-
-    &.card-2 {
-      view-transition-name: c2;
-      background-image: url("https://www.groupe-velletaz.com/wp-content/uploads/2024/03/Eleonore-Velletaz-Team.png");
-    }
-    &.card-3 {
-      view-transition-name: c3;
-      background-image: url("https://www.groupe-velletaz.com/wp-content/uploads/2022/12/Eric-Velletaz-Team-min.png");
-    }
-    &.card-4 {
-      background-color: #e3dfec;
-      view-transition-name: c4;
-      background-image: url("https://www.groupe-velletaz.com/wp-content/uploads/2022/12/Chloe-Velletaz-Team-min.png");
-    }
-    &.card-5 {
-      background-image: url("https://www.groupe-velletaz.com/wp-content/uploads/2022/12/Jimmy-Velletaz-Team-min.png");
-      view-transition-name: c5;
-    }
-    &.card-6 {
-      background-color: #f8d7cd;
-      view-transition-name: c6;
-      background-image: url("https://www.groupe-velletaz.com/wp-content/uploads/2023/10/Solene-Velletaz-Team-min.webp");
-    }
+    height: 400px;
+  }
+  .modal-img-btn::after {
+    content: "";
+    position: absolute;
+    border-radius: 9999px;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    @apply bg-[var(--color-accent1)];
+    transition: background 0.2s;
+  }
+  .modal-img-btn:hover::after,
+  .modal-img-btn:focus::after {
+    @apply bg-[var(--color-accent2)];
+  }
+  .modal-img-btn figure {
+    top: 35px;
+    transition: all 0.3s;
+    clip-path: circle(100px at 50% 31%);
+    transform: scale(1);
+  }
+  .modal-img-btn:hover figure,
+  .modal-img-btn:focus figure {
+    top: -8px;
+    clip-path: circle(100px at 50% 37%);
+    transform: scale(1.4);
+  }
+  .modal-img-btn:hover .modal-img-btn__icon-wrapper {
+    opacity: 1;
   }
 
-  .card-img {
-    object-fit: cover;
-    background-size: cover;
-    background-position: center;
+  .modal-img-btn__icon-wrapper {
+    position: absolute;
+    z-index: 2;
+    top: calc(50% - 24px);
+    left: calc(50% - 24px);
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    @apply bg-gray-900/70;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .modal-img-btn__icon-wrapper .icon {
+    @apply text-white;
   }
 
-  .card-main {
-    view-transition-name: card1;
+  .modal .momentum-scrolling {
+    -webkit-overflow-scrolling: touch;
   }
 
-  .card.active {
-    grid-column: 1;
-    grid-column-end: 3;
-    grid-row: 1;
-    grid-row-end: 6;
-    z-index: 999;
-    aspect-ratio: 1/1;
+  /* icon loading animation */
+  .icon--is-spinning {
+    animation: icon-spin 1s infinite linear;
+  }
 
-    background-color: rgba(255, 255, 255, 0.8);
-    background-blend-mode: lighten;
-
-    @media (max-width: 480px) {
-      grid-column-end: 4;
-      aspect-ratio: 2/1;
+  @keyframes icon-spin {
+    0% {
+      transform: rotate(0deg);
     }
-  }
-
-  .main-content.expanded .card:not(.active) {
-    opacity: 0.4;
-    // pointer-events: none;
-    aspect-ratio: 3/1;
-    grid-column-start: 3;
-
-    @media (max-width: 480px) {
-      aspect-ratio: 1;
-      grid-column-start: auto;
+    100% {
+      transform: rotate(360deg);
     }
   }
 </style>
 
 <script>
-  const cards = document.querySelectorAll(".card");
-  const mainContent = document.querySelector(".main-content");
+  // File#: _1_modal-window
+  // Usage: codyhouse.co/license
+  (function () {
+    var Modal = function (element) {
+      this.element = element;
+      this.triggers = document.querySelectorAll(
+        '[aria-controls="' + this.element.getAttribute("id") + '"]'
+      );
+      this.firstFocusable = null;
+      this.lastFocusable = null;
+      this.moveFocusEl = null; // focus will be moved to this element when modal is open
+      this.modalFocus = this.element.getAttribute("data-modal-first-focus")
+        ? this.element.querySelector(
+            this.element.getAttribute("data-modal-first-focus")
+          )
+        : null;
+      this.selectedTrigger = null;
+      this.preventScrollEl = this.getPreventScrollEl();
+      this.showClass = "todal--is-visible";
+      this.initModal();
+    };
 
-  cards.forEach((card) => {
-    card.addEventListener("click", (event) => {
-      document.startViewTransition(() => {
-        if (!card.classList.contains("active")) {
-          mainContent.classList.add("expanded");
-          cards.forEach((item) => {
-            item.classList.remove("active");
+    Modal.prototype.getPreventScrollEl = function () {
+      var scrollEl = false;
+      var querySelector = this.element.getAttribute(
+        "data-modal-prevent-scroll"
+      );
+      if (querySelector) scrollEl = document.querySelector(querySelector);
+      return scrollEl;
+    };
+
+    Modal.prototype.initModal = function () {
+      var self = this;
+      //open modal when clicking on trigger buttons
+      if (this.triggers) {
+        for (var i = 0; i < this.triggers.length; i++) {
+          this.triggers[i].addEventListener("click", function (event) {
+            event.preventDefault();
+            // console.log(self.element.className);
+            if (self.element.classList.contains(self.showClass)) {
+              self.closeModal();
+              return;
+            }
+            self.selectedTrigger = event.currentTarget;
+
+            self.showModal();
+            self.initModalEvents();
           });
-          card.classList.add("active");
-        } else {
-          card.classList.remove("active");
-          mainContent.classList.remove("expanded");
         }
-      });
-    });
-  });
-</script>
--->
+      }
 
+      // listen to the openModal event -> open modal without a trigger button
+      this.element.addEventListener("openModal", function (event) {
+        if (event.detail) self.selectedTrigger = event.detail;
+        self.showModal();
+        self.initModalEvents();
+      });
+
+      // listen to the closeModal event -> close modal without a trigger button
+      this.element.addEventListener("closeModal", function (event) {
+        if (event.detail) self.selectedTrigger = event.detail;
+        self.closeModal();
+      });
+
+      // if modal is open by default -> initialise modal events
+      if (this.element.classList.contains(this.showClass))
+        this.initModalEvents();
+    };
+
+    Modal.prototype.showModal = function () {
+      var self = this;
+      this.element.classList.add(this.showClass);
+      this.getFocusableElements();
+      if (this.moveFocusEl) {
+        this.moveFocusEl.focus();
+        // wait for the end of transitions before moving focus
+        this.element.addEventListener("transitionend", function cb(event) {
+          self.moveFocusEl.focus();
+          self.element.removeEventListener("transitionend", cb);
+        });
+      }
+      document.documentElement.classList.add("overflow-hidden");
+      this.emitModalEvents("modalIsOpen");
+      // change the overflow of the preventScrollEl
+      if (this.preventScrollEl) this.preventScrollEl.style.overflow = "hidden";
+    };
+
+    Modal.prototype.closeModal = function () {
+      if (!this.element.classList.contains(this.showClass)) return;
+      this.element.classList.remove(this.showClass);
+      this.firstFocusable = null;
+      this.lastFocusable = null;
+      this.moveFocusEl = null;
+      if (this.selectedTrigger) this.selectedTrigger.focus();
+      //remove listeners
+      this.cancelModalEvents();
+      this.emitModalEvents("modalIsClose");
+      // change the overflow of the preventScrollEl
+      if (this.preventScrollEl) this.preventScrollEl.style.overflow = "";
+    };
+
+    Modal.prototype.initModalEvents = function () {
+      //add event listeners
+      console.log(this.element.classList);
+      this.element.addEventListener("keydown", this);
+      this.element.addEventListener("click", this);
+    };
+
+    Modal.prototype.cancelModalEvents = function () {
+      //remove event listeners
+      this.element.removeEventListener("keydown", this);
+      this.element.removeEventListener("click", this);
+    };
+
+    Modal.prototype.handleEvent = function (event) {
+      switch (event.type) {
+        case "click": {
+          this.initClick(event);
+        }
+        case "keydown": {
+          this.initKeyDown(event);
+        }
+      }
+    };
+
+    Modal.prototype.initKeyDown = function (event) {
+      if (
+        (event.keyCode && event.keyCode == 9) ||
+        (event.key && event.key == "Tab")
+      ) {
+        //trap focus inside modal
+        this.trapFocus(event);
+      } else if (
+        ((event.keyCode && event.keyCode == 13) ||
+          (event.key && event.key == "Enter")) &&
+        event.target.closest(".js-modal__close")
+      ) {
+        event.preventDefault();
+        this.closeModal(); // close modal when pressing Enter on close button
+      }
+    };
+
+    Modal.prototype.initClick = function (event) {
+      //close modal when clicking on close button or modal bg layer
+      if (
+        !event.target.closest(".js-modal__close") &&
+        !event.target.classList.contains("js-modal")
+      )
+        return;
+      event.preventDefault();
+      this.closeModal();
+    };
+
+    Modal.prototype.trapFocus = function (event) {
+      if (this.firstFocusable == document.activeElement && event.shiftKey) {
+        //on Shift+Tab -> focus last focusable element when focus moves out of modal
+        event.preventDefault();
+        this.lastFocusable.focus();
+      }
+      if (this.lastFocusable == document.activeElement && !event.shiftKey) {
+        //on Tab -> focus first focusable element when focus moves out of modal
+        event.preventDefault();
+        this.firstFocusable.focus();
+      }
+    };
+
+    Modal.prototype.getFocusableElements = function () {
+      //get all focusable elements inside the modal
+      var allFocusable = this.element.querySelectorAll(focusableElString);
+      this.getFirstVisible(allFocusable);
+      this.getLastVisible(allFocusable);
+      this.getFirstFocusable();
+    };
+
+    Modal.prototype.getFirstVisible = function (elements) {
+      //get first visible focusable element inside the modal
+      for (var i = 0; i < elements.length; i++) {
+        if (isVisible(elements[i])) {
+          this.firstFocusable = elements[i];
+          break;
+        }
+      }
+    };
+
+    Modal.prototype.getLastVisible = function (elements) {
+      //get last visible focusable element inside the modal
+      for (var i = elements.length - 1; i >= 0; i--) {
+        if (isVisible(elements[i])) {
+          this.lastFocusable = elements[i];
+          break;
+        }
+      }
+    };
+
+    Modal.prototype.getFirstFocusable = function () {
+      if (!this.modalFocus || !Element.prototype.matches) {
+        this.moveFocusEl = this.firstFocusable;
+        return;
+      }
+      var containerIsFocusable = this.modalFocus.matches(focusableElString);
+      if (containerIsFocusable) {
+        this.moveFocusEl = this.modalFocus;
+      } else {
+        this.moveFocusEl = false;
+        var elements = this.modalFocus.querySelectorAll(focusableElString);
+        for (var i = 0; i < elements.length; i++) {
+          if (isVisible(elements[i])) {
+            this.moveFocusEl = elements[i];
+            break;
+          }
+        }
+        if (!this.moveFocusEl) this.moveFocusEl = this.firstFocusable;
+      }
+    };
+
+    Modal.prototype.emitModalEvents = function (eventName) {
+      var event = new CustomEvent(eventName, {detail: this.selectedTrigger});
+      this.element.dispatchEvent(event);
+    };
+
+    function isVisible(element) {
+      return (
+        element.offsetWidth ||
+        element.offsetHeight ||
+        element.getClientRects().length
+      );
+    }
+
+    addEventListener("load", (event) => {
+      window.Modal = Modal;
+
+      //initialize the Modal objects
+      var modals = document.getElementsByClassName("js-modal");
+      // generic focusable elements string selector
+      var focusableElString =
+        '[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable], audio[controls], video[controls], summary';
+      if (modals.length > 0) {
+        var modalArrays = [];
+        for (var i = 0; i < modals.length; i++) {
+          (function (i) {
+            modalArrays.push(new Modal(modals[i]));
+          })(i);
+        }
+
+        window.addEventListener("keydown", function (event) {
+          //close modal window on esc
+          if (
+            (event.keyCode && event.keyCode == 27) ||
+            (event.key && event.key.toLowerCase() == "escape")
+          ) {
+            for (var i = 0; i < modalArrays.length; i++) {
+              (function (i) {
+                modalArrays[i].closeModal();
+              })(i);
+            }
+          }
+        });
+      }
+    });
+  })();
+</script>
