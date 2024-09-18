@@ -103,6 +103,7 @@ export default {
         {type: 'timeline'},
         {type: 'video'},
         {type: 'team'},
+        {type: 'contactmap'},
       ],
     },
   ],

@@ -1,8 +1,11 @@
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
+
 export default {
   name: 'map',
   type: 'document',
   title: 'Carte interactive',
   fields: [
+    copyPaste,
     {
       name: 'id',
       title: 'Ancre du composant',

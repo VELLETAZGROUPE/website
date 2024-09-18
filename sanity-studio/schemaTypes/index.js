@@ -15,6 +15,7 @@ import actupreview from './cmp/actupreview'
 import timeline from './cmp/timeline'
 import video from './cmp/video'
 import team from './cmp/team'
+import contactmap from './cmp/contactmap'
 
 export const schemaTypes = [
   global,
@@ -33,4 +34,5 @@ export const schemaTypes = [
   timeline,
   video,
   team,
+  contactmap,
 ]

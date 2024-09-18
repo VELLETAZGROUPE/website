@@ -9,34 +9,44 @@ const year = new Date().getFullYear() - 1987;
 let {node} = Astro.props;
 ---
 
-<section id={node.id || undefined} class="hero remove-margin">
-  {
-    node.img && (
-      <NetlifyImage
-        src={node.img.src}
-        alt={node.img.alt}
-        class={`hero-img sceneVertical ${node.img.duotone || undefined}`}
-      />
-    )
-  }
-  <div class="texte max-w-7xl mx-auto">
+<section
+  id={node.id || undefined}
+  class="hero my-16 py-16 remove-margin bg-[var(--color-accent1)] text-[var(--color-bg)]">
+  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
+    <div class="texte w-full lg:w-1/2">
+      {
+        node.heading && (
+          <HN class="h1" Level={node.heading.level}>
+            {node.heading.content}
+          </HN>
+        )
+      }
+      {
+        node.subheading && (
+          <div class="h4" data-year={year}>
+            <PortableText
+              value={node.subheading}
+              components={{
+                type: {
+                  button: Button,
+                },
+              }}
+            />
+          </div>
+        )
+      }
+    </div>
     {
-      node.heading && (
-        <HN class="h1" Level={node.heading.level}>
-          {node.heading.content}
-        </HN>
-      )
-    }
-    {
-      node.subheading && (
-        <div class="h4" data-year={year}>
-          <PortableText
-            value={node.subheading}
-            components={{
-              type: {
-                button: Button,
-              },
-            }}
+      node.img && (
+        <div class="relative w-full max-w-xl mx-auto lg:w-1/2 flex justify-center items-center overflow-hidden">
+          <img
+            src="/images/hero_clippath.svg"
+            class="absolute z-[2] max-w-none"
+          />
+          <NetlifyImage
+            src={node.img.src}
+            alt={node.img.alt}
+            class={`hero-img sceneVertical`}
           />
         </div>
       )
@@ -46,23 +56,23 @@ let {node} = Astro.props;
 
 <style>
   .hero {
-    height: 100vh;
     position: relative;
   }
+
   :global(.hero-img) {
     object-fit: cover;
     height: 100%;
     max-width: 100%;
+    min-width: 100%;
+    aspect-ratio: 170 / 236;
   }
+
   .texte {
-    position: absolute;
-    top: 25%;
-    padding: var(--space-l);
-    color: var(--color-bg);
     display: flex;
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
+    @apply pl-4 lg:pl-[var(--space-m)];
   }
   .texte :global(.h1) {
     border-color: var(--color-bg);

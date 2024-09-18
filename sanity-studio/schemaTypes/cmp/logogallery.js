@@ -1,8 +1,11 @@
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
+
 export default {
   name: 'logogallery',
   type: 'document',
   title: 'Galerie de logos',
   fields: [
+    copyPaste,
     {
       name: 'id',
       title: 'Ancre du composant',

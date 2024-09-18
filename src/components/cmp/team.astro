@@ -8,7 +8,7 @@ const {node} = Astro.props;
 <section class="py-12 lg:py-20 max-w-7xl mx-auto">
   {
     node.title && (
-      <div class="mb-5 lg:mb-8 flex flex-col justify-center items-center">
+      <div class="flex flex-col justify-center items-center">
         <PortableText
           value={node.title}
           components={{
@@ -25,17 +25,32 @@ const {node} = Astro.props;
     <ul class="feature-v20__list grid grid-cols-12 gap-0 lg:gap-8">
       {
         node.members.map((member, idx) => (
-          <li class="relative feature-v20__item min-w-0 col-span-12 md:col-span-6 lg:col-span-3 flex justify-center max-w-[300px]">
+          <li class="relative feature-v20__item min-w-0 col-span-12 md:col-span-6 lg:col-span-3 flex justify-center max-w-[300px] justify-self-center">
             <button
               class="modal-img-btn rounded"
               aria-controls={`modal-${idx + 1}`}
               aria-label="Show larger image preview">
-              <figure class="relative flex items-center justify-center mx-auto mt-0 mb-6">
-                <NetlifyImage src={member.img.src} alt={member.img.alt} />
-              </figure>
-
-              <div class="text-center -mt-32">
-                <p class="">{member.name}</p>
+              <div class="person">
+                <div class="wrap">
+                  <div class="wrap-inner">
+                    <svg
+                      class="circle"
+                      height="400"
+                      width="400"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <circle
+                        r="400"
+                        cx="200"
+                        cy="200"
+                        fill="var(--color-accent1)"
+                      />
+                    </svg>
+                    <img class="img img1" src={member.img.src} />
+                  </div>
+                </div>
+                <div class="divider" />
+                <div class="name text-center">{member.name}</div>
+                <div class="title text-center">{member.poste}</div>
               </div>
             </button>
             <div
@@ -100,6 +115,88 @@ const {node} = Astro.props;
 </section>
 
 <style>
+  .person {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+  }
+  .wrap {
+    border-radius: 50%;
+    height: 312px;
+    -webkit-tap-highlight-color: transparent;
+    transform: scale(0.48);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    width: 400px;
+  }
+  .wrap:after {
+    background-color: #f2f2f2;
+    content: "";
+    height: 10px;
+    position: absolute;
+    top: 390px;
+    width: 100%;
+  }
+  .wrap:hover {
+    transform: scale(0.54);
+  }
+  .wrap-inner {
+    clip-path: path(
+      "M 390,400 C 390,504.9341 304.9341,590 200,590 95.065898,590 10,504.9341 10,400 V 10 H 200 390 Z"
+    );
+    position: relative;
+    transform-origin: 50%;
+    top: -200px;
+  }
+  .circle {
+    background-color: #fee7d3;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 380px;
+    left: 10px;
+    pointer-events: none;
+    position: absolute;
+    top: 210px;
+    width: 380px;
+  }
+  .img {
+    pointer-events: none;
+    position: relative;
+    transform: translateY(20px) scale(1.15);
+    transform-origin: 50% bottom;
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .wrap:hover .img {
+    transform: translateY(0) scale(1.2);
+  }
+  .img1 {
+    left: 22px;
+    top: 164px;
+    width: 340px;
+  }
+  .img2 {
+    left: -46px;
+    top: 174px;
+    width: 444px;
+  }
+  .img3 {
+    left: -16px;
+    top: 144px;
+    width: 466px;
+  }
+  .divider {
+    background-color: var(--color-accent1);
+    height: 1px;
+    width: 160px;
+  }
+
+  .title {
+    color: var(--color-body-dim2);
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 4px;
+  }
+
   .modal__content :global(ul) {
     list-style: inside disc;
   }
@@ -356,35 +453,7 @@ const {node} = Astro.props;
     cursor: pointer;
     height: 400px;
   }
-  .modal-img-btn::after {
-    content: "";
-    position: absolute;
-    border-radius: 9999px;
-    z-index: -1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 200px;
-    height: 200px;
-    @apply bg-[var(--color-accent1)];
-    transition: background 0.2s;
-  }
-  .modal-img-btn:hover::after,
-  .modal-img-btn:focus::after {
-    @apply bg-[var(--color-accent2)];
-  }
-  .modal-img-btn figure {
-    top: 35px;
-    transition: all 0.3s;
-    clip-path: circle(100px at 50% 31%);
-    transform: scale(1);
-  }
-  .modal-img-btn:hover figure,
-  .modal-img-btn:focus figure {
-    top: -8px;
-    clip-path: circle(100px at 50% 37%);
-    transform: scale(1.4);
-  }
+
   .modal-img-btn:hover .modal-img-btn__icon-wrapper {
     opacity: 1;
   }

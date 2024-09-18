@@ -29,9 +29,6 @@ export default {
               name: 'img',
               title: 'Image',
               type: 'image',
-              initialValue: {
-                duotone: true,
-              },
               fields: [
                 {name: 'alt', type: 'string'},
                 {
