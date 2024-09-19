@@ -1,3 +1,5 @@
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
+
 export default {
   name: 'team',
   type: 'document',
@@ -25,6 +27,7 @@ export default {
           name: 'member',
           type: 'object',
           fields: [
+            copyPaste,
             {
               name: 'name',
               title: 'Nom',

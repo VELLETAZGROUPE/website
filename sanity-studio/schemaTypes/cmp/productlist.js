@@ -1,10 +1,11 @@
-import {useFormValue} from 'sanity'
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 export default {
   name: 'productlist',
   type: 'document',
   title: 'Liste de produits',
   fields: [
+    copyPaste,
     {
       name: 'id',
       title: 'Ancre du composant',

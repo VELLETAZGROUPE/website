@@ -1,8 +1,11 @@
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
+
 export default {
   name: 'tableofcontent',
   type: 'document',
   title: 'Liste avec table des matières',
   fields: [
+    copyPaste,
     {
       name: 'id',
       title: 'Ancre du composant',

@@ -31,7 +31,8 @@ export async function getStaticPaths() {
         _type == "timeline" => {_type,id,title,events},
         _type == "video" => {_type, id, title, ytID, img{alt,duotone,'src':asset->url}},
         _type == "team" => {_type, id,title,members[]{millesime, devise, parcours, poste,aime,aimepas,cepage,qualite,defaut,anecdote,img{'src':asset->url},name,}},
-        _type == "contactmap" => {_type, id, title},
+        _type == "contactmap" => {_type, id, title, address, mail, tel,horaires, mapImg{'src':asset->url},iframesrc},
+        _type == "testimonials" => {_type, id, title}
       }
     }`
   );

@@ -104,6 +104,7 @@ export default {
         {type: 'video'},
         {type: 'team'},
         {type: 'contactmap'},
+        {type: 'testimonials'},
       ],
     },
   ],

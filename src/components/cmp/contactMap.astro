@@ -1,45 +1,70 @@
-<section class="contact relative z-[1]">
+---
+import NetlifyImage from "../NetlifyImage.astro";
+import {PortableText} from "astro-portabletext";
+
+const {node} = Astro.props;
+
+console.log(node.address);
+---
+
+<section class="contact relative z-[1] mb-8">
   <div
     class="w-[calc(100%_-_2.5rem)] lg:w-[calc(100%_-_4rem)] mx-auto max-w-7xl">
-    <div class="mb-8 lg:mb-12">
-      <h1 class="text-center">Contact Us</h1>
-    </div>
-
+    {
+      node.title && (
+        <div class="mb-8 lg:mb-12">
+          <PortableText value={node.title} />
+        </div>
+      )
+    }
     <div class="grid grid-cols-12 gap-8 lg:gap-12">
       <div class="col-span-12 lg:col-span-6">
         <dl class="details-list details-list--rows">
-          <div
-            class="details-list__item py-5 lg:py-8 lg:flex lg:justify-between">
-            <dt class="font-bold mb-1.5 lg:mb-0">Address</dt>
-            <dd class="leading-snug lg:text-right">
-              86 Whitby Road <br />IP20 6JA <br />London, UK
-            </dd>
-          </div>
+          {
+            node.address && (
+              <div class="details-list__item py-5 lg:py-8 lg:flex lg:justify-between">
+                <dt class="font-bold mb-1.5 lg:mb-0">Adresse</dt>
+                <dd class="leading-snug lg:text-right">
+                  <PortableText value={node.address} />
+                </dd>
+              </div>
+            )
+          }
 
-          <div
-            class="details-list__item py-5 lg:py-8 lg:flex lg:justify-between">
-            <dt class="font-bold mb-1.5 lg:mb-0">Email</dt>
-            <dd>
-              <a
-                class="underline text-indigo-700"
-                href="mailto:webmaster@example.com">
-                hello@myemail.com
-              </a>
-            </dd>
-          </div>
+          {
+            node.mail && (
+              <div class="details-list__item py-5 lg:py-8 lg:flex lg:justify-between">
+                <dt class="font-bold mb-1.5 lg:mb-0">Email</dt>
+                <dd>
+                  <a
+                    class="underline text-[var(--color-accent1)]"
+                    href={`mailto:${node.mail}`}>
+                    {node.mail}
+                  </a>
+                </dd>
+              </div>
+            )
+          }
 
-          <div
-            class="details-list__item py-5 lg:py-8 lg:flex lg:justify-between">
-            <dt class="font-bold mb-1.5 lg:mb-0">Phone</dt>
-            <dd class="leading-snug lg:text-right">
-              <p>
-                <a class="underline text-indigo-700" href="tel:+44 7656 6455">
-                  +44 7656 6455
-                </a>
-              </p>
-              <p class="text-gray-500">Mon - Fri, 9AM - 5PM</p>
-            </dd>
-          </div>
+          {
+            node.tel && (
+              <div class="details-list__item py-5 lg:py-8 lg:flex lg:justify-between">
+                <dt class="font-bold mb-1.5 lg:mb-0">Téléphone</dt>
+                <dd class="leading-snug lg:text-right">
+                  <p>
+                    <a
+                      class="underline text-[var(--color-accent1)]"
+                      href={`tel:${node.tel}`}>
+                      {node.tel}
+                    </a>
+                  </p>
+                  {node.horaires && (
+                    <p class="text-gray-500">{node.horaires}</p>
+                  )}
+                </dd>
+              </div>
+            )
+          }
         </dl>
       </div>
 
@@ -47,11 +72,40 @@
         role="application"
         class="google-maps rounded col-span-12 lg:col-span-6 lg:h-auto lg:pb-0 js-google-maps"
         data-coordinates="51.5658015,-0.40339">
-        <!-- Google Map -->
+        <p class="font-bold mb-1.5 lg:mb-0">Nous rendre visite</p>
+        <NetlifyImage
+          src="https://velletaz-draft.netlify.app/images/maps_vaucluse.png"
+          alt="Google map Velletaz Vaucluse"
+        />
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  const mapsDiv = document.querySelector(".google-maps");
+  const facade = mapsDiv.querySelector("img");
+
+  mapsDiv.addEventListener(
+    "pointerover",
+    () => {
+      let iframeEl = document.createElement("iframe");
+      iframeEl.width = facade.width.toString();
+      iframeEl.height = facade.height.toString();
+      // iframeEl.style='border:0';
+      iframeEl.allowFullscreen = false;
+      iframeEl.loading = "lazy";
+      iframeEl.referrerPolicy = "no-referrer-when-downgrade";
+      iframeEl.src =
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3576.3745125154214!2d4.916699876687355!3d44.12290952192422!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12b58fbfcc891999%3A0xa95d234f6e276d68!2sP%C3%A9pini%C3%A8res%20Viticoles%20Velletaz%20Groupe%20-%20Agence%20Vaucluse!5e1!3m2!1sfr!2sfr!4v1726683159302!5m2!1sfr!2sfr";
+      mapsDiv.removeChild(mapsDiv.querySelector("img"));
+      mapsDiv.append(iframeEl);
+    },
+    {
+      once: true,
+    }
+  );
+</script>
 
 <style>
   /* --------------------------------
@@ -188,7 +242,6 @@ Usage: codyhouse.co/license
 -------------------------------- */
   .google-maps {
     width: 100%;
-    height: 0;
     padding-bottom: 56.25%;
   }
 

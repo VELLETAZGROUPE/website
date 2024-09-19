@@ -4,6 +4,7 @@ import {PortableText} from "astro-portabletext";
 import Block from "./Block.astro";
 import List from "./List.astro";
 import Link from "./Link.astro";
+import type Testimonials from "./cmp/testimonials.astro";
 
 const composants = await Astro.glob("./cmp/*.astro");
 
@@ -58,6 +59,9 @@ if (data) {
       team: composants.find((cmp) => cmp.default.name === "team").default,
       contactmap: composants.find((cmp) => cmp.default.name === "contactMap")
         .default,
+      testimonials: composants.find(
+        (cmp) => cmp.default.name === "testimonials"
+      ).default,
     },
   }}
 />

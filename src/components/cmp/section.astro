@@ -8,8 +8,9 @@ const {node} = Astro.props;
 
 <section
   id={node.id || undefined}
-  class={`remove-margin ${node.bg ? node.bg : ""} ${node.useCol ? "doubleCol" : ""}`}>
-  <div class={`${node.img?.src ? "withimg" : ""}  max-w-7xl mx-auto section`}>
+  class={`remove-margin  ${node.useCol ? "doubleCol" : ""}`}>
+  <div
+    class={`${node.img?.src ? "withimg" : ""}  max-w-7xl mx-auto section ${node.bg ? node.bg : ""}`}>
     {
       node.img?.src && (
         <div class="image">
@@ -31,7 +32,7 @@ const {node} = Astro.props;
 </section>
 
 <style>
-  .text:has(> :nth-child(1):last-child) {
+  .text:has(> :not(a):nth-child(1):last-child) {
     font-family: var(--headings);
     font-size: clamp(2.7994rem, 1.9432rem + 4.281vw, 5.2609rem);
     line-height: 1.2;
@@ -73,7 +74,7 @@ const {node} = Astro.props;
   }
 
   .section.green :global(a.bordeau:hover, a.bordeau:focus) {
-    box-shadow: inset 10em 0 0 0 var(--color-accent1-dim);
+    box-shadow: inset 100em 0 0 0 var(--color-accent1-dim);
     color: var(--color-body);
   }
 
