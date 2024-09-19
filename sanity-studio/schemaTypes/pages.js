@@ -105,6 +105,7 @@ export default {
         {type: 'team'},
         {type: 'contactmap'},
         {type: 'testimonials'},
+        {type: 'contactform'},
       ],
     },
   ],

@@ -17,6 +17,7 @@ import video from './cmp/video'
 import team from './cmp/team'
 import contactmap from './cmp/contactmap'
 import testimonials from './cmp/testimonials'
+import contactform from './cmp/contactform'
 
 export const schemaTypes = [
   global,
@@ -37,4 +38,5 @@ export const schemaTypes = [
   team,
   contactmap,
   testimonials,
+  contactform,
 ]

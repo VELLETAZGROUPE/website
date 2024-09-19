@@ -1,0 +1,168 @@
+---
+import {PortableText} from "astro-portabletext";
+
+const {node} = Astro.props;
+
+console.log(node);
+---
+
+<!-- Hire Us -->
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+  <!-- Grid -->
+  <div class="grid md:grid-cols-2 items-center gap-12">
+    <div>
+      <PortableText value={node.title} />
+    </div>
+    <!-- End Col -->
+
+    <div class="relative">
+      <!-- Card -->
+      <div
+        class="flex flex-col border border-[var(--color-body)] p-4 sm:p-6 lg:p-10">
+        <p class="h4">{node.formName}</p>
+
+        <form
+          netlify
+          name={node.formName}
+          method="POST"
+          data-success={node.form.success || undefined}>
+          <div class="mt-6 grid gap-4 lg:gap-6">
+            <!-- Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+              <div>
+                <label for="prenom" class="block mb-2 text-sm font-medium">
+                  {node.form.prenom.title}
+                </label>
+                <input
+                  type="text"
+                  name="prenom"
+                  id="prenom"
+                  placeholder={node.form.prenom.placeholder}
+                  class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
+                />
+              </div>
+
+              <div>
+                <label for="nom" class="block mb-2 text-sm font-medium">
+                  {node.form.nom.title}
+                </label>
+                <input
+                  type="text"
+                  name="nom"
+                  id="nom"
+                  placeholder={node.form.nom.placeholder}
+                  class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
+                />
+              </div>
+            </div>
+            <!-- End Grid -->
+
+            <div>
+              <label for="email" class="block mb-2 text-sm font-medium">
+                {node.form.mail.title}
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder={node.form.mail.placeholder}
+                autocomplete="email"
+                class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
+              />
+            </div>
+
+            <div>
+              <label for="telephone" class="block mb-2 text-sm font-medium">
+                {node.form.tel.title}
+              </label>
+              <input
+                type="text"
+                name="telephone"
+                id="telephone"
+                placeholder={node.form.tel.placeholder}
+                autocomplete="tel"
+                class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
+              />
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+              <div>
+                <label for="societe" class="block mb-2 text-sm font-medium">
+                  {node.form.societe.title}
+                </label>
+                <input
+                  type="text"
+                  name="societe"
+                  id="societe"
+                  placeholder={node.form.societe.placeholder}
+                  class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
+                />
+              </div>
+
+              <div>
+                <label for="codepostal" class="block mb-2 text-sm font-medium">
+                  {node.form.postcode.title}
+                </label>
+                <input
+                  type="text"
+                  name="codepostal"
+                  id="codepostal"
+                  placeholder={node.form.postcode.placeholder}
+                  class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
+                />
+              </div>
+            </div>
+            <!-- End Grid -->
+
+            <!-- prettier-ignore -->
+            <div>
+              <label
+                for="message"
+                class="block mb-2 text-sm font-medium">
+                {node.form.message.title}
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                placeholder={node.form.message.placeholder}
+                class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"></textarea>
+            </div>
+          </div>
+        </form>
+        <!-- End Grid -->
+
+        <!-- Checkbox -->
+        <div class="mt-3 flex">
+          <div class="flex">
+            <input
+              id="rgpd"
+              name="rgpd"
+              type="checkbox"
+              class="shrink-0 mt-1.5 border-gray-200 rounded text-[var(--color-accent1)] accent-[var(--color-bg)] focus:ring-[var(--color-accent1)]"
+            />
+          </div>
+          <div class="ms-3">
+            <label for="remember-me" class="text-sm text-gray-600">
+              {node.form.rgpd}
+            </label>
+          </div>
+        </div>
+        <!-- End Checkbox -->
+
+        <div class="mt-6 grid">
+          <button
+            type="submit"
+            class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[var(--color-accent1)] text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+            {node.form.btntext}
+          </button>
+        </div>
+      </div>
+      <!-- End Card -->
+    </div>
+    <!-- End Col -->
+  </div>
+  <!-- End Grid -->
+</div>
+<!-- End Hire Us -->
