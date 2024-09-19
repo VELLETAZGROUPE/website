@@ -82,27 +82,29 @@ const {node} = Astro.props;
 
 <script>
   const mapsDiv = document.querySelector(".google-maps");
-  const facade = mapsDiv.querySelector("img");
 
-  mapsDiv.addEventListener(
-    "pointerover",
-    () => {
-      let iframeEl = document.createElement("iframe");
-      iframeEl.width = facade.width.toString();
-      iframeEl.height = facade.height.toString();
-      // iframeEl.style='border:0';
-      iframeEl.allowFullscreen = false;
-      iframeEl.loading = "lazy";
-      iframeEl.referrerPolicy = "no-referrer-when-downgrade";
-      iframeEl.src =
-        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3576.3745125154214!2d4.916699876687355!3d44.12290952192422!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12b58fbfcc891999%3A0xa95d234f6e276d68!2sP%C3%A9pini%C3%A8res%20Viticoles%20Velletaz%20Groupe%20-%20Agence%20Vaucluse!5e1!3m2!1sfr!2sfr!4v1726683159302!5m2!1sfr!2sfr";
-      mapsDiv.removeChild(mapsDiv.querySelector("img"));
-      mapsDiv.append(iframeEl);
-    },
-    {
-      once: true,
-    }
-  );
+  if (mapsDiv) {
+    const facade = mapsDiv.querySelector("img");
+    mapsDiv.addEventListener(
+      "pointerover",
+      () => {
+        let iframeEl = document.createElement("iframe");
+        iframeEl.width = facade.width.toString();
+        iframeEl.height = facade.height.toString();
+        // iframeEl.style='border:0';
+        iframeEl.allowFullscreen = false;
+        iframeEl.loading = "lazy";
+        iframeEl.referrerPolicy = "no-referrer-when-downgrade";
+        iframeEl.src =
+          "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3576.3745125154214!2d4.916699876687355!3d44.12290952192422!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12b58fbfcc891999%3A0xa95d234f6e276d68!2sP%C3%A9pini%C3%A8res%20Viticoles%20Velletaz%20Groupe%20-%20Agence%20Vaucluse!5e1!3m2!1sfr!2sfr!4v1726683159302!5m2!1sfr!2sfr";
+        mapsDiv.removeChild(mapsDiv.querySelector("img"));
+        mapsDiv.append(iframeEl);
+      },
+      {
+        once: true,
+      }
+    );
+  }
 </script>
 
 <style>
