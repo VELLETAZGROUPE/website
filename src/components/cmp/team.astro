@@ -2,6 +2,9 @@
 import {PortableText} from "astro-portabletext";
 import Button from "../Button.astro";
 import NetlifyImage from "../NetlifyImage.astro";
+import {nanoid} from "nanoid/non-secure";
+const uid = nanoid(5);
+
 const {node} = Astro.props;
 ---
 
@@ -28,7 +31,7 @@ const {node} = Astro.props;
           <li class="relative feature-v20__item min-w-0 col-span-12 md:col-span-6 lg:col-span-3 flex justify-center max-w-[300px] justify-self-center">
             <button
               class="modal-img-btn rounded"
-              aria-controls={`modal-${idx + 1}`}
+              aria-controls={`modal-${uid}-${idx + 1}`}
               aria-label="Show larger image preview">
               <div class="person">
                 <div class="wrap">
@@ -54,7 +57,7 @@ const {node} = Astro.props;
               </div>
             </button>
             <div
-              id={`modal-${idx + 1}`}
+              id={`modal-${uid}-${idx + 1}`}
               class="modal modal--animate-scale flex justify-center items-center bg-gray-900/90 p-5 lg:p-8 js-modal"
               data-modal-prevent-scroll="html">
               <div
