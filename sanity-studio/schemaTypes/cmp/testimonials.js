@@ -19,5 +19,34 @@ export default {
       type: 'array',
       of: [{type: 'block'}, {type: 'button'}],
     },
+    {
+      name: 'testimonials',
+      title: 'Avis',
+      type: 'array',
+      of: [
+        {
+          name: 'testimonialobj',
+          type: 'object',
+          fields: [
+            {
+              name: 'content',
+              type: 'text',
+              title: 'Avis',
+              description: 'Des guillemets seront ajoutés automatiquement au début et à la fin.',
+            },
+            {
+              name: 'name',
+              type: 'string',
+              title: "Nom de la personne ayant laissé l'avis",
+            },
+            {
+              name: 'function',
+              type: 'string',
+              title: 'Entreprise ou fonction occupée',
+            },
+          ],
+        },
+      ],
+    },
   ],
 }
