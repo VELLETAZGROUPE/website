@@ -4,9 +4,13 @@ import NetlifyImage from "../NetlifyImage.astro";
 import HN from "../HN.astro";
 
 const {node} = Astro.props;
+
+let noimg = node.items[0].img?.src ? false : true;
 ---
 
-<section id={node.id || undefined} class="tableofcontent max-w-7xl mx-auto">
+<section
+  id={node.id || undefined}
+  class={`tableofcontent max-w-7xl mx-auto ${noimg ? "noimg" : ""}`}>
   <div class="hiw-v4__container">
     <div class="hiw-v4__grid-1">
       <div>
@@ -14,21 +18,23 @@ const {node} = Astro.props;
           <div class="hiw-v4__title">
             <PortableText value={node.title} />
             <div class="toc toc--static@md js-toc">
-              <nav class="toc__nav">
-                <ul class="toc__list js-toc__list">
-                  {
-                    node.items.map((item, idx) => (
-                      <li>
-                        <a
-                          class="toc__link js-smooth-scroll"
-                          href={`#item${idx + 1}`}>
-                          {item.toctitle}
-                        </a>
-                      </li>
-                    ))
-                  }
-                </ul>
-              </nav>
+              {
+                noimg && (
+                  <nav class="toc__nav">
+                    <ul class="toc__list js-toc__list">
+                      {node.items.map((item, idx) => (
+                        <li>
+                          <a
+                            class="toc__link js-smooth-scroll"
+                            href={`#item${idx + 1}`}>
+                            {item.toctitle}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                )
+              }
             </div>
           </div>
         </div>
@@ -84,7 +90,7 @@ const {node} = Astro.props;
     gap: var(--space-lg);
   }
 
-  .hiw-v4__grid-2 {
+  .tableofcontent:not(.noimg) .hiw-v4__grid-2 {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-lg);
@@ -99,6 +105,15 @@ const {node} = Astro.props;
     height: 450px;
     object-fit: cover;
     margin-bottom: var(--space-s);
+  }
+
+  .hiw-v4__title :global(h1),
+  .hiw-v4__title :global(h2),
+  .hiw-v4__title :global(h3),
+  .hiw-v4__title :global(h4),
+  .hiw-v4__title :global(h5),
+  .hiw-v4__title :global(h6) {
+    margin-block: 0;
   }
 
   @media (min-width: 64rem) {
@@ -129,7 +144,7 @@ const {node} = Astro.props;
   }
 
   @media (min-width: 90rem) {
-    .hiw-v4__grid-2 {
+    .tableofcontent:not(.noimg) .hiw-v4__grid-2 {
       gap: var(--space-xl);
     }
   }
@@ -297,9 +312,13 @@ const {node} = Astro.props;
     stroke-dashoffset: 10;
   }
 
-  .toc-content__target {
+  .tableofcontent:not(.noimg) .toc-content__target {
     scroll-margin-top: var(--space-3xs);
     margin-block: var(--space-l);
+  }
+
+  .tableofcontent.noimg .toc-content__target {
+    scroll-margin-top: var(--space-3xs);
   }
 
   /* #endregion */
