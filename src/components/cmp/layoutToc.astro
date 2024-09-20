@@ -3,72 +3,73 @@ import {PortableText} from "astro-portabletext";
 import NetlifyImage from "../NetlifyImage.astro";
 import HN from "../HN.astro";
 
-const {node} = Astro.props;
+let {node} = Astro.props;
 
 let noimg = node.items[0].img?.src ? false : true;
 ---
 
-<section
-  id={node.id || undefined}
-  class={`tableofcontent max-w-7xl mx-auto ${noimg ? "noimg" : ""}`}>
-  <div class="hiw-v4__container">
-    <div class="hiw-v4__grid-1">
-      <div>
-        <div class="hiw-v4__flex-container-1">
-          <div class="hiw-v4__title">
-            <PortableText value={node.title} />
-            <div class="toc toc--static@md js-toc">
-              {
-                noimg && (
-                  <nav class="toc__nav">
-                    <ul class="toc__list js-toc__list">
-                      {node.items.map((item, idx) => (
-                        <li>
-                          <a
-                            class="toc__link js-smooth-scroll"
-                            href={`#item${idx + 1}`}>
-                            {item.toctitle}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </nav>
-                )
-              }
+{
+  node && (
+    <section
+      id={node.id || undefined}
+      class={`tableofcontent max-w-7xl mx-auto ${noimg ? "noimg" : ""}`}>
+      <div class="hiw-v4__container">
+        <div class="hiw-v4__grid-1">
+          <div>
+            <div class="hiw-v4__flex-container-1">
+              <div class="hiw-v4__title">
+                <PortableText value={node.title} />
+                <div
+                  class={`toc toc--static@md js-toc ${noimg ? " noimg" : ""}`}>
+                  {!noimg && (
+                    <nav class="toc__nav">
+                      <ul class="toc__list js-toc__list">
+                        {node.items.map((item, idx) => (
+                          <li>
+                            <a
+                              class="toc__link js-smooth-scroll"
+                              href={`#item${idx + 1}`}>
+                              {item.toctitle}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </nav>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="toc-content js-toc-content">
+              <ul class="hiw-v4__grid-2">
+                {node.items.map((item, idx) => (
+                  <li id={`item${idx + 1}`} class="toc-content__target">
+                    {item.img && (
+                      <NetlifyImage
+                        src={item.img.src}
+                        alt={item.img.alt}
+                        class={`hiw-v4__img ${item.img.duotone || ""}`}
+                      />
+                    )}
+
+                    <div class="hy3-text-component">
+                      <HN class="hy3-text-lg h4" Level={item.level}>
+                        {item.toctitle}
+                      </HN>
+                      <p set:html={item.toctext} />
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
       </div>
-
-      <div>
-        <div class="toc-content js-toc-content">
-          <ul class="hiw-v4__grid-2">
-            {
-              node.items.map((item, idx) => (
-                <li id={`item${idx + 1}`} class="toc-content__target">
-                  {item.img && (
-                    <NetlifyImage
-                      src={item.img.src}
-                      alt={item.img.alt}
-                      class={`hiw-v4__img ${item.img.duotone || ""}`}
-                    />
-                  )}
-
-                  <div class="hy3-text-component">
-                    <HN class="hy3-text-lg h4" Level={item.level}>
-                      {item.toctitle}
-                    </HN>
-                    <p set:html={item.toctext} />
-                  </div>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
+  )
+}
 
 <style>
   .tableofcontent {
@@ -704,9 +705,9 @@ let noimg = node.items[0].img?.src ? false : true;
     var tocsArray = [];
     if (tocs.length > 0) {
       for (var i = 0; i < tocs.length; i++) {
-        (function (i) {
+        if (!tocs[i].classList.contains("noimg")) {
           tocsArray.push(new Toc(tocs[i]));
-        })(i);
+        }
       }
 
       // listen to window scroll -> reset clickScrolling property
