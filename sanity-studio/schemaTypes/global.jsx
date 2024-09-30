@@ -8,8 +8,32 @@ export default {
     {name: 'menu', title: 'Menu'},
     {name: 'theme', title: 'Thème'},
     {name: 'social', title: 'Réseaux Sociaux'},
+    {name: 'newsletter', title: 'Newsletter'},
   ],
   fields: [
+    {
+      name: 'newsletter',
+      title: 'Newsletter',
+      type: 'object',
+      fields: [
+        {
+          name: 'title',
+          title: 'Titre',
+          type: 'array',
+          of: [{type: 'block'}, {type: 'button'}],
+        },
+        {
+          name: 'placeholder',
+          title: 'Email placeholder',
+          type: 'string',
+        },
+        {
+          name: 'btnname',
+          title: 'Nom du bouton "Envoyer"',
+          type: 'string',
+        },
+      ],
+    },
     {
       name: 'redirects',
       type: 'array',
@@ -58,11 +82,8 @@ export default {
             {name: 'url', type: 'string', title: 'URL du lien'},
             {
               name: 'svg',
-              type: 'image',
+              type: 'inlineSvg',
               title: 'Icone',
-              options: {
-                accept: 'image/svg+xml',
-              },
             },
           ],
         },

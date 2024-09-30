@@ -1,1 +1,169 @@
-<footer>le footer !</footer>
+---
+import {PortableText} from "astro-portabletext";
+
+const currentyear = new Date().getFullYear();
+
+let QUERY, URLQUERY;
+
+//FETCH MENU ORGANISATION AND LOGO FROM GLOBAL
+QUERY = encodeURIComponent(`
+*[_type == "global"]{
+  logo,
+  links[]{
+    'url':url->slug,
+    "hasurl": url,
+    nom,
+    subpages[]{
+      nom,
+      'url':url->slug
+    }
+  },
+  newsletter,
+  networks,
+}`);
+// Compose the URL for your project's endpoint and add the query
+// ⚠️ Don't forget to change PROJECT_ID & DATASET from .env
+URLQUERY = `https://${
+  import.meta.env.PROJECT_ID
+}.api.sanity.io/v2021-10-21/data/query/${
+  import.meta.env.DATASET
+}?query=${QUERY}`;
+// fetch the content
+// Global is a singleton, so you return the first element of the array (result[0])
+let data = await fetch(URLQUERY)
+  .then((res) => res.json())
+  .then(({result}) => {
+    return result[0];
+  })
+  .catch((err) => console.error(err));
+
+for (let i = 0; i < data.links.length; i++) {
+  if (data.links[i].hasurl) {
+    data.links[i].url = data.links[i].url ?? "";
+  }
+  if (data.links[i].subpages) {
+    for (let j = 0; j < data.links[i].subpages.length; j++) {
+      data.links[i].subpages[j].url = data.links[i].subpages[j].url ?? "";
+    }
+  }
+}
+---
+
+<footer>
+  <section>
+    <div class="px-8 py-12 mx-auto md:px-10 lg:px-12 max-w-7xl relative">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-12 gap-4">
+        <div class="col-span-full md:col-span-5">
+          <a
+            href="/"
+            class="font-medium w-full sm:w-auto group flex gap-3 items-center">
+            <!-- <img class="h-7 2xl:h-12" src={data.logo} alt="#_" /> -->
+            <div class="h-24 min-w-48 md:min-w-64 ml-0">
+              <Fragment set:html={data.logo} />
+            </div>
+          </a>
+          <div class="mt-8">
+            <div class="intro_newsletter">
+              <PortableText value={data.newsletter.title} />
+            </div>
+            <form class="w-full mt-8 sm:flex sm:max-w-md">
+              <label for="email-address" class="sr-only">Adresse email</label>
+              <input
+                id="email-address"
+                type="email"
+                name="email-address"
+                autocomplete="email"
+                placeholder={data.newsletter.placeholder}
+                aria-placeholder={data.newsletter.placeholder}
+                required=""
+                class="block w-full h-10 px-4 py-2 shadow text-sm border border-transparent appearance-none bg-white placeholder-gray-400 focus:border-gray-300 focus:bg-transparent focus:outline-none focus:ring-blue-500 focus:ring-offset-2 focus:ring-2 duration-300 sm:text-sm"
+              />
+              <div class="mt-2 sm:ml-2 sm:mt-0 sm:flex-shrink-0">
+                <button
+                  id="newsletter_send"
+                  type="submit"
+                  class="flex items-center w-full sm:w-auto justify-center h-10 px-4 py-2 text-sm font-medium transition-all duration-200 focus:ring-2 focus:ring-offset-2 lg:w-auto">
+                  {data.newsletter.btnname}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div
+          class="grid pt-6 mt-6 border-t grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-24 col-span-full md:col-start-7">
+          {
+            data.links.map((page, idx) => (
+              <nav aria-labelledby={`footer-heading-${idx}`}>
+                {page.url != null && (
+                  <a
+                    class="text-md leading-tight font-bold block"
+                    id={`footer-heading-${idx}`}
+                    href={`/${page.url}`}>
+                    {page.nom}
+                  </a>
+                )}
+                {page.url == null && (
+                  <span
+                    id={`footer-heading-${idx}`}
+                    class="text-sm font-bold block">
+                    {page.nom}
+                  </span>
+                )}
+                {page.subpages && (
+                  <ul class="text-sm pl-4 mt-4">
+                    {page.subpages.map((woot) => (
+                      <li>
+                        <a href={`/${woot.url}`}>{woot.nom}</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </nav>
+            ))
+          }
+        </div>
+      </div>
+      <div
+        class="pt-12 mt-12 border-t flex flex-col gap-8 sm:flex-row sm:items-center justify-between">
+        <p class="border-gray-700 text-gray-400 text-sm">
+          Fait avec ♥️ par <a href="www.huitquatre.fr">huitquatre</a> - © {
+            currentyear
+          }
+        </p>
+        <nav
+          aria-labelledby="social-icons-heading"
+          role="navigation"
+          class="flex items-center gap-4 text-gray-500">
+          <p id="social-icons-heading" class="sr-only">
+            Nous suivre sur les réseaux sociaux
+          </p>
+          {
+            data.networks.map((network) => (
+              <a
+                href={network.url}
+                aria-label={`Nous suivre sur ${network.nom}`}>
+                <Fragment set:html={network.svg} />
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </div>
+  </section>
+</footer>
+
+<style>
+  #newsletter_send {
+    background-color: var(--color-accent1);
+    color: var(--color-bg);
+  }
+  #newsletter_send:hover {
+    box-shadow: inset 100em 0 0 0 var(--color-accent2-dim);
+  }
+  .intro_newsletter :global(*:not(h1, h2, h3, h4, h5, h6)) {
+    @apply text-base;
+  }
+  .intro_newsletter :global(h1, h2, h3, h4, h5, h6) {
+    margin-block: var(--space-xs) !important;
+  }
+</style>
