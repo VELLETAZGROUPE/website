@@ -14,11 +14,9 @@ node.text.map((section) => {
 let uniq = blockcnt > 1 ? false : true;
 ---
 
-<section
-  id={node.id || undefined}
-  class={`remove-margin  ${node.useCol ? "doubleCol" : ""}`}>
+<section id={node.id || undefined} class={`remove-margin`}>
   <div
-    class={`${node.img?.src ? "withimg" : ""}  max-w-7xl mx-auto section ${node.bg ? node.bg : ""}`}>
+    class={`${node.img?.src ? "withimg" : "withoutimg"} section ${node.bg ? node.bg : ""}`}>
     {
       node.img?.src && (
         <div class="image">
@@ -46,16 +44,9 @@ let uniq = blockcnt > 1 ? false : true;
     margin-block-end: var(--space-2xl);
   }
 
-  .section.doubleCol :global(h2) {
-    @apply break-after-auto lg:break-after-column;
-  }
   .section {
     @apply py-4 md:py-8 lg:py-12 xl:py-16 columns-1;
     column-gap: 4rem;
-  }
-
-  .section:global(.doubleCol) {
-    @apply lg:columns-2;
   }
 
   .wrap-margin {
@@ -64,6 +55,18 @@ let uniq = blockcnt > 1 ? false : true;
 
   .withimg {
     @apply flex flex-col md:flex-row gap-6;
+  }
+
+  .withoutimg {
+    @apply mx-auto w-fit;
+  }
+
+  .withoutimg > div {
+    @apply max-w-none;
+  }
+
+  .withoutimg :global(h1, h2, h3, h4, h5, h6) {
+    @apply text-center;
   }
 
   .withimg > * {

@@ -264,7 +264,12 @@ export default {
           title: 'Item du menu',
           fields: [
             {name: 'nom', type: 'string', title: 'Nom du lien'},
-            {name: 'url', type: 'reference', title: 'URL du lien', to: [{type: 'page'}]},
+            {
+              name: 'url',
+              type: 'reference',
+              title: 'URL du lien',
+              to: [{type: 'page'}, {type: 'categories'}],
+            },
             {
               name: 'subpages',
               type: 'array',
@@ -276,7 +281,12 @@ export default {
                   title: 'Item du sous-menu',
                   fields: [
                     {name: 'nom', type: 'string', title: 'Nom du lien'},
-                    {name: 'url', type: 'reference', title: 'URL du lien', to: [{type: 'page'}]},
+                    {
+                      name: 'url',
+                      type: 'reference',
+                      title: 'URL du lien',
+                      to: [{type: 'page'}, {type: 'categories'}],
+                    },
                   ],
                 },
               ],

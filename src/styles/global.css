@@ -63,6 +63,8 @@ h6 {
   line-height: 1.2;
   letter-spacing: -0.02em;
   white-space: break-spaces;
+  padding-block: var(--space-m);
+  @apply max-w-7xl mx-auto;
   /* text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3); */
 }
 
@@ -120,7 +122,7 @@ h1 {
   font-size: clamp(2.7994rem, 1.9432rem + 4.281vw, 5.2609rem);
   margin-block-end: var(--space-xl);
   padding-block-end: var(--space-s);
-  border-bottom: var(--color-body) solid var(--fluid-2-6);
+  border-bottom: currentColor solid var(--fluid-2-6);
   line-height: 1;
 }
 
@@ -152,11 +154,12 @@ h6 {
 }
 
 p {
-  max-width: 65ch;
+  max-width: 75ch;
   line-height: 1.5;
   font-family: var(--body);
   font-weight: 400;
   font-size: clamp(1.125rem, 1.0815rem + 0.2174vw, 1.25rem);
+  margin-inline: auto;
 }
 
 p+p,
@@ -173,6 +176,7 @@ h5.texte-libre,
 h6.texte-libre {
   text-align: center;
   white-space: break-spaces;
+  @apply max-w-7xl mx-auto my-16 pb-8;
 }
 
 .texte-libre {

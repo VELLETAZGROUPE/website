@@ -1,7 +1,7 @@
 export default {
-  name: 'page',
+  name: 'categories',
   type: 'document',
-  title: 'Pages',
+  title: 'Catégorie',
   groups: [
     {
       name: 'seo',

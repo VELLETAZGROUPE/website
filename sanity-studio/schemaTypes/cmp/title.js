@@ -1,14 +1,9 @@
 import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 
 export default {
-  name: 'section',
+  name: 'title',
   type: 'document',
-  title: 'Section',
-  preview: {
-    select: {
-      title: 'text',
-    },
-  },
+  title: 'Bloc Titre',
   fields: [
     copyPaste,
     {
@@ -19,34 +14,28 @@ export default {
       type: 'string',
     },
     {
-      name: 'text',
+      name: 'content',
       type: 'array',
-      of: [{type: 'block'}, {type: 'button'}],
       title: 'Texte',
+      of: [{type: 'block'}, {type: 'button'}],
     },
     {
       name: 'img',
       title: 'Image',
       type: 'image',
-      initialValue: {
-        duotone: false,
-      },
       fields: [
         {name: 'alt', type: 'string'},
-        {name: 'duotone', type: 'boolean'},
+        {
+          name: 'duotone',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'Accent1', value: 'duoAccent1'},
+              {title: 'Accent2', value: 'duoAccent2'},
+            ],
+          },
+        },
       ],
-    },
-    {
-      name: 'bg',
-      type: 'string',
-      title: 'Couleur du fond',
-      options: {
-        list: [
-          {title: 'Blanc', value: 'white'},
-          {title: 'Vert', value: 'green'},
-          {title: 'Bordeau', value: 'red'},
-        ],
-      },
     },
   ],
 }

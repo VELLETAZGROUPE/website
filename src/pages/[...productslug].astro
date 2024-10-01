@@ -5,10 +5,10 @@ import Fonts from "../styles/fonts.astro";
 import Colors from "../styles/colors.astro";
 import Filters from "../styles/filters.astro";
 
+import {request} from "./request.js";
+
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-
-import {request} from "./request.js";
 
 import "../styles/global.css";
 
@@ -16,7 +16,7 @@ export async function getStaticPaths() {
   let QUERY, URL;
 
   //FETCH PAGE, CAT CONTENT
-  QUERY = encodeURIComponent(`*[_type=="page"]{${request}}`);
+  QUERY = encodeURIComponent(`*[_type=="products"]{${request}}`);
 
   // Compose the URL for your project's endpoint and add the query
   URL = `https://${
@@ -34,24 +34,24 @@ export async function getStaticPaths() {
 
   let pages = data.map((page) => {
     return {
-      pageslug: page.seo.slug,
+      productslug: page.seo.slug,
       seo: page.seo,
       content: page.content,
     };
   });
-  return pages.map(({pageslug, seo, content}) => {
-    if (pageslug == null) {
-      pageslug = undefined;
+  return pages.map(({productslug, seo, content}) => {
+    if (productslug == null) {
+      productslug = undefined;
     }
     return {
-      params: {pageslug},
+      params: {productslug},
       props: {seo, content},
     };
   });
 }
 
-const {pageslug} = Astro.params;
-console.log(pageslug);
+const {productslug} = Astro.params;
+console.log(productslug);
 const {seo, content} = Astro.props;
 
 //ADD EAGER LOADING TO FIRST IMAGE
@@ -94,6 +94,14 @@ if (content) {
         delay: 0.6,
         transition: "cubic-bezier(0,0,0,1)",
       });
+      let parallaxVerticalSmall = document.querySelectorAll(
+        ".sceneVerticalSmall"
+      );
+      new simpleParallax(parallaxVerticalSmall, {
+        scale: 1.1,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+      });
       let parallaxHorizontal = document.querySelectorAll(".sceneHorizontal");
       new simpleParallax(parallaxHorizontal, {
         orientation: "right",
@@ -104,7 +112,7 @@ if (content) {
       let parallaxTextRight = document.querySelectorAll(".sceneTextRight");
       new simpleParallax(parallaxTextRight, {
         orientation: "right",
-        scale: 1.1,
+        scale: 1.8,
         delay: 0.6,
         transition: "cubic-bezier(0,0,0,1)",
         overflow: "true",

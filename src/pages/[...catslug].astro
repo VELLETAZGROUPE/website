@@ -16,7 +16,7 @@ export async function getStaticPaths() {
   let QUERY, URL;
 
   //FETCH PAGE, CAT CONTENT
-  QUERY = encodeURIComponent(`*[_type=="page"]{${request}}`);
+  QUERY = encodeURIComponent(`*[_type=="categories"]{${request}}`);
 
   // Compose the URL for your project's endpoint and add the query
   URL = `https://${
@@ -34,24 +34,24 @@ export async function getStaticPaths() {
 
   let pages = data.map((page) => {
     return {
-      pageslug: page.seo.slug,
+      catslug: page.seo.slug,
       seo: page.seo,
       content: page.content,
     };
   });
-  return pages.map(({pageslug, seo, content}) => {
-    if (pageslug == null) {
-      pageslug = undefined;
+  return pages.map(({catslug, seo, content}) => {
+    if (catslug == null) {
+      catslug = undefined;
     }
     return {
-      params: {pageslug},
+      params: {catslug},
       props: {seo, content},
     };
   });
 }
 
-const {pageslug} = Astro.params;
-console.log(pageslug);
+const {catslug} = Astro.params;
+console.log(catslug);
 const {seo, content} = Astro.props;
 
 //ADD EAGER LOADING TO FIRST IMAGE

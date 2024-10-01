@@ -1,29 +1,13 @@
 export default {
-  name: 'page',
+  name: 'products',
   type: 'document',
-  title: 'Pages',
+  title: 'Produit',
   groups: [
     {
       name: 'seo',
       title: 'SEO',
     },
   ],
-  preview: {
-    select: {
-      title: 'name',
-      subtitle: 'slug',
-    },
-    prepare(selection) {
-      let {title, subtitle} = selection
-      if (subtitle == undefined) {
-        subtitle = 'ACCUEIL - HOMEPAGE'
-      }
-      return {
-        title: `${title}`,
-        subtitle: `slug: ${subtitle}`,
-      }
-    },
-  },
   fields: [
     {
       name: 'name',
@@ -31,6 +15,22 @@ export default {
       title: 'Nom de la page',
       description: "Ce paramètre n'est utilisé que dans le CMS et ne change pas le slug",
       validation: (Rule) => Rule.required().warning('Le nom de la page est obligatoire'),
+    },
+    {
+      name: 'category',
+      type: 'reference',
+      to: [{type: 'categories'}],
+    },
+    {
+      name: 'filtre',
+      type: 'string',
+      title: 'Filtre',
+      options: {
+        list: [
+          {value: 'noir', title: 'Noir'},
+          {value: 'blanc', title: 'Blanc'},
+        ],
+      },
     },
     {
       name: 'title',

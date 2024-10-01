@@ -1,6 +1,8 @@
 import global from './global'
 import pages from './pages'
 import posts from './posts'
+import products from './products'
+import categories from './categories'
 
 import feature from './cmp/feature'
 import hero from './cmp/hero'
@@ -18,11 +20,16 @@ import team from './cmp/team'
 import contactmap from './cmp/contactmap'
 import testimonials from './cmp/testimonials'
 import contactform from './cmp/contactform'
+import title from './cmp/title'
+import tabs from './cmp/tabs'
+import cta from './cmp/cta'
 
 export const schemaTypes = [
   global,
   pages,
   posts,
+  products,
+  categories,
   feature,
   hero,
   button,
@@ -39,4 +46,7 @@ export const schemaTypes = [
   contactmap,
   testimonials,
   contactform,
+  title,
+  tabs,
+  cta,
 ]

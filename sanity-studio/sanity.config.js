@@ -35,6 +35,8 @@ export default defineConfig({
 
             // Regular document types
             S.documentTypeListItem('page').title('Pages'),
+            S.documentTypeListItem('categories').title('Catégorie de produits'),
+            S.documentTypeListItem('products').title('Produits'),
             S.documentTypeListItem('post').title('Articles de blog'),
           ]),
     }),
