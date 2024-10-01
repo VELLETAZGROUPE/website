@@ -88,6 +88,14 @@ if (content) {
       import "../scripts/lenis.js";
 
       import simpleParallax from "simple-parallax-js";
+      let textWrap = document.querySelector(".textwrap");
+      if (textWrap) {
+        if (window.matchMedia("(min-width: 1024px)").matches) {
+          textWrap.classList.add("sceneTextRight");
+        } else {
+          textWrap.classList.add("sceneTextBottom");
+        }
+      }
       let parallaxVertical = document.querySelectorAll(".sceneVertical");
       new simpleParallax(parallaxVertical, {
         scale: 1.4,
@@ -112,6 +120,14 @@ if (content) {
       let parallaxTextRight = document.querySelectorAll(".sceneTextRight");
       new simpleParallax(parallaxTextRight, {
         orientation: "right",
+        scale: 1.8,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+        overflow: "true",
+      });
+      let parallaxTextBottom = document.querySelectorAll(".sceneTextBottom");
+      new simpleParallax(parallaxTextBottom, {
+        orientation: "down",
         scale: 1.8,
         delay: 0.6,
         transition: "cubic-bezier(0,0,0,1)",
