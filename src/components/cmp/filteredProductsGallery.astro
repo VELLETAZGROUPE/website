@@ -137,7 +137,7 @@ for (let filter of uniqueFilters) {
             <li
               class={`col-span-12 md:col-span-6 lg:col-span-${node.col || "4"} js-filter__item`}
               data-filter={product.filters}>
-              <div class="prod-card">
+              <div class="prod-card flex flex-col justify-center items-center">
                 <a class="prod-card__img-link" href={product.link}>
                   {product.img && (
                     <figure class="prod-card__img aspect-w-1 aspect-h-1 relative">
@@ -150,19 +150,19 @@ for (let filter of uniqueFilters) {
                   )}
                 </a>
 
-                {product.itemtext && (
+                {product.producttitle && (
                   <div class="producttext p-3 lg:p-5">
-                    {product.producttitle && (
-                      <HN Level={product.level}>{product.producttitle}</HN>
+                    <HN Level={product.level}>{product.producttitle}</HN>
+                    {product.itemtext && (
+                      <PortableText
+                        value={product.itemtext}
+                        components={{
+                          type: {
+                            button: Button,
+                          },
+                        }}
+                      />
                     )}
-                    <PortableText
-                      value={product.itemtext}
-                      components={{
-                        type: {
-                          button: Button,
-                        },
-                      }}
-                    />
                   </div>
                 )}
               </div>
@@ -182,6 +182,7 @@ for (let filter of uniqueFilters) {
   .producttext :global(h6) {
     margin-block: var(--space-m);
   }
+
   /* --expanded version */
   .filter-nav--expanded {
     /* --v1 */
@@ -384,6 +385,9 @@ for (let filter of uniqueFilters) {
 
   .prod-card__img :global(img.small) {
     height: 250px;
+    width: 250px;
+    margin-inline: auto;
+    object-fit: cover;
   }
 
   .prod-card__img :global(img.medium) {

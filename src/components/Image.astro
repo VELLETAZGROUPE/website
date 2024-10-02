@@ -1,0 +1,7 @@
+---
+import NetlifyImage from "./NetlifyImage.astro";
+
+const {node} = Astro.props;
+---
+
+<NetlifyImage src={node.src} alt={node.alt} class={node.duotone || undefined} />

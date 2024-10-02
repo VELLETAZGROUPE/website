@@ -23,6 +23,7 @@ import contactform from './cmp/contactform'
 import title from './cmp/title'
 import tabs from './cmp/tabs'
 import cta from './cmp/cta'
+import img from './cmp/img'
 
 export const schemaTypes = [
   global,
@@ -49,4 +50,5 @@ export const schemaTypes = [
   title,
   tabs,
   cta,
+  img,
 ]

@@ -56,13 +56,13 @@ for (let i = 0; i < data.links.length; i++) {
         <div class="col-span-full md:col-span-5">
           <a
             href="/"
-            class="font-medium w-full sm:w-auto group flex gap-3 items-center">
+            class="font-medium w-full sm:w-auto group flex gap-3 items-center justify-center">
             <!-- <img class="h-7 2xl:h-12" src={data.logo} alt="#_" /> -->
             <div class="h-24 min-w-48 md:min-w-64 ml-0">
               <Fragment set:html={data.logo} />
             </div>
           </a>
-          <div class="mt-8">
+          <div class="">
             <div class="intro_newsletter">
               <PortableText value={data.newsletter.title} />
             </div>
@@ -90,7 +90,7 @@ for (let i = 0; i < data.links.length; i++) {
           </div>
         </div>
         <div
-          class="grid pt-6 mt-6 border-t grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-24 col-span-full md:col-start-7">
+          class="grid pt-6 mt-6 border-t border-[var(--color-body-dim2)] grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-24 col-span-full md:col-start-7">
           {
             data.links.map((page, idx) => (
               <nav aria-labelledby={`footer-heading-${idx}`}>
@@ -124,8 +124,8 @@ for (let i = 0; i < data.links.length; i++) {
         </div>
       </div>
       <div
-        class="pt-12 mt-12 border-t flex flex-col gap-8 sm:flex-row sm:items-center justify-between">
-        <p class="border-gray-700 text-gray-400 text-sm">
+        class="pt-12 mt-12 border-t border-[var(--color-body-dim2)] flex flex-col gap-8 sm:flex-row sm:items-center justify-between">
+        <p class="border-gray-700">
           Fait avec ♥️ par <a href="www.huitquatre.fr">huitquatre</a> - © {
             currentyear
           }
@@ -133,7 +133,7 @@ for (let i = 0; i < data.links.length; i++) {
         <nav
           aria-labelledby="social-icons-heading"
           role="navigation"
-          class="flex items-center gap-4 text-gray-500">
+          class="flex items-center gap-4">
           <p id="social-icons-heading" class="sr-only">
             Nous suivre sur les réseaux sociaux
           </p>

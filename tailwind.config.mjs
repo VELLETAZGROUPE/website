@@ -8,5 +8,6 @@ export default {
       },
     },
   },
+  safelist: ["lg:col-span-4", "lg:col-span-3", "lg:col-span-6"],
   plugins: [],
 };

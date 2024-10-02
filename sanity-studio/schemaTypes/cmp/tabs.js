@@ -14,6 +14,16 @@ export default {
       type: 'string',
     },
     {
+      name: 'title',
+      title: 'Titre',
+      type: 'string',
+    },
+    {
+      name: 'baseline',
+      title: 'Sous-titre',
+      type: 'string',
+    },
+    {
       name: 'onglets',
       title: 'Onglets',
       type: 'array',
@@ -31,7 +41,7 @@ export default {
               name: 'content',
               type: 'array',
               title: 'Texte',
-              of: [{type: 'block'}, {type: 'button'}],
+              of: [{type: 'block'}, {type: 'button'}, {type: 'img'}],
             },
           ],
         },

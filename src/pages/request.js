@@ -17,6 +17,6 @@ export let request = `"seo": {title,description,slug,robots,canonical,schema,"og
         _type == "testimonials" => {_type, id, title, testimonials},
         _type == 'contactform' => {_type,id,title, formName, form},
         _type == 'title' => {_type, id, content, img{alt,duotone,'src':asset->url}},
-        _type == 'tabs' => {_type, id, onglets},
-        _type == 'cta' => {_type, id},
+        _type == 'tabs' => {_type, id, onglets[]{title,content[]{...,_type=='img'=>{"alt":img.alt,"duotone":img.duotone,'src':img.asset->url}}}, title, baseline},
+        _type == 'cta' => {_type, id, content, img{alt,duotone,'src':asset->url}},
       }`;

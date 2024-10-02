@@ -1,21 +1,8 @@
 export default {
-  name: 'cta',
+  name: 'img',
   type: 'document',
-  title: 'CTA',
+  title: 'Image',
   fields: [
-    {
-      name: 'id',
-      title: 'Ancre du composant',
-      description:
-        'Un lien vers /slug/#ancre peut être utilisé pour naviguer directement à cet endroit.',
-      type: 'string',
-    },
-    {
-      name: 'content',
-      title: 'Texte',
-      type: 'array',
-      of: [{type: 'block'}, {type: 'button'}],
-    },
     {
       name: 'img',
       title: 'Image',

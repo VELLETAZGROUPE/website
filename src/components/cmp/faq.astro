@@ -1,0 +1,48 @@
+---
+import {PortableText} from "astro-portabletext";
+import Button from "../Button.astro";
+import Image from "../Image.astro";
+
+const {node} = Astro.props;
+console.dir(node.onglets[2], {depth: null});
+---
+
+<section class="lg:my-24">
+  <div
+    class="px-8 py-24 mx-auto md:px-12 lg:px-24 max-w-7xl relative lg:border lg:border-[var(--color-accent1)]">
+    <div>
+      <p class="h2 mt-4 mx-0 lg:text-balance">{node.title}</p>
+      <p class="mt-6 ml-0">
+        {node.baseline}
+      </p>
+    </div>
+    <dl class="space-y-8 divide-y divide-[var(--color-body-dim2)] mt-12">
+      {
+        node.onglets.map((onglet) => (
+          <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-12">
+            <dt class="tracking-tight text-lg font-medium text-[var(--color-accent1)] lg:col-span-5">
+              {onglet.title}
+            </dt>
+            <dd class="mt-4 lg:col-span-7 lg:mt-0 content">
+              <PortableText
+                value={onglet.content}
+                components={{
+                  type: {
+                    button: Button,
+                    img: Image,
+                  },
+                }}
+              />
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .content :global(img) {
+    @apply max-h-64 w-auto mb-4 mx-auto;
+  }
+</style>

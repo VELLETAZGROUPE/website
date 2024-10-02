@@ -102,6 +102,15 @@ if (content) {
         delay: 0.6,
         transition: "cubic-bezier(0,0,0,1)",
       });
+      let parallaxVerticalOverflow = document.querySelectorAll(
+        ".sceneVerticalOverflow"
+      );
+      new simpleParallax(parallaxVerticalOverflow, {
+        scale: 1.4,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+        overflow: true,
+      });
       let parallaxVerticalSmall = document.querySelectorAll(
         ".sceneVerticalSmall"
       );
