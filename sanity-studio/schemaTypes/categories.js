@@ -33,6 +33,11 @@ export default {
       validation: (Rule) => Rule.required().warning('Le nom de la page est obligatoire'),
     },
     {
+      name: 'img',
+      type: 'image',
+      title: "Image utilisée pour l'affichage des produits",
+    },
+    {
       name: 'title',
       type: 'string',
       title: 'Title',
@@ -110,6 +115,9 @@ export default {
         {type: 'tabs'},
         {type: 'cta'},
         {type: 'biglist2'},
+        {type: 'productlistcat'},
+        {type: 'steps'},
+        {type: 'faq'},
       ],
     },
   ],

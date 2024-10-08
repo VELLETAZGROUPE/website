@@ -4,6 +4,7 @@ import {PortableText} from "astro-portabletext";
 import Block from "./Block.astro";
 import List from "./List.astro";
 import Link from "./Link.astro";
+import productlistcat from "../../sanity-studio/schemaTypes/cmp/productlistcat";
 
 const composants = await Astro.glob("./cmp/*.astro");
 
@@ -12,8 +13,6 @@ let value;
 if (data) {
   value = data.map((e) => ({...e, ...context}));
 }
-
-console.log(data);
 ---
 
 <PortableText
@@ -68,8 +67,13 @@ console.log(data);
       contactform: composants.find((cmp) => cmp.default.name === "contactForm")
         .default,
       title: composants.find((cmp) => cmp.default.name === "title").default,
-      tabs: composants.find((cmp) => cmp.default.name === "faq").default,
+      tabs: composants.find((cmp) => cmp.default.name === "fichetech").default,
       cta: composants.find((cmp) => cmp.default.name === "cta").default,
+      productlistcat: composants.find(
+        (cmp) => cmp.default.name === "productlistcat"
+      ).default,
+      steps: composants.find((cmp) => cmp.default.name === "steps").default,
+      faq: composants.find((cmp) => cmp.default.name === "faq").default,
     },
   }}
 />

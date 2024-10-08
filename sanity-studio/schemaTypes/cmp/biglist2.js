@@ -1,3 +1,5 @@
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
+
 export default {
   name: 'biglist2',
   type: 'document',
@@ -6,6 +8,7 @@ export default {
     order: false,
   },
   fields: [
+    copyPaste,
     {
       name: 'id',
       title: 'Ancre du composant',

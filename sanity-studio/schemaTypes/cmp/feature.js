@@ -1,3 +1,5 @@
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
+
 export default {
   name: 'feature',
   type: 'document',
@@ -16,6 +18,7 @@ export default {
     },
   },
   fields: [
+    copyPaste,
     {
       name: 'id',
       title: 'Ancre du composant',

@@ -3,7 +3,7 @@ import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
 export default {
   name: 'productlist',
   type: 'document',
-  title: 'Liste de produits',
+  title: 'Liste de produits (manuel)',
   fields: [
     copyPaste,
     {

@@ -1,0 +1,41 @@
+---
+import {PortableText} from "astro-portabletext";
+const {node} = Astro.props;
+
+console.log(node);
+---
+
+<section>
+  <div class="px-8 pb-16 mx-auto md:px-12 lg:px-24 max-w-7xl relative">
+    <div class="max-w-xl lg:text-balance texte">
+      <PortableText value={node.title} />
+    </div>
+    <dl class="flex flex-col mt-12 divide-y divide-[var(--color-accent1)]">
+      <!-- Loop through each step in the array -->
+      {
+        node.steps.map((step, idx) => (
+          <div class="grid grid-cols-1 lg:grid-cols-2 py-4">
+            <div class="text-[var(--color-accent1)] flex gap-3 items-center">
+              <span class="size-8 rounded-full flex items-center justify-center bg-[var(--color-accent1)] text-white">
+                {idx + 1}
+              </span>
+              <dt>
+                <p class="tracking-tight text-xl font-medium">{step.name}</p>
+              </dt>
+            </div>
+            <dd class="mt-2">
+              <p class="text-base font-medium">{step.description}</p>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .texte :global(h1, h2, h3, h4, h5, h6) {
+    text-align: left;
+    margin-block: 0 !important;
+  }
+</style>

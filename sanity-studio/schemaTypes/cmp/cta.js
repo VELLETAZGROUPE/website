@@ -1,8 +1,22 @@
+import {copyPaste} from '@superside-oss/sanity-plugin-copy-paste'
+
 export default {
   name: 'cta',
   type: 'document',
   title: 'CTA',
+  preview: {
+    select: {
+      title: 'name',
+    },
+    prepare(selection) {
+      let {title} = selection
+      return {
+        title: `CTA`,
+      }
+    },
+  },
   fields: [
+    copyPaste,
     {
       name: 'id',
       title: 'Ancre du composant',

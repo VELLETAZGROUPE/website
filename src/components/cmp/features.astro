@@ -180,9 +180,9 @@ const {node} = Astro.props;
   .sticky-feature__media-item {
     position: absolute;
     z-index: 1;
-    top: 0;
+    top: var(--space-xl);
     left: 0;
-    height: 100%;
+    height: auto;
     width: 100%;
     display: flex;
     align-items: center;
@@ -208,8 +208,8 @@ const {node} = Astro.props;
 
   @media (min-width: 64rem) {
     .sticky-feature__content-list {
-      padding-top: 50vh;
-      padding-bottom: 50vh;
+      padding-top: 25vh;
+      padding-bottom: 40vh;
     }
 
     :global(.sticky-feature__title) {

@@ -25,6 +25,9 @@ import tabs from './cmp/tabs'
 import cta from './cmp/cta'
 import img from './cmp/img'
 import biglist2 from './cmp/biglist2'
+import productlistcat from './cmp/productlistcat'
+import steps from './cmp/steps'
+import faq from './cmp/faq'
 
 export const schemaTypes = [
   global,
@@ -53,4 +56,7 @@ export const schemaTypes = [
   cta,
   img,
   biglist2,
+  productlistcat,
+  steps,
+  faq,
 ]

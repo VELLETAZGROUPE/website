@@ -176,7 +176,7 @@ h3.texte-libre,
 h4.texte-libre,
 h5.texte-libre,
 h6.texte-libre {
-  text-align: center;
+  text-align: left;
   white-space: break-spaces;
   @apply max-w-xl mx-auto my-16 pb-8;
 }
@@ -250,9 +250,9 @@ blockquote:before {
 }
 
 .duoAccent1 {
-  filter: url(#duotone-accent1) contrast(1.5);
+  filter: url(#duotone-accent1);
 }
 
 .duoAccent2 {
-  filter: url(#duotone-accent2) contrast(1.5);
+  filter: url(#duotone-accent2);
 }
