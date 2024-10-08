@@ -1,0 +1,47 @@
+---
+import {PortableText} from "astro-portabletext";
+import NetlifyImage from "../NetlifyImage.astro";
+const {node} = Astro.props;
+---
+
+<section class="icons">
+  <div class="px-8 py-32 mx-auto max-w-7xl relative">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div class={`${node.order ? "lg:order-last" : ""} title lg:sticky top-8`}>
+        <PortableText value={node.title} />
+      </div>
+      <dl class="flex flex-col gap-10">
+        {
+          node.items.map((item) => (
+            <div class="flex flex-col">
+              <div class="flex gap-3 items-center">
+                <NetlifyImage
+                  src={item.img.src}
+                  alt={item.img.alt}
+                  class="w-12"
+                />
+                <dt class="tracking-tight text-lg font-medium text-base-900">
+                  {item.itemtitle}
+                </dt>
+              </div>
+              <dd class="mt-2 text-sm text-base-500 text-pretty">
+                <PortableText value={item.itemtext} />
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .title :global(*) {
+    text-align: start;
+  }
+
+  .title :global(h1, h2, h3, h4, h5, h6) {
+    margin-block-start: var(--space-l) !important;
+    padding-block-start: 0 !important;
+  }
+</style>

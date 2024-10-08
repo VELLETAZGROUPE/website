@@ -1,7 +1,10 @@
 export default {
-  name: 'biglist',
+  name: 'biglist2',
   type: 'document',
-  title: 'Liste & icônes',
+  title: 'Liste & images',
+  initialValue: {
+    order: false,
+  },
   fields: [
     {
       name: 'id',
@@ -17,6 +20,11 @@ export default {
       of: [{type: 'block'}, {type: 'button'}],
     },
     {
+      name: 'order',
+      title: 'Inverser colonne ?',
+      type: 'boolean',
+    },
+    {
       name: 'size',
       title: 'Taille des images',
       type: 'string',
@@ -27,11 +35,6 @@ export default {
           {title: 'Petites', value: 'small'},
         ],
       },
-    },
-    {
-      name: 'order',
-      title: 'Inverser colonne ?',
-      type: 'boolean',
     },
     {
       name: 'items',

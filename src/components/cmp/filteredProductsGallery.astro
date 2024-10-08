@@ -174,13 +174,13 @@ for (let filter of uniqueFilters) {
 </section>
 
 <style>
-  .producttext :global(h1),
-  .producttext :global(h2),
-  .producttext :global(h3),
-  .producttext :global(h4),
-  .producttext :global(h5),
-  .producttext :global(h6) {
+  .producttext :global(h1, h2, h3, h4, h5, h6) {
     margin-block: var(--space-m);
+    text-align: left;
+  }
+
+  .producttext :global(*):only-child {
+    text-align: center;
   }
 
   /* --expanded version */

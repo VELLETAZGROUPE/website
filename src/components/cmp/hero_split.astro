@@ -1,0 +1,64 @@
+---
+import NetlifyImage from "../NetlifyImage.astro";
+import HN from "../HN.astro";
+import {PortableText} from "astro-portabletext";
+import Button from "../Button.astro";
+
+const year = new Date().getFullYear() - 1987;
+
+let {node} = Astro.props;
+---
+
+<div
+  class=`split ${node.fullscreen ? "h-screen" : ""} max-w-7xl mx-auto grid grid-cols-6 items-center`>
+  <div class={`texte px-8 ${node.imgsize || "spanhalf"}`}>
+    {
+      node.texte && (
+        <div class="h4" data-year={year}>
+          <PortableText
+            value={node.texte}
+            components={{
+              type: {
+                button: Button,
+              },
+            }}
+          />
+        </div>
+      )
+    }
+  </div>
+  {
+    node.img && (
+      <div class={`image w-full h-full ${node.imgsize || "spanhalf"}`}>
+        <NetlifyImage
+          src={node.img.src}
+          alt={node.img.alt}
+          class={`h-full w-full object-cover sceneVertical`}
+        />
+      </div>
+    )
+  }
+</div>
+
+<style>
+  :global(section):has(.split) {
+    @apply bg-[var(--color-bg)] text-[var(--color-body)];
+  }
+
+  .texte :global(*) {
+    margin-inline-start: 0;
+  }
+
+  .texte.spanthird {
+    @apply col-span-4;
+  }
+  .image.spanthird {
+    @apply col-span-2;
+  }
+  .texte.spanhalf {
+    @apply col-span-3;
+  }
+  .image.spanhalf {
+    @apply col-span-3;
+  }
+</style>

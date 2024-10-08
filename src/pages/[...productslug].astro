@@ -93,7 +93,7 @@ if (content) {
         if (window.matchMedia("(min-width: 1024px)").matches) {
           textWrap.classList.add("sceneTextRight");
         } else {
-          textWrap.classList.add("sceneTextBottom");
+          textWrap.classList.remove("sceneTextRight");
         }
       }
       let parallaxVertical = document.querySelectorAll(".sceneVertical");

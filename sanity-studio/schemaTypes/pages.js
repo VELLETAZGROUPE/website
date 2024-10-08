@@ -109,6 +109,7 @@ export default {
         {type: 'title'},
         {type: 'tabs'},
         {type: 'cta'},
+        {type: 'biglist2'},
       ],
     },
   ],

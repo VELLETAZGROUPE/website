@@ -97,16 +97,15 @@ let uniq = blockcnt > 1 ? false : true;
     @apply relative;
   }
 
-  /* .section.white::after {
+  .section.white::after {
     content: "";
     box-sizing: content-box;
     position: absolute;
-    border: 4px solid var(--color-accent2);
-    width: 100%;
-    height: 100%;
+    width: 100px;
+    height: 100px;
     top: 15px;
     left: 15px;
-  } */
+  }
 
   section:has(.green) {
     @apply bg-[var(--color-accent1)] text-[var(--color-bg)];

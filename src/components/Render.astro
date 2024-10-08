@@ -4,7 +4,6 @@ import {PortableText} from "astro-portabletext";
 import Block from "./Block.astro";
 import List from "./List.astro";
 import Link from "./Link.astro";
-import type Testimonials from "./cmp/testimonials.astro";
 
 const composants = await Astro.glob("./cmp/*.astro");
 
@@ -13,6 +12,8 @@ let value;
 if (data) {
   value = data.map((e) => ({...e, ...context}));
 }
+
+console.log(data);
 ---
 
 <PortableText
@@ -43,7 +44,9 @@ if (data) {
       section: composants.find((cmp) => cmp.default.name === "section").default,
       tableofcontent: composants.find((cmp) => cmp.default.name === "layoutToc")
         .default,
-      biglist: composants.find((cmp) => cmp.default.name === "bigListWithLogo")
+      biglist: composants.find((cmp) => cmp.default.name === "bigList2")
+        .default,
+      biglist2: composants.find((cmp) => cmp.default.name === "bigListWithLogo")
         .default,
       productlist: composants.find(
         (cmp) => cmp.default.name === "filteredProductsGallery"

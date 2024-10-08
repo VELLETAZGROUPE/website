@@ -24,6 +24,7 @@ import title from './cmp/title'
 import tabs from './cmp/tabs'
 import cta from './cmp/cta'
 import img from './cmp/img'
+import biglist2 from './cmp/biglist2'
 
 export const schemaTypes = [
   global,
@@ -51,4 +52,5 @@ export const schemaTypes = [
   tabs,
   cta,
   img,
+  biglist2,
 ]

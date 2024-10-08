@@ -1,0 +1,65 @@
+---
+import NetlifyImage from "../NetlifyImage.astro";
+import HN from "../HN.astro";
+import {PortableText} from "astro-portabletext";
+import Button from "../Button.astro";
+
+const year = new Date().getFullYear() - 1987;
+
+let {node} = Astro.props;
+---
+
+<section id={node.id || undefined} class="hero remove-margin">
+  {
+    node.img && (
+      <NetlifyImage
+        src={node.img.src}
+        alt={node.img.alt}
+        class={`hero-img sceneVertical ${node.duotone || ""}`}
+      />
+    )
+  }
+  <div class="texte">
+    {
+      node.texte && (
+        <div class="h4" data-year={year}>
+          <PortableText
+            value={node.texte}
+            components={{
+              type: {
+                button: Button,
+              },
+            }}
+          />
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .hero {
+    height: 100vh;
+    position: relative;
+  }
+  :global(.hero-img) {
+    object-fit: cover;
+    height: 100%;
+    max-width: 100%;
+  }
+  .texte {
+    position: absolute;
+    top: 25%;
+    left: 12.5%;
+    /* padding: var(--space-l); */
+    color: var(--color-bg);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .texte :global(.h1, .h2, .h3, .h4, .h5, .h6) {
+    border-color: var(--color-bg);
+    margin-block-end: 0;
+  }
+</style>

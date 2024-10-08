@@ -4,6 +4,9 @@ export default {
   name: 'tableofcontent',
   type: 'document',
   title: 'Liste avec table des matières',
+  initialValue: {
+    order: false,
+  },
   fields: [
     copyPaste,
     {
@@ -18,6 +21,11 @@ export default {
       title: 'Titre',
       type: 'array',
       of: [{type: 'block'}, {type: 'button'}],
+    },
+    {
+      name: 'order',
+      title: 'Inverser colonnes ?',
+      type: 'boolean',
     },
     {
       name: 'items',

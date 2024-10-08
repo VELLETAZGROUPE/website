@@ -1,6 +1,7 @@
 ---
 import {PortableText} from "astro-portabletext";
 import NetlifyImage from "../NetlifyImage.astro";
+import Button from "../Button.astro";
 
 const {node} = Astro.props;
 ---
@@ -11,14 +12,21 @@ const {node} = Astro.props;
       <div
         class="min-w-0 relative z-[2] col-span-12 lg:col-start-auto lg:col-span-5 bg-[var(--color-accent1)] p-8 w-fit textwrap">
         <div class="text-center -mb-12 lg:text-left lg:mb-0 titre lg:w-max">
-          <PortableText value={node.content} />
+          <PortableText
+            value={node.content}
+            components={{
+              type: {
+                button: Button,
+              },
+            }}
+          />
         </div>
       </div>
       <div class="min-w-0 relative z-[1] col-span-12 lg:col-span-7">
         <NetlifyImage
           src={node.img.src}
           alt={node.img.alt}
-          class="w-full image sceneVerticalSmall"
+          class="w-full image"
         />
       </div>
     </div>
@@ -31,5 +39,13 @@ const {node} = Astro.props;
     line-height: 1.2;
     letter-spacing: -0.02em;
     margin-block: 0;
+  }
+  .titre :global(p) {
+    margin-block-start: var(--space-xl);
+    font-size: var(--size-s);
+  }
+
+  .titre :global(a) {
+    margin-block-start: var(--space-xl);
   }
 </style>

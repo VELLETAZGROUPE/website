@@ -5,15 +5,18 @@ export default {
   preview: {
     select: {
       title: 'cmp',
-      subtitle: 'heading.content',
+      subtitle: 'layout',
     },
     prepare(selection) {
       const {title, subtitle} = selection
       return {
-        title: `Composant Hero`,
+        title: `Hero`,
         subtitle: `${subtitle ? subtitle : ''}`,
       }
     },
+  },
+  initialValue: {
+    fullscreen: false,
   },
   fields: [
     {
@@ -24,38 +27,118 @@ export default {
       type: 'string',
     },
     {
-      name: 'heading',
-      title: 'Titre',
-      type: 'object',
-      fields: [
-        {
-          name: 'content',
-          title: 'Texte',
-          type: 'string',
-        },
-        {
-          name: 'level',
-          title: 'Niveau hierarchique',
-          type: 'string',
-          options: {
-            list: [
-              {title: 'H1', value: 'h1'},
-              {title: 'H2', value: 'h2'},
-              {title: 'H3', value: 'h3'},
-              {title: 'H4', value: 'h4'},
-              {title: 'H5', value: 'h5'},
-              {title: 'H6', value: 'h6'},
-              {title: 'p', value: 'p'},
-            ],
-          },
-        },
-      ],
+      name: 'layout',
+      title: 'Layout',
+      type: 'string',
+      options: {
+        list: [
+          {value: 'HeroSplit', title: 'Split'},
+          {value: 'HeroFull', title: 'Full'},
+          {value: 'HeroClip', title: 'Clip'},
+          {value: 'HeroDuo', title: 'Duotone'},
+        ],
+      },
     },
     {
-      name: 'subheading',
-      title: 'Sous-titre',
-      description:
-        "Vous pouvez utiliser %year% pour afficher le nombre d'année écoulée depuis la création de l'entreprise (1987)",
+      name: 'blur',
+      type: 'string',
+      title: 'Intensité du flou derrière le texte',
+      options: {
+        list: [
+          {value: 'hi', title: 'Fort'},
+          {value: 'mid', title: 'Moyen'},
+          {value: 'lo', title: 'Faible'},
+        ],
+      },
+      hidden: ({parent}) => {
+        if (parent?.layout == 'HeroFull') {
+          return false
+        }
+        return true
+      },
+    },
+    {
+      name: 'fullscreen',
+      type: 'boolean',
+      title: 'Plein écran ?',
+      hidden: ({parent}) => {
+        if (parent?.layout == 'HeroSplit') {
+          return false
+        } else if (parent?.layout == 'HeroFull') {
+          return false
+        }
+        return true
+      },
+    },
+    {
+      name: 'duotone',
+      type: 'string',
+      title: 'Duotone FX',
+      options: {
+        list: [
+          {value: 'duoAccent1', title: 'Vert'},
+          {value: 'duoAccent2', title: 'Bordeaux'},
+        ],
+      },
+      hidden: ({parent}) => {
+        if (parent?.layout == 'HeroDuo') {
+          return false
+        }
+        return true
+      },
+    },
+    {
+      name: 'imgsize',
+      type: 'string',
+      title: "Taille de l'image",
+      options: {
+        list: [
+          {value: 'spanthird', title: '1/3'},
+          {value: 'spanhalf', title: '50%'},
+        ],
+      },
+      hidden: ({parent}) => {
+        if (parent?.layout == 'HeroSplit') {
+          return false
+        }
+        return true
+      },
+    },
+    {
+      name: 'opacity',
+      type: 'number',
+      title: "Éclaircissement/Assombrissement de l'image de fond",
+      description: "Peut servir à faire ressortir le texte de l'image",
+      options: {
+        list: [-90, -80, -70, -60, -50, -40, -30, -20, -10, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
+      },
+      hidden: ({parent}) => {
+        if (parent?.layout == 'HeroFull') {
+          return false
+        }
+        return true
+      },
+    },
+    {
+      name: 'textcolor',
+      type: 'string',
+      title: 'Couleur du texte',
+      options: {
+        list: [
+          {value: 'bg', title: 'Clair'},
+          {value: 'body', title: 'Foncé'},
+        ],
+      },
+      hidden: ({parent}) => {
+        if (parent?.layout == 'HeroFull') {
+          return false
+        }
+        return true
+      },
+    },
+    {
+      name: 'texte',
+      title: 'Texte',
       type: 'array',
       of: [{type: 'block'}, {type: 'button'}],
     },
@@ -63,19 +146,7 @@ export default {
       name: 'img',
       title: 'Image',
       type: 'image',
-      fields: [
-        {name: 'alt', type: 'string'},
-        {
-          name: 'duotone',
-          type: 'string',
-          options: {
-            list: [
-              {title: 'Accent1', value: 'duoAccent1'},
-              {title: 'Accent2', value: 'duoAccent2'},
-            ],
-          },
-        },
-      ],
+      fields: [{name: 'alt', type: 'string'}],
     },
   ],
 }

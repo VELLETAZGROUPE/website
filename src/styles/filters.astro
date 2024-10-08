@@ -56,15 +56,15 @@ let css = `:root{
     <feComponentTransfer in="colormatrix" result="componentTransfer">
       <feFuncR
         type="table"
-        tableValues={`${data.accent1Color.rgb.r / 255} ${data.accent2Color.rgb.r / 350}`}>
+        tableValues={`${data.accent1Color.rgb.r / 255} ${data.accent2Color.rgb.r / 255}`}>
       </feFuncR>
       <feFuncG
         type="table"
-        tableValues={`${data.accent1Color.rgb.g / 255} ${data.accent2Color.rgb.g / 255}`}>
+        tableValues={`${data.accent1Color.rgb.g / 240} ${data.accent2Color.rgb.g / 550}`}>
       </feFuncG>
       <feFuncB
         type="table"
-        tableValues={`${data.accent1Color.rgb.b / 255} ${data.accent2Color.rgb.b / 255}`}>
+        tableValues={`${data.accent1Color.rgb.b / 255} ${data.accent2Color.rgb.b / 550}`}>
       </feFuncB>
       <feFuncA type="table" tableValues="0 1"></feFuncA>
     </feComponentTransfer>

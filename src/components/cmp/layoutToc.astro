@@ -5,6 +5,12 @@ import HN from "../HN.astro";
 
 let {node} = Astro.props;
 
+console.log(node.order);
+
+if (node.order == null) {
+  node.order = false;
+}
+
 let noimg = node.items[0].img?.src ? false : true;
 ---
 
@@ -15,7 +21,7 @@ let noimg = node.items[0].img?.src ? false : true;
       class={`tableofcontent max-w-7xl mx-auto ${noimg ? "noimg" : ""}`}>
       <div class="hiw-v4__container">
         <div class="hiw-v4__grid-1">
-          <div>
+          <div class={`${node.order ? "order-last" : ""}`}>
             <div class="hiw-v4__flex-container-1">
               <div class="hiw-v4__title">
                 <PortableText value={node.title} />
@@ -55,7 +61,7 @@ let noimg = node.items[0].img?.src ? false : true;
                     )}
 
                     <div class="hy3-text-component">
-                      <HN class="hy3-text-lg h4" Level={item.level}>
+                      <HN class="hy3-text-lg text-left h4" Level={item.level}>
                         {item.toctitle}
                       </HN>
                       <p set:html={item.toctext} />
@@ -115,6 +121,7 @@ let noimg = node.items[0].img?.src ? false : true;
   .hiw-v4__title :global(h5),
   .hiw-v4__title :global(h6) {
     margin-block: 0;
+    text-align: left;
   }
 
   @media (min-width: 64rem) {
@@ -152,6 +159,7 @@ let noimg = node.items[0].img?.src ? false : true;
 
   .hy3-text-component > * {
     margin-bottom: var(--space-s);
+    text-align: left;
   }
 
   .hy3-text-component h1,
