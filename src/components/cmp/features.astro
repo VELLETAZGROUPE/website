@@ -8,7 +8,8 @@ const {node} = Astro.props;
 
 <section id={node.id || undefined}>
   <div class="intro remove-margin">
-    <div class="container">
+    <div
+      class="max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
       {
         node.heading && (
           <HN class="heading" Level={node.heading.level}>
@@ -35,7 +36,7 @@ const {node} = Astro.props;
             {
               node.listOfFacts &&
                 node.listOfFacts.map((fact) => (
-                  <li class="js-sticky-feature__content-item">
+                  <li class="js-sticky-feature__content-item px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
                     {fact.heading && (
                       <HN
                         Level={node.factsHeadingLevel}
@@ -148,10 +149,6 @@ const {node} = Astro.props;
 
   .js-sticky-feature__content-item figure {
     margin-block-start: var(--space-s);
-  }
-
-  .js-sticky-feature__content-item > :global(*) {
-    text-align: center;
   }
 
   .js-sticky-feature__content-item > p {

@@ -5,8 +5,9 @@ import Button from "../Button.astro";
 const {node} = Astro.props;
 ---
 
-<div class="relative z-[1] overflow-hidden py-12 lg:py-20">
-  <div class="mb-8 lg:mb-12 flex flex-col justify-center items-center title">
+<div
+  class="max-w-7xl mx-auto relative z-[1] overflow-hidden py-12 lg:py-20 px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
+  <div class="mb-8 lg:mb-12 flex flex-col justify-center items-start title">
     <PortableText
       value={node.title}
       components={{
@@ -68,7 +69,6 @@ const {node} = Astro.props;
   .title :global(h4),
   .title :global(h5),
   .title :global(h6) {
-    text-align: center;
   }
 
   :root {

@@ -8,10 +8,10 @@ const uid = nanoid(5);
 const {node} = Astro.props;
 ---
 
-<section class="py-12 lg:py-20 max-w-7xl mx-auto">
+<section class="p-8 max-w-7xl mx-auto">
   {
     node.title && (
-      <div class="flex flex-col justify-center items-center">
+      <div class="flex flex-col justify-center items-start px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
         <PortableText
           value={node.title}
           components={{
@@ -25,7 +25,7 @@ const {node} = Astro.props;
   }
 
   <div class="mx-auto max-w-lg lg:max-w-5xl xl:max-w-7xl">
-    <ul class="feature-v20__list grid grid-cols-12 gap-0 lg:gap-8">
+    <ul class="feature-v20__list grid grid-cols-12 gap-0 lg:gap-x-8 -mt-16">
       {
         node.members.map((member, idx) => (
           <li class="relative feature-v20__item min-w-0 col-span-12 md:col-span-6 lg:col-span-3 flex justify-center max-w-[300px] justify-self-center">
@@ -446,7 +446,7 @@ const {node} = Astro.props;
   .modal-img-btn {
     position: relative;
     cursor: pointer;
-    height: 400px;
+    /* height: 400px; */
   }
 
   .modal-img-btn:hover .modal-img-btn__icon-wrapper {

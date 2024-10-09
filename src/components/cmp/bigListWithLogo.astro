@@ -9,7 +9,7 @@ const {node} = Astro.props;
   id={node.id || undefined}
   class="biglist my-32 py-12 lg:py-20 relative z-[1] max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
   <div
-    class={`${node.order ? "lg:order-last" : ""} lg:sticky top-8 texte mb-32 text-center flex justify-center items-center flex-col`}>
+    class={`${node.order ? "lg:order-last" : ""} lg:sticky top-8 texte mb-32 flex justify-center items-start flex-col`}>
     <PortableText value={node.title} />
   </div>
 
@@ -55,24 +55,12 @@ const {node} = Astro.props;
     text-align: center;
   }
 
-  .biglist .large {
-    @apply h-64;
-  }
-
   .biglist .large figure {
     @apply max-w-80;
   }
 
-  .biglist .medium {
-    @apply h-48;
-  }
-
   .biglist .medium figure {
     @apply max-w-64;
-  }
-
-  .biglist .small {
-    @apply h-32;
   }
 
   .biglist .small figure {

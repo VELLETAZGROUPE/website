@@ -14,7 +14,9 @@ node.text.map((section) => {
 let uniq = blockcnt > 1 ? false : true;
 ---
 
-<section id={node.id || undefined} class={`remove-margin`}>
+<section
+  id={node.id || undefined}
+  class={`py-16 max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]`}>
   <div
     class={`${node.img?.src ? "withimg" : "withoutimg"} section ${node.bg ? node.bg : "white"}`}>
     {
@@ -24,7 +26,7 @@ let uniq = blockcnt > 1 ? false : true;
         </div>
       )
     }
-    <div class={`wrap-margin text ${uniq ? "uniq" : ""}`}>
+    <div class={` text ${uniq ? "uniq" : ""}`}>
       <PortableText
         value={node.text}
         components={{
@@ -47,30 +49,21 @@ let uniq = blockcnt > 1 ? false : true;
     margin-block-end: var(--space-2xl);
   }
 
-  .section {
-    @apply py-4 md:py-8 lg:py-12 xl:py-16 columns-1;
-    column-gap: 4rem;
-  }
-
-  .wrap-margin {
-    @apply px-4 md:px-8 lg:px-12 xl:px-16;
-  }
-
   .withimg {
     @apply flex flex-col md:flex-row gap-6;
   }
 
   .withoutimg {
-    @apply mx-auto w-fit;
+    @apply w-fit;
   }
 
   .withoutimg > div {
     @apply max-w-none;
   }
 
-  .withoutimg :global(h1, h2, h3, h4, h5, h6) {
-    @apply text-center;
-  }
+  /* .withoutimg :global(h1, h2, h3, h4, h5, h6) {
+    margin-left: 0 !important;
+  } */
 
   .withimg > * {
     flex-basis: 50%;

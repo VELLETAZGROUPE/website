@@ -8,11 +8,19 @@ const {node} = Astro.props;
 let QUERY, URLQUERY;
 
 //FETCH MENU ORGANISATION AND LOGO FROM GLOBAL
-QUERY = encodeURIComponent(
-  `*[_type=="products" && category._ref=="${node.cat._ref}"]{
+if (node.cat) {
+  QUERY = encodeURIComponent(
+    `*[_type=="products" && category._ref=="${node.cat._ref}"]{
   ...,img{'src':asset->url}
   }`
-);
+  );
+} else {
+  QUERY = encodeURIComponent(
+    `*[_type=="categories"]{
+  ...,img{'src':asset->url}
+  }`
+  );
+}
 
 // Compose the URL for your project's endpoint and add the query
 // ⚠️ Don't forget to change PROJECT_ID & DATASET from .env
@@ -31,22 +39,22 @@ let data = await fetch(URLQUERY)
   .catch((err) => console.error(err));
 
 let allFilters = [];
+let datafilter = [];
 
 if (node.hasfilter) {
   for (let i = 0; i < data.length; i++) {
     allFilters.push(data[i].filtre);
   }
   allFilters = allFilters.flat();
-}
 
-let uniqueFilters = [...new Set(allFilters)];
+  let uniqueFilters = [...new Set(allFilters)];
 
-let datafilter = [];
-for (let filter of uniqueFilters) {
-  datafilter.push({
-    name: filter.replaceAll(" ", "-"),
-    display: filter,
-  });
+  for (let filter of uniqueFilters) {
+    datafilter.push({
+      name: filter.replaceAll(" ", "-"),
+      display: filter,
+    });
+  }
 }
 ---
 
@@ -54,7 +62,7 @@ for (let filter of uniqueFilters) {
   class="py-12 lg:py-20 max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
   {
     node.title && (
-      <div class="mb-5 lg:mb-8 flex flex-col justify-center items-center">
+      <div class="mb-5 lg:mb-8 flex flex-col justify-center items-start">
         <PortableText
           value={node.title}
           components={{
@@ -157,21 +165,21 @@ for (let filter of uniqueFilters) {
           data.map((product) => (
             <li
               class={`col-span-12 md:col-span-6 lg:col-span-${node.col || "4"} js-filter__item`}
-              data-filter={product.filtre}>
-              <div class="prod-card flex flex-col justify-center items-center">
+              data-filter={product.filtre || undefined}>
+              <div class="prod-card flex flex-col justify-center">
                 <a class="prod-card__img-link" href={`/${product.slug}`}>
                   {product.img && (
                     <figure class="prod-card__img aspect-w-1 aspect-h-1 relative">
                       <NetlifyImage
                         src={product.img.src}
-                        alt={product.img.alt}
+                        alt=""
                         class={`${product.img.duotone || ""} ${node.height || "small"}`}
                       />
                     </figure>
                   )}
                 </a>
 
-                <div class="producttext p-3 lg:p-5">{product.name}</div>
+                <div class="producttext py-3 lg:py-5">{product.name}</div>
               </div>
             </li>
           ))
@@ -393,7 +401,6 @@ for (let filter of uniqueFilters) {
   .prod-card__img :global(img.small) {
     height: 250px;
     width: 250px;
-    margin-inline: auto;
     object-fit: cover;
   }
 

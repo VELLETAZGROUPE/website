@@ -66,6 +66,7 @@ export default {
       name: 'cat',
       type: 'reference',
       title: 'Catégorie',
+      description: 'Laisser vide pour afficher les catégories',
       to: [{type: 'categories'}],
     },
   ],

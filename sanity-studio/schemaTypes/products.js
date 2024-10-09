@@ -117,6 +117,7 @@ export default {
         {type: 'biglist2'},
         {type: 'steps'},
         {type: 'faq'},
+        {type: 'productlistcat'},
       ],
     },
   ],
