@@ -19,7 +19,7 @@ let {node} = Astro.props;
       />
     )
   }
-  <div class="texte max-w-[70%]">
+  <div class="texte">
     {
       node.texte && (
         <div class="h4" data-year={year}>
@@ -57,6 +57,7 @@ let {node} = Astro.props;
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
+    max-width: 70%;
   }
   .texte :global(.h1, .h2, .h3, .h4, .h5, .h6) {
     border-color: var(--color-bg);
