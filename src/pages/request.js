@@ -13,7 +13,7 @@ export let request = `"seo": {title,description,slug,robots,canonical,schema,"og
         _type == "actupreview" => {_type, id, "actus":actus[]->{h1,abstract,date,slug,img{alt, 'src':asset->url}}, title[]{..., _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}},
         _type == "timeline" => {_type,id,title,events},
         _type == "video" => {_type, id, title, ytID, img{alt,duotone,'src':asset->url}},
-        _type == "team" => {_type, id,title,members[]{millesime, devise, parcours, poste,aime,aimepas,cepage,qualite,defaut,anecdote,img{'src':asset->url},name,}},
+        _type == "team" => {_type, id,title,members[]->{...,img{'src':asset->url}}},
         _type == "contactmap" => {_type, id, title, address, mail, tel,horaires, mapImg{'src':asset->url},iframesrc},
         _type == "testimonials" => {_type, id, title, testimonials},
         _type == 'contactform' => {_type,id,title, formName, form},

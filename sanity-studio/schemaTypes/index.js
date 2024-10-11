@@ -3,6 +3,7 @@ import pages from './pages'
 import posts from './posts'
 import products from './products'
 import categories from './categories'
+import membres from './membres'
 
 import feature from './cmp/feature'
 import hero from './cmp/hero'
@@ -35,6 +36,7 @@ export const schemaTypes = [
   posts,
   products,
   categories,
+  membres,
   feature,
   hero,
   button,

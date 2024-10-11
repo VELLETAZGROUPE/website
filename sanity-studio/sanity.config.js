@@ -38,6 +38,7 @@ export default defineConfig({
             S.documentTypeListItem('categories').title('Catégorie de produits'),
             S.documentTypeListItem('products').title('Produits'),
             S.documentTypeListItem('post').title('Articles de blog'),
+            S.documentTypeListItem('membres').title('Staff'),
           ]),
     }),
     dashboardTool({

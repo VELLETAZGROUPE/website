@@ -21,7 +21,7 @@ export async function getStaticPaths() {
   // Compose the URL for your project's endpoint and add the query
   URL = `https://${
     import.meta.env.PROJECT_ID
-  }.api.sanity.io/v2021-10-21/data/query/${
+  }.api.sanity.io/v2022-03-07/data/query/${
     import.meta.env.DATASET
   }?query=${QUERY}`;
   // fetch the content
