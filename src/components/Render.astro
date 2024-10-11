@@ -4,7 +4,6 @@ import {PortableText} from "astro-portabletext";
 import Block from "./Block.astro";
 import List from "./List.astro";
 import Link from "./Link.astro";
-import productlistcat from "../../sanity-studio/schemaTypes/cmp/productlistcat";
 
 const composants = await Astro.glob("./cmp/*.astro");
 
@@ -13,67 +12,180 @@ let value;
 if (data) {
   value = data.map((e) => ({...e, ...context}));
 }
+
+let wrapper = [];
 ---
 
-<PortableText
-  value={value}
-  components={{
-    mark: {
-      link: Link,
-    },
-    list: {
-      bullet: List,
-      number: List,
-      menu: List,
-    },
-    block: {
-      h1: Block,
-      h2: Block,
-      h3: Block,
-      h4: Block,
-      h5: Block,
-      h6: Block,
-      blockquote: Block,
-      normal: Block,
-    },
-    type: {
-      feature: composants.find((cmp) => cmp.default.name === "features")
-        .default,
-      hero: composants.find((cmp) => cmp.default.name === "hero").default,
-      section: composants.find((cmp) => cmp.default.name === "section").default,
-      tableofcontent: composants.find((cmp) => cmp.default.name === "layoutToc")
-        .default,
-      biglist: composants.find((cmp) => cmp.default.name === "bigList2")
-        .default,
-      biglist2: composants.find((cmp) => cmp.default.name === "bigListWithLogo")
-        .default,
-      productlist: composants.find(
-        (cmp) => cmp.default.name === "filteredProductsGallery"
-      ).default,
-      map: composants.find((cmp) => cmp.default.name === "map").default,
-      logogallery: composants.find((cmp) => cmp.default.name === "logoGallery")
-        .default,
-      actupreview: composants.find((cmp) => cmp.default.name === "actuPreview")
-        .default,
-      timeline: composants.find((cmp) => cmp.default.name === "timeline")
-        .default,
-      video: composants.find((cmp) => cmp.default.name === "videoBg").default,
-      team: composants.find((cmp) => cmp.default.name === "team").default,
-      contactmap: composants.find((cmp) => cmp.default.name === "contactMap")
-        .default,
-      testimonials: composants.find(
-        (cmp) => cmp.default.name === "testimonials"
-      ).default,
-      contactform: composants.find((cmp) => cmp.default.name === "contactForm")
-        .default,
-      title: composants.find((cmp) => cmp.default.name === "title").default,
-      tabs: composants.find((cmp) => cmp.default.name === "fichetech").default,
-      cta: composants.find((cmp) => cmp.default.name === "cta").default,
-      productlistcat: composants.find(
-        (cmp) => cmp.default.name === "productlistcat"
-      ).default,
-      steps: composants.find((cmp) => cmp.default.name === "steps").default,
-      faq: composants.find((cmp) => cmp.default.name === "faq").default,
-    },
-  }}
-/>
+{
+  value.map((item, idx) => {
+    if (item._type == "block") {
+      wrapper.push(item);
+      if (value[idx + 1]?._type == "block") return;
+      return (
+        <div class="bloctext">
+          <PortableText
+            value={wrapper}
+            components={{
+              mark: {
+                link: Link,
+              },
+              list: {
+                bullet: List,
+                number: List,
+                menu: List,
+              },
+              block: {
+                h1: Block,
+                h2: Block,
+                h3: Block,
+                h4: Block,
+                h5: Block,
+                h6: Block,
+                blockquote: Block,
+                normal: Block,
+              },
+              type: {
+                feature: composants.find(
+                  (cmp) => cmp.default.name === "features"
+                ).default,
+                hero: composants.find((cmp) => cmp.default.name === "hero")
+                  .default,
+                section: composants.find(
+                  (cmp) => cmp.default.name === "section"
+                ).default,
+                tableofcontent: composants.find(
+                  (cmp) => cmp.default.name === "layoutToc"
+                ).default,
+                biglist: composants.find(
+                  (cmp) => cmp.default.name === "bigList2"
+                ).default,
+                biglist2: composants.find(
+                  (cmp) => cmp.default.name === "bigListWithLogo"
+                ).default,
+                productlist: composants.find(
+                  (cmp) => cmp.default.name === "filteredProductsGallery"
+                ).default,
+                map: composants.find((cmp) => cmp.default.name === "map")
+                  .default,
+                logogallery: composants.find(
+                  (cmp) => cmp.default.name === "logoGallery"
+                ).default,
+                actupreview: composants.find(
+                  (cmp) => cmp.default.name === "actuPreview"
+                ).default,
+                timeline: composants.find(
+                  (cmp) => cmp.default.name === "timeline"
+                ).default,
+                video: composants.find((cmp) => cmp.default.name === "videoBg")
+                  .default,
+                team: composants.find((cmp) => cmp.default.name === "team")
+                  .default,
+                contactmap: composants.find(
+                  (cmp) => cmp.default.name === "contactMap"
+                ).default,
+                testimonials: composants.find(
+                  (cmp) => cmp.default.name === "testimonials"
+                ).default,
+                contactform: composants.find(
+                  (cmp) => cmp.default.name === "contactForm"
+                ).default,
+                title: composants.find((cmp) => cmp.default.name === "title")
+                  .default,
+                tabs: composants.find((cmp) => cmp.default.name === "fichetech")
+                  .default,
+                cta: composants.find((cmp) => cmp.default.name === "cta")
+                  .default,
+                productlistcat: composants.find(
+                  (cmp) => cmp.default.name === "productlistcat"
+                ).default,
+                steps: composants.find((cmp) => cmp.default.name === "steps")
+                  .default,
+                faq: composants.find((cmp) => cmp.default.name === "faq")
+                  .default,
+              },
+            }}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <PortableText
+          value={item}
+          components={{
+            mark: {
+              link: Link,
+            },
+            list: {
+              bullet: List,
+              number: List,
+              menu: List,
+            },
+            block: {
+              h1: Block,
+              h2: Block,
+              h3: Block,
+              h4: Block,
+              h5: Block,
+              h6: Block,
+              blockquote: Block,
+              normal: Block,
+            },
+            type: {
+              feature: composants.find((cmp) => cmp.default.name === "features")
+                .default,
+              hero: composants.find((cmp) => cmp.default.name === "hero")
+                .default,
+              section: composants.find((cmp) => cmp.default.name === "section")
+                .default,
+              tableofcontent: composants.find(
+                (cmp) => cmp.default.name === "layoutToc"
+              ).default,
+              biglist: composants.find((cmp) => cmp.default.name === "bigList2")
+                .default,
+              biglist2: composants.find(
+                (cmp) => cmp.default.name === "bigListWithLogo"
+              ).default,
+              productlist: composants.find(
+                (cmp) => cmp.default.name === "filteredProductsGallery"
+              ).default,
+              map: composants.find((cmp) => cmp.default.name === "map").default,
+              logogallery: composants.find(
+                (cmp) => cmp.default.name === "logoGallery"
+              ).default,
+              actupreview: composants.find(
+                (cmp) => cmp.default.name === "actuPreview"
+              ).default,
+              timeline: composants.find(
+                (cmp) => cmp.default.name === "timeline"
+              ).default,
+              video: composants.find((cmp) => cmp.default.name === "videoBg")
+                .default,
+              team: composants.find((cmp) => cmp.default.name === "team")
+                .default,
+              contactmap: composants.find(
+                (cmp) => cmp.default.name === "contactMap"
+              ).default,
+              testimonials: composants.find(
+                (cmp) => cmp.default.name === "testimonials"
+              ).default,
+              contactform: composants.find(
+                (cmp) => cmp.default.name === "contactForm"
+              ).default,
+              title: composants.find((cmp) => cmp.default.name === "title")
+                .default,
+              tabs: composants.find((cmp) => cmp.default.name === "fichetech")
+                .default,
+              cta: composants.find((cmp) => cmp.default.name === "cta").default,
+              productlistcat: composants.find(
+                (cmp) => cmp.default.name === "productlistcat"
+              ).default,
+              steps: composants.find((cmp) => cmp.default.name === "steps")
+                .default,
+              faq: composants.find((cmp) => cmp.default.name === "faq").default,
+            },
+          }}
+        />
+      );
+    }
+  })
+}

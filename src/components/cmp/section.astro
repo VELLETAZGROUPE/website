@@ -26,7 +26,7 @@ let uniq = blockcnt > 1 ? false : true;
         </div>
       )
     }
-    <div class={` text ${uniq ? "uniq" : ""}`}>
+    <div class={` text ml-0 ${uniq ? "uniq" : ""}`}>
       <PortableText
         value={node.text}
         components={{
@@ -41,7 +41,7 @@ let uniq = blockcnt > 1 ? false : true;
 
 <style>
   .section :global(ul, ol) {
-    @apply list-inside list-disc max-w-[65ch] mx-auto;
+    @apply list-inside list-disc max-w-[65ch] ml-4;
   }
   .section .text.uniq > :global(p) {
     font-size: clamp(2.3328rem, 1.7715rem + 2.8067vw, 3.9467rem);

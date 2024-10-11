@@ -45,15 +45,18 @@ if (node.hasfilter) {
   for (let i = 0; i < data.length; i++) {
     allFilters.push(data[i].filtre);
   }
-  allFilters = allFilters.flat();
 
-  let uniqueFilters = [...new Set(allFilters)];
+  if (allFilters.length > 0) {
+    allFilters = allFilters.flat();
 
-  for (let filter of uniqueFilters) {
-    datafilter.push({
-      name: filter.replaceAll(" ", "-"),
-      display: filter,
-    });
+    let uniqueFilters = [...new Set(allFilters)];
+
+    for (let filter of uniqueFilters) {
+      datafilter.push({
+        name: filter.replaceAll(" ", "-"),
+        display: filter,
+      });
+    }
   }
 }
 ---
@@ -164,7 +167,7 @@ if (node.hasfilter) {
         data.length > 0 &&
           data.map((product) => (
             <li
-              class={`col-span-12 md:col-span-6 lg:col-span-${node.col || "4"} js-filter__item`}
+              class={`col-span-12 md:col-span-6 lg:col-span-${node.col || "4"} js-filter__item justify-self-center`}
               data-filter={product.filtre || undefined}>
               <div class="prod-card flex flex-col justify-center">
                 <a class="prod-card__img-link" href={`/${product.slug}`}>

@@ -64,7 +64,6 @@ h6 {
   letter-spacing: -0.02em;
   white-space: break-spaces;
   padding-block: var(--space-m);
-  @apply max-w-xl mx-auto;
   /* text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3); */
 }
 
@@ -163,9 +162,7 @@ p {
   font-size: var(--size-xs);
 }
 
-p+p,
-p+div.texte-libre,
-div.texte-libre+p {
+p+p {
   margin-block-start: var(--space-s);
 }
 
@@ -177,11 +174,16 @@ h5.texte-libre,
 h6.texte-libre {
   text-align: left;
   white-space: break-spaces;
-  @apply max-w-xl mx-auto my-16 pb-8;
+  @apply max-w-xl ml-0 my-16 pb-8;
+}
+
+.bloctext {
+  @apply max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)];
 }
 
 .texte-libre {
-  margin-inline: auto;
+  margin-inline-start: 0;
+  @apply px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)] max-w-prose ml-0;
 }
 
 ul.texte-libre {
@@ -189,7 +191,7 @@ ul.texte-libre {
   list-style-position: inside;
   max-width: 65ch;
   margin-block: var(--space-s);
-  margin-inline: auto;
+  margin-inline-start: var(--space-3xs);
 }
 
 ul.texte-libre ul {
@@ -202,7 +204,7 @@ ol.texte-libre {
   list-style-position: inside;
   max-width: 65ch;
   margin-block: var(--space-s);
-  margin-inline: auto;
+  margin-inline-start: var(--space-3xs);
 }
 
 ol.texte-libre ul {
