@@ -43,8 +43,12 @@ let datafilter = [];
 
 if (node.hasfilter) {
   for (let i = 0; i < data.length; i++) {
-    allFilters.push(data[i].filtre);
+    if (data[i].filtre) {
+      allFilters.push(data[i].filtre);
+    }
   }
+
+  console.log(allFilters);
 
   if (allFilters.length > 0) {
     allFilters = allFilters.flat();
