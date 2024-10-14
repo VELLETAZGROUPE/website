@@ -6,11 +6,14 @@ import NetlifyImage from "../NetlifyImage.astro";
 const {node} = Astro.props;
 
 let blockcnt = 0;
-node.text.map((section) => {
-  if (section._type == "block") {
-    blockcnt += 1;
-  }
-});
+if (node.text) {
+  node.text.map((section) => {
+    if (section._type == "block") {
+      blockcnt += 1;
+    }
+  });
+}
+
 let uniq = blockcnt > 1 ? false : true;
 ---
 
@@ -26,16 +29,20 @@ let uniq = blockcnt > 1 ? false : true;
         </div>
       )
     }
-    <div class={` text ml-0 ${uniq ? "uniq" : ""}`}>
-      <PortableText
-        value={node.text}
-        components={{
-          type: {
-            button: Button,
-          },
-        }}
-      />
-    </div>
+    {
+      node.text && (
+        <div class={` text ml-0 ${uniq ? "uniq" : ""}`}>
+          <PortableText
+            value={node.text}
+            components={{
+              type: {
+                button: Button,
+              },
+            }}
+          />
+        </div>
+      )
+    }
   </div>
 </section>
 
