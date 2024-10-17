@@ -20,7 +20,14 @@ export default {
   title: 'Section',
   preview: {
     select: {
-      title: 'text',
+      title: 'Section',
+    },
+    prepare(selection) {
+      let {title} = selection
+
+      return {
+        title: `Section`,
+      }
     },
   },
   fields: [
