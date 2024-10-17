@@ -1,6 +1,6 @@
 export let request = `"seo": {title,description,slug,robots,canonical,schema,"ogimage":ogimage.asset->url},
       content[]{
-        _type == "block" => {..., _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}},
+        _type == "block" => {..., markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}} , _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}},
         _type == "feature" => {_type, id, heading, subheading, factsHeadingLevel, listOfFacts[]{heading, subheading, img{alt,duotone,'src':asset->url}}},
         _type == "hero" => {_type, id, layout, fullscreen, duotone, blur, imgsize, opacity, textcolor, texte[]{...,_type=="button"=>{color,content,href{isExt,linkExt,'linkInt':linkInt->slug}}},img{alt,'src':asset->url}},
         _type == "section" => {_type, id, text[]{...,_type=="button"=>{color,content,href{isExt,linkExt,'linkInt':linkInt->slug}}}, bg, img{alt,duotone,'src':asset->url}},
