@@ -2,6 +2,7 @@
 import {PortableText} from "astro-portabletext";
 import Button from "../Button.astro";
 import NetlifyImage from "../NetlifyImage.astro";
+import Link from "../Link.astro";
 
 const {node} = Astro.props;
 
@@ -33,8 +34,12 @@ let uniq = blockcnt > 1 ? false : true;
       node.text && (
         <div class={` text ml-0 ${uniq ? "uniq" : ""}`}>
           <PortableText
-            value={node.text}
+            value={node.texte}
             components={{
+              mark: {
+                link: Link,
+                internalLink: Link,
+              },
               type: {
                 button: Button,
               },

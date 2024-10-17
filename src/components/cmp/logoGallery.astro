@@ -1,13 +1,26 @@
 ---
 import {PortableText} from "astro-portabletext";
 import NetlifyImage from "../NetlifyImage.astro";
+import Link from "../Link.astro";
+import Button from "../Button.astro";
 
 const {node} = Astro.props;
 ---
 
 <section class="customer-logos relative z-[1] mb-32">
   <div class="text-center w-fit mx-auto mb-12">
-    <PortableText value={node.title} />
+    <PortableText
+      value={node.texte}
+      components={{
+        mark: {
+          link: Link,
+          internalLink: Link,
+        },
+        type: {
+          button: Button,
+        },
+      }}
+    />
   </div>
 
   <ul class="flex flex-wrap justify-center gap-12">

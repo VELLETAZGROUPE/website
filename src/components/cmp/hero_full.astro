@@ -2,6 +2,7 @@
 import HN from "../HN.astro";
 import {PortableText} from "astro-portabletext";
 import Button from "../Button.astro";
+import Link from "../Link.astro";
 
 const year = new Date().getFullYear() - 1987;
 
@@ -19,6 +20,10 @@ let {node} = Astro.props;
           <PortableText
             value={node.texte}
             components={{
+              mark: {
+                link: Link,
+                internalLink: Link,
+              },
               type: {
                 button: Button,
               },

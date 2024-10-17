@@ -3,6 +3,7 @@ import {PortableText} from "astro-portabletext";
 import Button from "../Button.astro";
 import NetlifyImage from "../NetlifyImage.astro";
 import HN from "../HN.astro";
+import Link from "../Link.astro";
 
 const {node} = Astro.props;
 
@@ -35,8 +36,12 @@ for (let filter of uniqueFilters) {
     node.title && (
       <div class="texte mb-5 lg:mb-8 flex flex-col justify-center items-start">
         <PortableText
-          value={node.title}
+          value={node.texte}
           components={{
+            mark: {
+              link: Link,
+              internalLink: Link,
+            },
             type: {
               button: Button,
             },
