@@ -90,7 +90,53 @@ export default {
       type: 'array',
       title: 'Contenu',
       of: [
-        {type: 'block'},
+        {
+          type: 'block',
+          marks: {
+            annotations: [
+              {
+                name: 'link',
+                type: 'object',
+                title: 'Lien externe',
+                initialValue: {
+                  blank: true,
+                },
+                fields: [
+                  {
+                    name: 'href',
+                    type: 'url',
+                    title: 'URL',
+                  },
+                  {
+                    title: 'Ouvrir dans un nouvel onglet ?',
+                    name: 'blank',
+                    description: 'Voir https://css-tricks.com/use-target_blank/',
+                    type: 'boolean',
+                  },
+                ],
+              },
+              {
+                name: 'internalLink',
+                type: 'object',
+                title: 'Lien interne',
+                fields: [
+                  {
+                    name: 'reference',
+                    type: 'reference',
+                    title: 'Reference',
+                    to: [
+                      {type: 'page'},
+                      {type: 'categories'},
+                      {type: 'products'},
+                      {type: 'post'},
+                      // other types you may want to link to
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        },
         {type: 'feature'},
         {type: 'hero'},
         {type: 'section'},
