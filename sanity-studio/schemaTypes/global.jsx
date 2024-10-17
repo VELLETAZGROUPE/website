@@ -271,6 +271,11 @@ export default {
               to: [{type: 'page'}, {type: 'categories'}],
             },
             {
+              name: 'urldirect',
+              type: 'string',
+              title: 'URL du lien (manuel)',
+            },
+            {
               name: 'subpages',
               type: 'array',
               title: 'Sous-pages',

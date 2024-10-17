@@ -7,6 +7,7 @@ QUERY = encodeURIComponent(`
   logo,
   links[]{
     'url':url->slug,
+    urldirect,
     "hasurl": url,
     nom,
     subpages[]{
@@ -34,6 +35,8 @@ let data = await fetch(URLQUERY)
 for (let i = 0; i < data.links.length; i++) {
   if (data.links[i].hasurl) {
     data.links[i].url = data.links[i].url ?? "";
+  } else if (data.links[i].urldirect) {
+    data.links[i].url = data.links[i].urldirect.substring(1);
   }
   if (data.links[i].subpages) {
     for (let j = 0; j < data.links[i].subpages.length; j++) {
