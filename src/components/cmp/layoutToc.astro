@@ -2,6 +2,8 @@
 import {PortableText} from "astro-portabletext";
 import NetlifyImage from "../NetlifyImage.astro";
 import HN from "../HN.astro";
+import {nanoid} from "nanoid/non-secure";
+const uid = nanoid(5);
 
 let {node} = Astro.props;
 
@@ -32,7 +34,7 @@ let noimg = node.items[0].img?.src ? false : true;
                           <li>
                             <a
                               class="toc__link js-smooth-scroll"
-                              href={`#item${idx + 1}`}>
+                              href={`#${uid}${idx + 1}`}>
                               {item.toctitle}
                             </a>
                           </li>
@@ -49,7 +51,7 @@ let noimg = node.items[0].img?.src ? false : true;
             <div class="toc-content js-toc-content">
               <ul class="hiw-v4__grid-2">
                 {node.items.map((item, idx) => (
-                  <li id={`item${idx + 1}`} class="toc-content__target">
+                  <li id={`${uid}${idx + 1}`} class="toc-content__target">
                     {item.img && (
                       <NetlifyImage
                         src={item.img.src}
