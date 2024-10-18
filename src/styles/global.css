@@ -227,6 +227,10 @@ h6.texte-libre {
   white-space: break-spaces;
 }
 
+a.button {
+  text-decoration: none !important;
+}
+
 .bloctext {
   min-height: var(--space-xl);
 }

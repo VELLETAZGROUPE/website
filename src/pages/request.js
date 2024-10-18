@@ -19,7 +19,7 @@ export let request = `"seo": {title,description,slug,robots,canonical,schema,"og
         _type == 'contactform' => {_type,id,title, formName, form},
         _type == 'title' => {_type, id, content, img{alt,duotone,'src':asset->url}},
         _type == 'tabs' => {_type, id, onglets[]{title,content[]{...,_type=='img'=>{"alt":img.alt,"duotone":img.duotone,'src':img.asset->url}}}, title, baseline},
-        _type == 'cta' => {_type, id, content, img{alt,duotone,'src':asset->url}},
+        _type == 'cta' => {_type, id, content[]{..., markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}} , _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}, img{alt,duotone,'src':asset->url}},
         _type == "productlistcat" => {_type, id, height, col, title, hasfilter, cat},
         _type == 'steps' => {_type, id, title, steps},
         _type == 'faq' => {_type, id, title, faq[]{question,answer[]{..., markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}}}}},
