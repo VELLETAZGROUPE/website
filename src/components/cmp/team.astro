@@ -68,8 +68,8 @@ const {node} = Astro.props;
                 <header class="bg-gray-300/50 py-3 lg:py-5 px-5 lg:px-8 flex flex-col items-center justify-between">
                   <p
                     id="modal-title-1"
-                    class="truncate h3 font1">{`${member.name} - ${member.poste}`}</p>
-                  <p class="h5 font2">{`Millésime ${member.millesime}`}</p>
+                    class="truncate h3 font1 text-center">{`${member.name} - ${member.poste}`}</p>
+                  <p class="h5 font2 text-center">{`Millésime ${member.year}`}</p>
                 </header>
 
                 <div class="py-3 lg:py-5 px-5 lg:px-8">
@@ -78,9 +78,9 @@ const {node} = Astro.props;
                   <p class="h4">Son parcours</p>
                   <p set:text={member.parcours} />
                   <p class="h4">Ce qu'il ou elle aime</p>
-                  <p set:text={member.aime} />
+                  <p set:text={member.like} />
                   <p class="h4">Ce qu'il ou elle n'aime pas</p>
-                  <p set:text={member.aimepas} />
+                  <p set:text={member.hate} />
                   <p class="h4">Son cépage préféré</p>
                   <p set:text={member.cepage} />
                   <p class="h4">Une de ses (nombreuses) qualités</p>
