@@ -46,6 +46,12 @@ let {node} = Astro.props;
 </div>
 
 <style>
+  .h4 :global(a) {
+    text-decoration: underline;
+    cursor: pointer;
+    white-space: break-spaces;
+  }
+
   :global(section):has(.split) {
     @apply bg-[var(--color-bg)] text-[var(--color-body)];
   }

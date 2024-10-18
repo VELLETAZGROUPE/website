@@ -45,7 +45,16 @@ let filters = await fetch(URLQUERY)
   })
   .catch((err) => console.error(err));
 
-console.log(filters);
+let datafilters = [];
+
+console.log(filters[0].name.split(" ").join(""));
+
+for (let i = 0; i < filters.length; i++) {
+  datafilters.push({
+    name: filters[i].name.split(" ").join(""),
+    display: filters[i].name,
+  });
+}
 ---
 
 <section
@@ -102,12 +111,12 @@ console.log(filters);
           </li>
 
           {
-            filters.map((filter) => (
+            datafilters.map((filter) => (
               <li class="filter-nav__item">
                 <button
                   class="filter-nav__btn js-filter-nav__btn js-tab-focus"
                   data-filter={filter.name}>
-                  {filter.name}
+                  {filter.display}
                 </button>
               </li>
             ))
@@ -151,7 +160,7 @@ console.log(filters);
           data.map((product) => (
             <li
               class={`col-span-12 md:col-span-6 lg:col-span-3 js-filter__item justify-self-center`}
-              data-filter={product.cat || undefined}>
+              data-filter={product.cat.split(" ").join("") || undefined}>
               <div class="prod-card flex flex-col justify-center">
                 <a class="prod-card__img-link" href={`/${product.slug}`}>
                   {product.img && (

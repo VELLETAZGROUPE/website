@@ -48,6 +48,11 @@ let {node} = Astro.props;
 </div>
 
 <style>
+  .h4 :global(a) {
+    text-decoration: underline;
+    cursor: pointer;
+    white-space: break-spaces;
+  }
   :global(section):has(.clipped) {
     position: relative;
     @apply bg-[var(--color-accent1)] text-[var(--color-bg)];
