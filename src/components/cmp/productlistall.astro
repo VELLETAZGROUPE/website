@@ -47,8 +47,6 @@ let filters = await fetch(URLQUERY)
 
 let datafilters = [];
 
-console.log(filters[0].name.split(" ").join(""));
-
 for (let i = 0; i < filters.length; i++) {
   datafilters.push({
     name: filters[i].name.split(" ").join(""),
