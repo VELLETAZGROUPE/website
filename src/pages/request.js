@@ -22,5 +22,6 @@ export let request = `"seo": {title,description,slug,robots,canonical,schema,"og
         _type == 'cta' => {_type, id, content, img{alt,duotone,'src':asset->url}},
         _type == "productlistcat" => {_type, id, height, col, title, hasfilter, cat},
         _type == 'steps' => {_type, id, title, steps},
-        _type == 'faq' => {_type, id, title, faq},
+        _type == 'faq' => {_type, id, title, faq[]{question,answer[]{..., markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}}}}},
+        _type == 'productlistall' => {_type,id},
       }`;

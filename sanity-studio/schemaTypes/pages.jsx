@@ -178,6 +178,7 @@ export default {
         {type: 'productlistcat'},
         {type: 'steps'},
         {type: 'faq'},
+        {type: 'productlistall'},
       ],
     },
   ],

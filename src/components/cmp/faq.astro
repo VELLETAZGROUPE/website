@@ -1,5 +1,6 @@
 ---
 import {PortableText} from "astro-portabletext";
+import Link from "../Link.astro";
 
 const {node} = Astro.props;
 ---
@@ -30,7 +31,17 @@ const {node} = Astro.props;
               </svg>
             </summary>
             <div class="py-4 pt-2">
-              <p class="">{item.answer}</p>
+              <div class="answer">
+                <PortableText
+                  value={item.answer}
+                  components={{
+                    mark: {
+                      link: Link,
+                      internalLink: Link,
+                    },
+                  }}
+                />
+              </div>
             </div>
           </details>
         ))
@@ -38,3 +49,11 @@ const {node} = Astro.props;
     </div>
   </div>
 </section>
+
+<style>
+  .answer :global(a) {
+    text-decoration: underline;
+    cursor: pointer;
+    white-space: break-spaces;
+  }
+</style>

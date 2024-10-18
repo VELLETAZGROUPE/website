@@ -29,6 +29,7 @@ import biglist2 from './cmp/biglist2'
 import productlistcat from './cmp/productlistcat'
 import steps from './cmp/steps'
 import faq from './cmp/faq'
+import productlistall from './cmp/productlistall'
 
 export const schemaTypes = [
   global,
@@ -61,4 +62,5 @@ export const schemaTypes = [
   productlistcat,
   steps,
   faq,
+  productlistall,
 ]
