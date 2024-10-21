@@ -29,7 +29,7 @@ export default {
         {
           name: 'linkInt',
           type: 'reference',
-          to: [{type: 'page'}],
+          to: [{type: 'page'}, {type: 'categories'}, {type: 'post'}, {type: 'products'}],
           title: 'Lien interne',
           hidden: ({parent}) => {
             return parent?.isExt !== false

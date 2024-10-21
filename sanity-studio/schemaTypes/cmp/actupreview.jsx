@@ -16,6 +16,20 @@ export default {
   name: 'actupreview',
   type: 'document',
   title: 'Dernières actus',
+  preview: {
+    select: {
+      title: 'name',
+    },
+    prepare(selection) {
+      let {title} = selection
+      return {
+        title: `Liste d'actualités`,
+      }
+    },
+  },
+  initialValue: {
+    bigfirst: false,
+  },
   fields: [
     {
       name: 'id',
@@ -83,6 +97,11 @@ export default {
         },
         {type: 'button'},
       ],
+    },
+    {
+      name: 'bigfirst',
+      title: 'Mettre en valeur le dernier post ?',
+      type: 'boolean',
     },
     {
       name: 'actus',

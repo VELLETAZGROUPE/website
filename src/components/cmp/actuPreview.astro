@@ -2,13 +2,47 @@
 import NetlifyImage from "../NetlifyImage.astro";
 import {PortableText} from "astro-portabletext";
 import Button from "../Button.astro";
-import HN from "../HN.astro";
 import moment from "moment";
 import Link from "../Link.astro";
 
 const {node} = Astro.props;
 
 moment.locale("fr");
+
+if (!node.actus) {
+  let QUERY, URLQUERY;
+
+  QUERY = encodeURIComponent(`*[_type=="post"]{
+    h1,
+    abstract,
+    img{alt,'src':asset->url},
+    date,
+    slug
+  }`);
+
+  // Compose the URL for your project's endpoint and add the query
+  // ⚠️ Don't forget to change PROJECT_ID & DATASET from .env
+  URLQUERY = `https://${
+    import.meta.env.PROJECT_ID
+  }.api.sanity.io/v2021-10-21/data/query/${
+    import.meta.env.DATASET
+  }?query=${QUERY}`;
+  // fetch the content
+  // Global is a singleton, so you return the first element of the array (result[0])
+  let data = await fetch(URLQUERY)
+    .then((res) => res.json())
+    .then(({result}) => {
+      return result;
+    })
+    .catch((err) => console.error(err));
+
+  node.actus = data;
+}
+
+let first;
+if (node.bigfirst) {
+  first = node.actus.shift();
+}
 ---
 
 <section
@@ -30,6 +64,69 @@ moment.locale("fr");
           }}
         />
       </div>
+    )
+  }
+
+  {
+    node.bigfirst && (
+      <article class="story-v4 pt-12 lg:pt-20 mb-12 lg:mb-20">
+        <div class="w-[calc(100%_-_2.5rem)] lg:w-[calc(100%_-_4rem)] mx-auto max-w-lg md:max-w-3xl lg:max-w-5xl mb-8 lg:mb-12">
+          <div class="mb-5 lg:mb-12">
+            <div class="text-4xl lg:text-6xl font-bold">
+              <a class="story-v4__title underline" href={`/${first.slug}`}>
+                {first.h1}
+              </a>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-5 lg:gap-8">
+            <div class="col-span-12 lg:col-span-3 xl:col-span-4">
+              <dl class="text-sm lg:text-base">
+                <dt>
+                  <strong>Date</strong>
+                </dt>
+                <dd>
+                  <time datetime={moment(first.date).format("YYYY-MM-DD")}>
+                    {moment(first.date).format("LL")}
+                  </time>
+                </dd>
+              </dl>
+            </div>
+
+            <div class="col-span-12 lg:col-span-9 xl:col-span-8">
+              <div class="text-lg mb-4">
+                <PortableText value={first.abstract} />
+              </div>
+
+              <p class="text-lg">
+                <a class="link-fx-1 text-gray-900" href={`/${first.slug}`}>
+                  <span>En savoir +</span>
+                  <svg
+                    class="icon h-[1em] w-[1em] inline-block text-inherit fill-current leading-none shrink-0"
+                    viewBox="0 0 32 32"
+                    aria-hidden="true">
+                    <g
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <circle cx="16" cy="16" r="15.5" />
+                      <line x1="10" y1="18" x2="16" y2="12" />
+                      <line x1="16" y1="12" x2="22" y2="18" />
+                    </g>
+                  </svg>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-[calc(100%_-_2.5rem)] lg:w-[calc(100%_-_4rem)] mx-auto max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-7xl">
+          <a class="story-v4__img-link" href={`/${first.slug}`}>
+            <NetlifyImage src={first.img.src} alt={first.img.alt} />
+          </a>
+        </div>
+      </article>
     )
   }
 
