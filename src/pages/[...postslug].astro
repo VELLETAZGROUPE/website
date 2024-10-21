@@ -1,0 +1,147 @@
+---
+import Head from "../components/Head.astro";
+import Render from "../components/Render.astro";
+import Fonts from "../styles/fonts.astro";
+import Colors from "../styles/colors.astro";
+import Filters from "../styles/filters.astro";
+
+import {request} from "./request.js";
+
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+import "../styles/global.css";
+
+export async function getStaticPaths() {
+  let QUERY, URL;
+
+  //FETCH PAGE, CAT CONTENT
+  QUERY = encodeURIComponent(`*[_type=="post"]{${request}}`);
+
+  // Compose the URL for your project's endpoint and add the query
+  URL = `https://${
+    import.meta.env.PROJECT_ID
+  }.api.sanity.io/v2021-10-21/data/query/${
+    import.meta.env.DATASET
+  }?query=${QUERY}`;
+  // fetch the content
+  let data = await fetch(URL)
+    .then((res) => res.json())
+    .then(({result}) => {
+      return result;
+    })
+    .catch((err) => console.error(err));
+
+  let pages = data.map((page) => {
+    return {
+      postslug: page.seo.slug,
+      seo: page.seo,
+      content: page.content,
+    };
+  });
+  return pages.map(({postslug, seo, content}) => {
+    if (postslug == null) {
+      postslug = undefined;
+    }
+    return {
+      params: {postslug},
+      props: {seo, content},
+    };
+  });
+}
+
+const {postslug} = Astro.params;
+console.log(postslug);
+const {seo, content} = Astro.props;
+
+//ADD EAGER LOADING TO FIRST IMAGE
+let eager = 0;
+if (content) {
+  for (let i = 0; i < content.length; i++) {
+    if (!eager) {
+      if ("img" in content[i]) {
+        if (content[i].img) {
+          eager = 1;
+          content[i].img.eager = true;
+        }
+      }
+    }
+  }
+}
+---
+
+<html lang="fr">
+  <Head seo={seo} />
+  <Fonts />
+  <Colors />
+  <body>
+    <Header />
+    <div class="wrap-margin">
+      <Render data={content} />
+    </div>
+    <Footer />
+    <Filters />
+    <script>
+      import "../scripts/components1";
+      import "../scripts/components2";
+      import "../scripts/components3";
+      import "../scripts/lenis.js";
+
+      import simpleParallax from "simple-parallax-js";
+      let textWrap = document.querySelector(".textwrap");
+      if (textWrap) {
+        if (window.matchMedia("(min-width: 1024px)").matches) {
+          textWrap.classList.add("sceneTextRight");
+        } else {
+          textWrap.classList.remove("sceneTextRight");
+        }
+      }
+      let parallaxVertical = document.querySelectorAll(".sceneVertical");
+      new simpleParallax(parallaxVertical, {
+        scale: 1.4,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+      });
+      let parallaxVerticalOverflow = document.querySelectorAll(
+        ".sceneVerticalOverflow"
+      );
+      new simpleParallax(parallaxVerticalOverflow, {
+        scale: 1.4,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+        overflow: true,
+      });
+      let parallaxVerticalSmall = document.querySelectorAll(
+        ".sceneVerticalSmall"
+      );
+      new simpleParallax(parallaxVerticalSmall, {
+        scale: 1.1,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+      });
+      let parallaxHorizontal = document.querySelectorAll(".sceneHorizontal");
+      new simpleParallax(parallaxHorizontal, {
+        orientation: "right",
+        scale: 1.8,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+      });
+      let parallaxTextRight = document.querySelectorAll(".sceneTextRight");
+      new simpleParallax(parallaxTextRight, {
+        orientation: "right",
+        scale: 1.8,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+        overflow: "true",
+      });
+      let parallaxTextBottom = document.querySelectorAll(".sceneTextBottom");
+      new simpleParallax(parallaxTextBottom, {
+        orientation: "down",
+        scale: 1.8,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+        overflow: "true",
+      });
+    </script>
+  </body>
+</html>
