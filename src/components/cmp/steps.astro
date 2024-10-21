@@ -3,7 +3,7 @@ import {PortableText} from "astro-portabletext";
 const {node} = Astro.props;
 ---
 
-<section>
+<section class="steps">
   <div class="px-8 pb-16 mx-auto md:px-12 lg:px-24 max-w-7xl relative">
     <div class="max-w-xl lg:text-balance texte">
       <PortableText value={node.title} />
@@ -34,6 +34,6 @@ const {node} = Astro.props;
 <style>
   .texte :global(h1, h2, h3, h4, h5, h6) {
     text-align: left;
-    margin-block: 0 !important;
+    /* margin-block: 0 !important; */
   }
 </style>

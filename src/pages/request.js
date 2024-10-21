@@ -24,4 +24,5 @@ export let request = `"seo": {title,description,slug,robots,canonical,schema,"og
         _type == 'steps' => {_type, id, title, steps},
         _type == 'faq' => {_type, id, title, faq[]{question,answer[]{..., markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}}}}},
         _type == 'productlistall' => {_type,id},
+        _type == 'imggallery' => {_type, id, gallery[]{alt,'src':asset->url}},
       }`;

@@ -121,7 +121,7 @@ h6 {
 
 h1 {
   font-size: var(--size-2xl);
-  margin-block-end: var(--space-xl);
+  margin-block-end: var(--space-l);
   padding-block-end: var(--space-s);
   border-bottom: currentColor solid var(--fluid-2-6);
   line-height: 1;
@@ -129,24 +129,24 @@ h1 {
 
 h2 {
   font-size: var(--size-xl);
-  margin-block: var(--space-2xl);
+  margin-block: var(--space-s);
   text-decoration: underline;
   text-underline-offset: 0.3em;
 }
 
 h3 {
   font-size: var(--size-l);
-  margin-block: var(--space-xl);
+  margin-block: var(--space-s);
 }
 
 h4 {
   font-size: var(--size-m);
-  margin-block: var(--space-l);
+  margin-block: var(--space-s);
 }
 
 h5 {
   font-size: var(--size-s);
-  margin-block: var(--space-m);
+  margin-block: var(--space-s);
 }
 
 h6 {
@@ -166,19 +166,17 @@ p+p {
   margin-block-start: var(--space-s);
 }
 
-h1.texte-libre,
-h2.texte-libre,
-h3.texte-libre,
-h4.texte-libre,
-h5.texte-libre,
-h6.texte-libre {
-  text-align: left;
-  white-space: break-spaces;
-  @apply max-w-xl ml-0 my-16 pb-8;
-}
-
 .bloctext {
   @apply max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)];
+}
+
+.bloctext h1,
+.bloctext h2,
+.bloctext h3,
+.bloctext h4,
+.bloctext h5,
+.bloctext h6 {
+  @apply my-8;
 }
 
 .texte-libre {

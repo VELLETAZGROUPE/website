@@ -277,6 +277,7 @@ export default {
         {type: 'steps'},
         {type: 'faq'},
         {type: 'productlistall'},
+        {type: 'imggallery'},
       ],
     },
   ],

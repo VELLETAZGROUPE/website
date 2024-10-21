@@ -17,6 +17,17 @@ export default {
   name: 'logogallery',
   type: 'document',
   title: 'Galerie de logos',
+  preview: {
+    select: {
+      title: 'name',
+    },
+    prepare(selection) {
+      let {title} = selection
+      return {
+        title: `Galerie de logos`,
+      }
+    },
+  },
   fields: [
     copyPaste,
     {

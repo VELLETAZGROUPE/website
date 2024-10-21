@@ -49,10 +49,11 @@ for (let i = 0; i < data.links.length; i++) {
 }
 ---
 
-<footer>
+<footer class="border-t border-[var(--color-body-dim2)] mt-16">
   <section>
     <div class="px-8 py-12 mx-auto md:px-10 lg:px-12 max-w-7xl relative">
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-12 gap-4">
+      <div
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-12 gap-4 items-center">
         <div class="col-span-full md:col-span-5">
           <a
             href="/"
@@ -62,7 +63,7 @@ for (let i = 0; i < data.links.length; i++) {
               <Fragment set:html={data.logo} />
             </div>
           </a>
-          <div class="">
+          <div id="inscription-newsletter">
             <div class="intro_newsletter">
               <PortableText value={data.newsletter.title} />
             </div>
@@ -90,7 +91,7 @@ for (let i = 0; i < data.links.length; i++) {
           </div>
         </div>
         <div
-          class="grid pt-6 mt-6 grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-24 col-span-full md:col-start-7">
+          class="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-24 col-span-full md:col-start-7">
           {
             data.links.map((page, idx) => (
               <nav aria-labelledby={`footer-heading-${idx}`}>

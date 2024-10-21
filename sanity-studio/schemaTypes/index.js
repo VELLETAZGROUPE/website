@@ -30,6 +30,7 @@ import productlistcat from './cmp/productlistcat'
 import steps from './cmp/steps'
 import faq from './cmp/faq'
 import productlistall from './cmp/productlistall'
+import imggallery from './cmp/imggallery'
 
 export const schemaTypes = [
   global,
@@ -63,4 +64,5 @@ export const schemaTypes = [
   steps,
   faq,
   productlistall,
+  imggallery,
 ]
