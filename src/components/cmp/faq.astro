@@ -13,9 +13,9 @@ const {node} = Astro.props;
     <div class="mt-12">
       {
         node.faq.map((item) => (
-          <details class="group cursor-pointer">
+          <details class="group cursor-pointer mb-8">
             <summary class="flex items-center justify-between w-full pt-4 text-left select-none hover:text-accent-500 focus:text-accent-500 gap-4">
-              <span class="font-bold">{item.question}</span>
+              <span class="font-bold text-2xl">{item.question}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
