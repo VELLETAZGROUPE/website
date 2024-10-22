@@ -82,7 +82,6 @@ let noimg = node.items[0].img?.src ? false : true;
     position: relative;
     z-index: 1;
     padding-block: var(--space-l);
-    padding-inline: var(--space-xs);
     @apply md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)];
   }
 
@@ -94,22 +93,18 @@ let noimg = node.items[0].img?.src ? false : true;
 
   .hiw-v4__grid-1 {
     display: grid;
-    gap: var(--space-l);
+    gap: var(--space-xl);
   }
 
   .tableofcontent:not(.noimg) .hiw-v4__grid-2 {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-l);
-  }
-
-  :global(.hy3-text-lg.h4) {
-    margin-block: var(--space-l);
+    gap: var(--space-3xl);
   }
 
   :global(.hiw-v4__img) {
     width: 100%;
-    height: 450px;
+    /* height: 450px; */
     object-fit: contain;
     margin-bottom: var(--space-s);
   }
@@ -323,7 +318,6 @@ let noimg = node.items[0].img?.src ? false : true;
 
   .tableofcontent:not(.noimg) .toc-content__target {
     scroll-margin-top: var(--space-3xs);
-    margin-block: var(--space-l);
   }
 
   .tableofcontent.noimg .toc-content__target {

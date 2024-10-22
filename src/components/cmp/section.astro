@@ -20,7 +20,7 @@ let uniq = blockcnt > 1 ? false : true;
 
 <section
   id={node.id || undefined}
-  class={`my-16 py-16 max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]`}>
+  class={`mx-[calc(-1*var(--space-s))] my-16 py-16 max-w-7xl md:mx-auto px-[var(--space-s)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]`}>
   <div
     class={`${node.img?.src ? "withimg" : "withoutimg"} section ${node.bg ? node.bg : "white"}`}>
     {

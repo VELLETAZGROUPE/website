@@ -4,8 +4,8 @@ import NetlifyImage from "../NetlifyImage.astro";
 const {node} = Astro.props;
 ---
 
-<section class="icons" id={node.id || undefined}>
-  <div class="px-8 py-32 mx-auto max-w-7xl relative">
+<section class="biglist2" id={node.id || undefined}>
+  <div class="py-32 mx-auto max-w-7xl relative">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
       <div class={`${node.order ? "lg:order-last" : ""} title lg:sticky top-8`}>
         <PortableText value={node.title} />
