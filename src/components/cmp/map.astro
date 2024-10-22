@@ -7,7 +7,7 @@ const {node} = Astro.props;
 ---
 
 <section
-  class="map flex justify-center items-center flex-col lg:flex-row py-32">
+  class={`${node.reverse ? "reverse" : ""} max-w-7xl mx-auto px-0 md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)] map flex justify-center items-center flex-col lg:flex-row py-16`}>
   <div>
     <PortableText value={node.title} />
   </div>
@@ -108,6 +108,9 @@ const {node} = Astro.props;
 </section>
 
 <style>
+  section.reverse > *:first-child {
+    order: 1;
+  }
   /* --------------------------------
 
 File#: _1_modal-window

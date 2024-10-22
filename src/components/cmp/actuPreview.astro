@@ -39,6 +39,10 @@ if (!node.actus) {
   node.actus = data;
 }
 
+node.actus.sort(function (a, b) {
+  return new Date(b.date) - new Date(a.date);
+});
+
 let first;
 if (node.bigfirst) {
   first = node.actus.shift();

@@ -4,6 +4,9 @@ export default {
   name: 'map',
   type: 'document',
   title: 'Carte interactive',
+  initialValue: {
+    reverse: false,
+  },
   fields: [
     copyPaste,
     {
@@ -12,6 +15,11 @@ export default {
       description:
         'Un lien vers /slug/#ancre peut être utilisé pour naviguer directement à cet endroit.',
       type: 'string',
+    },
+    {
+      name: 'reverse',
+      type: 'boolean',
+      title: "Inverser l'ordre des colonnes ?",
     },
     {
       name: 'title',
