@@ -12,6 +12,7 @@ QUERY = encodeURIComponent(`
     nom,
     subpages[]{
       nom,
+      urldirect,
       'url':url->slug
     }
   }
@@ -40,7 +41,11 @@ for (let i = 0; i < data.links.length; i++) {
   }
   if (data.links[i].subpages) {
     for (let j = 0; j < data.links[i].subpages.length; j++) {
-      data.links[i].subpages[j].url = data.links[i].subpages[j].url ?? "";
+      if (data.links[i].subpages[j].urldirect) {
+        data.links[i].subpages[j].url = data.links[i].subpages[j].urldirect;
+      } else {
+        data.links[i].subpages[j].url = data.links[i].subpages[j].url ?? "";
+      }
     }
   }
 }

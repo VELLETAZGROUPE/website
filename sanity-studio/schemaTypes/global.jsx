@@ -292,6 +292,11 @@ export default {
                       title: 'URL du lien',
                       to: [{type: 'page'}, {type: 'categories'}],
                     },
+                    {
+                      name: 'urldirect',
+                      type: 'string',
+                      title: 'URL du lien (manuel)',
+                    },
                   ],
                 },
               ],

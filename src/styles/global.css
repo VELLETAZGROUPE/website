@@ -32,6 +32,7 @@ html {
 
 .wrap-margin {
   padding-inline: var(--space-s);
+  overflow-x: clip;
 }
 
 .remove-margin {

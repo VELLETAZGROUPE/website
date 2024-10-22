@@ -16,7 +16,8 @@ QUERY = encodeURIComponent(`
     nom,
     subpages[]{
       nom,
-      'url':url->slug
+      'url':url->slug,
+      urldirect,
     }
   },
   newsletter,
@@ -39,14 +40,18 @@ let data = await fetch(URLQUERY)
   .catch((err) => console.error(err));
 
 for (let i = 0; i < data.links.length; i++) {
-  if (data.links[i].urldirect) {
-    data.links[i].url = data.links[i].urldirect.slice(1);
-  } else if (data.links[i].hasurl) {
+  if (data.links[i].hasurl) {
     data.links[i].url = data.links[i].url ?? "";
+  } else if (data.links[i].urldirect) {
+    data.links[i].url = data.links[i].urldirect.substring(1);
   }
   if (data.links[i].subpages) {
     for (let j = 0; j < data.links[i].subpages.length; j++) {
-      data.links[i].subpages[j].url = data.links[i].subpages[j].url ?? "";
+      if (data.links[i].subpages[j].urldirect) {
+        data.links[i].subpages[j].url = data.links[i].subpages[j].urldirect;
+      } else {
+        data.links[i].subpages[j].url = data.links[i].subpages[j].url ?? "";
+      }
     }
   }
 }
