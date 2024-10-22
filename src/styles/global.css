@@ -167,7 +167,7 @@ p+p {
 }
 
 .bloctext {
-  @apply max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)];
+  @apply max-w-7xl mx-auto px-0 md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)];
 }
 
 .bloctext h1,

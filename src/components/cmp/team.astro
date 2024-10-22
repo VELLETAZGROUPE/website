@@ -8,10 +8,10 @@ const uid = nanoid(5);
 const {node} = Astro.props;
 ---
 
-<section class="p-8 max-w-7xl mx-auto">
+<section class="py-8 max-w-7xl mx-auto">
   {
     node.title && (
-      <div class="flex flex-col justify-center items-start px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
+      <div class="flex flex-col justify-center items-start px-0 md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
         <PortableText
           value={node.title}
           components={{
