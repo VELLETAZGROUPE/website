@@ -185,6 +185,8 @@ export default {
         {type: 'faq'},
         {type: 'productlistall'},
         {type: 'imggallery'},
+        {type: 'marqueelogo'},
+        {type: 'marqueetext'},
       ],
     },
   ],

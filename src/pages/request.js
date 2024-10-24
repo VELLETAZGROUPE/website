@@ -25,4 +25,6 @@ export let request = `"seo": {title,description,slug,robots,canonical,schema,"og
         _type == 'faq' => {_type, id, title, faq[]{question,answer[]{..., markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}}}}},
         _type == 'productlistall' => {_type,id},
         _type == 'imggallery' => {_type, id, gallery[]{alt,'src':asset->url}},
+        _type == 'marqueelogo' => {_type, id, title[]{..., markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}} , _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}, imgarray[]{link, img{alt,'src':asset->url}}},
+        _type == 'marqueetext' => {_type, id, title[]{..., markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}} , _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}},texte,
       }`;

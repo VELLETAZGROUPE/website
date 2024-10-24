@@ -31,6 +31,8 @@ import steps from './cmp/steps'
 import faq from './cmp/faq'
 import productlistall from './cmp/productlistall'
 import imggallery from './cmp/imggallery'
+import marqueelogo from './cmp/marqueelogo'
+import marqueetext from './cmp/marqueetext'
 
 export const schemaTypes = [
   global,
@@ -65,4 +67,6 @@ export const schemaTypes = [
   faq,
   productlistall,
   imggallery,
+  marqueelogo,
+  marqueetext,
 ]
