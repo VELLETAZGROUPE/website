@@ -48,7 +48,8 @@ for (let i = 0; i < data.links.length; i++) {
   if (data.links[i].subpages) {
     for (let j = 0; j < data.links[i].subpages.length; j++) {
       if (data.links[i].subpages[j].urldirect) {
-        data.links[i].subpages[j].url = data.links[i].subpages[j].urldirect;
+        data.links[i].subpages[j].url =
+          data.links[i].subpages[j].urldirect.substring(1);
       } else {
         data.links[i].subpages[j].url = data.links[i].subpages[j].url ?? "";
       }
