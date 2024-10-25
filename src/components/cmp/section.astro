@@ -20,7 +20,7 @@ let uniq = blockcnt > 1 ? false : true;
 
 <section
   id={node.id || undefined}
-  class={`mx-[calc(-1*var(--space-s))] my-16 py-16 max-w-7xl md:mx-auto px-[var(--space-s)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]`}>
+  class={`${node.img?.src ? "reversible" : ""} mx-[calc(-1*var(--space-s))] my-16 py-16 max-w-7xl md:mx-auto px-[var(--space-s)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]`}>
   <div
     class={`${node.img?.src ? "withimg" : "withoutimg"} section ${node.bg ? node.bg : "white"}`}>
     {
@@ -52,6 +52,12 @@ let uniq = blockcnt > 1 ? false : true;
 </section>
 
 <style>
+  .section :global(a) {
+    text-decoration: underline;
+    cursor: pointer;
+    white-space: break-spaces;
+  }
+
   .section :global(ul, ol) {
     @apply list-inside list-disc max-w-[65ch] ml-4;
   }
@@ -85,10 +91,6 @@ let uniq = blockcnt > 1 ? false : true;
     @apply w-full h-[calc(100%+2rem)] md:h-[calc(100%+4rem)] lg:h-[calc(100%+6rem)] xl:h-[calc(100%+8rem)] object-cover -mt-4 md:-mt-8 lg:-mt-12 xl:-mt-16;
   }
 
-  .section.withimg + .section.withimg {
-    @apply md:flex-row-reverse;
-  }
-
   .section.green :global(a.bordeau:hover, a.bordeau:focus) {
     box-shadow: inset 100em 0 0 0 var(--color-accent1-dim);
     color: var(--color-body);
@@ -118,5 +120,9 @@ let uniq = blockcnt > 1 ? false : true;
 
   section:has(.red) {
     @apply bg-[var(--color-accent2)] text-[var(--color-bg)];
+  }
+
+  section.reversible:nth-child(odd) .withimg {
+    @apply md:flex-row-reverse;
   }
 </style>

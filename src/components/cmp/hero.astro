@@ -10,6 +10,8 @@ let {node} = Astro.props;
 
 let components = {HeroClip, HeroSplit, HeroFull, HeroDuo};
 const Component = components[node.layout] || HeroFull;
+
+console.dir(node, {depth: null});
 ---
 
 <section id={node.id || undefined} class="hero mb-16 remove-margin">
