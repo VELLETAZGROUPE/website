@@ -5,7 +5,8 @@ const {node} = Astro.props;
 ---
 
 <section class="biglist2" id={node.id || undefined}>
-  <div class="py-32 mx-auto max-w-7xl relative">
+  <div
+    class="py-32 mx-auto max-w-7xl relative px-0 md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)];">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
       <div class={`${node.order ? "lg:order-last" : ""} title lg:sticky top-8`}>
         <PortableText value={node.title} />
