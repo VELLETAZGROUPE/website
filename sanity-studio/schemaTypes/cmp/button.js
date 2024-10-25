@@ -37,12 +37,29 @@ export default {
         },
         {
           name: 'linkExt',
-          type: 'string',
+          type: 'object',
           title: 'Lien externe',
           description: 'https://www.exemple.com/url',
           hidden: ({parent}) => {
             return parent?.isExt !== true
           },
+          fields: [
+            {
+              name: 'href',
+              type: 'url',
+              title: 'URL',
+              validation: (Rule) =>
+                Rule.uri({
+                  allowRelative: true,
+                }),
+            },
+            {
+              title: 'Ouvrir dans un nouvel onglet ?',
+              name: 'blank',
+              description: 'Voir https://css-tricks.com/use-target_blank/',
+              type: 'boolean',
+            },
+          ],
         },
       ],
     },

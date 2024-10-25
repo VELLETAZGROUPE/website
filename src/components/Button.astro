@@ -6,11 +6,18 @@ if (node.href.isExt === false) {
     node.href.linkInt = "/";
   }
 }
+
+console.log(node);
 ---
 
 <a
   class={`${node.color || "vert"} ${node.size || "small"} button`}
-  href={`${node.href.isExt ? node.href.linkExt : "/" + node.href.linkInt}`}>
+  href={`${node.href.isExt ? node.href.linkExt.href : "/" + node.href.linkInt}`}
+  target={node.href.isExt
+    ? node.href.linkExt.blank
+      ? "_blank"
+      : "_self"
+    : "_self"}>
   {node.content}
 </a>
 
