@@ -1,11 +1,17 @@
 ---
 let {node} = Astro.props;
-
 if (node.markDef?.href?.startsWith("http") == false) {
-  node.markDef.href = "/" + node.markDef.href;
+  if (node.markDef?.href?.startsWith("/") == false) {
+    node.markDef.href = "/" + node.markDef.href;
+  }
+
   if (node.markDef?.href?.endsWith("/") === false) {
     node.markDef.href += "/";
   }
+}
+
+if (node.markDef.href == null) {
+  node.markDef.href = "";
 }
 ---
 

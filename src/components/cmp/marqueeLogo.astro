@@ -142,9 +142,14 @@ const {node} = Astro.props;
   );
   const marqueeContent = document.querySelector("ul.marquee-content");
 
-  root.style.setProperty("--marquee-elements", marqueeContent.children.length);
+  if (marqueeContent) {
+    root.style.setProperty(
+      "--marquee-elements",
+      marqueeContent.children.length
+    );
 
-  for (let i = 0; i < marqueeElementsDisplayed; i++) {
-    marqueeContent.appendChild(marqueeContent.children[i].cloneNode(true));
+    for (let i = 0; i < marqueeElementsDisplayed; i++) {
+      marqueeContent.appendChild(marqueeContent.children[i].cloneNode(true));
+    }
   }
 </script>
