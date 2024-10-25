@@ -26,5 +26,5 @@ export let request = `"seo": {title,description,slug,robots,canonical,schema,"og
         _type == 'imggallery' => {_type, id, gallery[]{alt,'src':asset->url}},
         _type == 'marqueelogo' => {_type, id, title[]{..., markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}} , _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}, imgarray[]{link, img{alt,'src':asset->url}}},
         _type == 'marqueetext' => {_type, id, title[]{..., markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}} , _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}},texte},
-        _type == "hero" => {_type, id, layout, fullscreen, duotone, blur, imgsize, opacity, textcolor, texte[]{...,_type=="button"=>{color,content,href{isExt,linkExt,'linkInt':linkInt->slug}}},img{alt,'src':asset->url}},
+        _type == "hero" => {_type, id, layout, fullscreen, duotone, blur, imgsize, opacity, textcolor, texte[]{...,markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}},_type=="button"=>{color,content,href{isExt,linkExt,'linkInt':linkInt->slug}}},img{alt,'src':asset->url}},
       }`;

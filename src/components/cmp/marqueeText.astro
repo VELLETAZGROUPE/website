@@ -4,22 +4,13 @@ import Link from "../Link.astro";
 import Button from "../Button.astro";
 
 const {node} = Astro.props;
+
+// console.dir(node.title, {depth: null});
 ---
 
 <div
   class="mb-12 max-w-7xl mx-auto px-0 md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
-  <PortableText
-    value={node.title}
-    components={{
-      mark: {
-        link: Link,
-        internalLink: Link,
-      },
-      type: {
-        button: Button,
-      },
-    }}
-  />
+  <PortableText value={node.title} />
 </div>
 <div class="marquee">
   <div class="track">
