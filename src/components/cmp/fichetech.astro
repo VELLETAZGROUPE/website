@@ -2,6 +2,7 @@
 import {PortableText} from "astro-portabletext";
 import Button from "../Button.astro";
 import Image from "../Image.astro";
+import Link from "../Link.astro";
 
 const {node} = Astro.props;
 ---
@@ -26,6 +27,10 @@ const {node} = Astro.props;
               <PortableText
                 value={onglet.content}
                 components={{
+                  mark: {
+                    link: Link,
+                    internalLink: Link,
+                  },
                   type: {
                     button: Button,
                     img: Image,
@@ -41,6 +46,11 @@ const {node} = Astro.props;
 </section>
 
 <style>
+  .content :global(a) {
+    text-decoration: underline;
+    cursor: pointer;
+    white-space: break-spaces;
+  }
   .content :global(img) {
     @apply max-h-64 w-auto mb-4 mx-auto;
   }

@@ -105,9 +105,35 @@ if (content) {
       import "../scripts/lenis.js";
 
       import simpleParallax from "simple-parallax-js";
+      let textWrap = document.querySelector(".textwrap");
+      if (textWrap) {
+        if (window.matchMedia("(min-width: 1024px)").matches) {
+          textWrap.classList.add("sceneTextRight");
+        } else {
+          textWrap.classList.remove("sceneTextRight");
+        }
+      }
       let parallaxVertical = document.querySelectorAll(".sceneVertical");
       new simpleParallax(parallaxVertical, {
         scale: 1.4,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+      });
+      let parallaxVerticalOverflow = document.querySelectorAll(
+        ".sceneVerticalOverflow"
+      );
+      new simpleParallax(parallaxVerticalOverflow, {
+        orientation: "down",
+        scale: 1.4,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+        overflow: true,
+      });
+      let parallaxVerticalSmall = document.querySelectorAll(
+        ".sceneVerticalSmall"
+      );
+      new simpleParallax(parallaxVerticalSmall, {
+        scale: 1.1,
         delay: 0.6,
         transition: "cubic-bezier(0,0,0,1)",
       });
@@ -121,7 +147,15 @@ if (content) {
       let parallaxTextRight = document.querySelectorAll(".sceneTextRight");
       new simpleParallax(parallaxTextRight, {
         orientation: "right",
-        scale: 1.1,
+        scale: 1.8,
+        delay: 0.6,
+        transition: "cubic-bezier(0,0,0,1)",
+        overflow: "true",
+      });
+      let parallaxTextBottom = document.querySelectorAll(".sceneTextBottom");
+      new simpleParallax(parallaxTextBottom, {
+        orientation: "down",
+        scale: 1.8,
         delay: 0.6,
         transition: "cubic-bezier(0,0,0,1)",
         overflow: "true",
