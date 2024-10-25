@@ -16,7 +16,7 @@ let {node} = Astro.props;
     class={`w-[calc(100%_-_3rem)] mx-auto max-w-lg sm:max-w-3xl relative z-[2] texte ${node.blur == "lo" ? "backdrop-blur-sm" : node.blur == "hi" ? "backdrop-blur-3xl" : "backdrop-blur-xl"}`}>
     {
       node.texte && (
-        <div class="h4 mx-auto" data-year={year}>
+        <div class="h4 mx-auto p-4" data-year={year}>
           <PortableText
             value={node.texte}
             components={{
