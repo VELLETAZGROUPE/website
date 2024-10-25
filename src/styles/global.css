@@ -33,6 +33,7 @@ html {
 .wrap-margin {
   padding-inline: var(--space-s);
   overflow-x: clip;
+  text-wrap: pretty;
 }
 
 .remove-margin {
@@ -60,6 +61,7 @@ h3,
 h4,
 h5,
 h6 {
+  text-wrap: balance;
   font-family: var(--headings);
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -90,7 +92,7 @@ h6 {
 .h5,
 .h6 {
   white-space: break-spaces;
-  @apply max-w-xl;
+  @apply max-w-xl text-balance;
   /* text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3); */
 }
 
