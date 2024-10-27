@@ -7,46 +7,49 @@ import NetlifyImage from "../NetlifyImage.astro";
 const {node} = Astro.props;
 ---
 
-<div class="text-center w-fit mx-auto mb-12">
-  <PortableText
-    value={node.title}
-    components={{
-      mark: {
-        link: Link,
-        internalLink: Link,
-      },
-      type: {
-        button: Button,
-      },
-    }}
-  />
-</div>
-<div class="marquee">
-  <ul class="marquee-content">
-    {
-      node.imgarray.map((img) => (
-        <li>
-          {img.link && (
-            <a href={img.link} target="_blank">
+<section class="my-32">
+  <div
+    class="my-12 max-w-7xl mx-auto px-0 md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
+    <PortableText
+      value={node.title}
+      components={{
+        mark: {
+          link: Link,
+          internalLink: Link,
+        },
+        type: {
+          button: Button,
+        },
+      }}
+    />
+  </div>
+  <div class="marquee">
+    <ul class="marquee-content">
+      {
+        node.imgarray.map((img) => (
+          <li>
+            {img.link && (
+              <a href={img.link} target="_blank">
+                <NetlifyImage
+                  src={img.img.src}
+                  alt={img.img.alt}
+                  class="max-w-32"
+                />
+              </a>
+            )}
+            {!img.link && (
               <NetlifyImage
                 src={img.img.src}
                 alt={img.img.alt}
                 class="max-w-32"
               />
-            </a>
-          )}
-          {!img.link && (
-            <NetlifyImage
-              src={img.img.src}
-              alt={img.img.alt}
-              class="max-w-32"
-            />
-          )}
-        </li>
-      ))
-    }
-  </ul>
-</div>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
 
 <style>
   :root {
