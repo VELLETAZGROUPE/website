@@ -20,6 +20,45 @@ const Component = components[node.layout] || HeroFull;
   <Component node={node} />
 </section>
 
+<style is:global>
+  #logo--ban {
+    @apply w-36;
+  }
+  .ban-wrap {
+    display: flex;
+    justify-content: center;
+  }
+  .ban-wrap .ban-text {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .ban-wrap .ban-text > *:nth-child(1) {
+    font-weight: 900;
+  }
+  .ban-wrap .ban-text > *:nth-child(2) {
+    font-weight: 400;
+    font-size: var(--size-l);
+  }
+  .ban-wrap .ban-text > *:nth-child(2)::before,
+  .ban-wrap .ban-text > *:nth-child(2)::after {
+    display: inline-block;
+    content: "";
+    border-top: 0.2rem solid var(--color-bg);
+    width: 4rem;
+    margin: 0 1rem;
+    transform: translateY(-0.7rem);
+  }
+  .ban-wrap .ban-text > *:nth-child(3) {
+    font-weight: 400;
+    font-size: var(--size-m);
+  }
+  .hero .texte .h4 {
+    white-space: normal;
+  }
+</style>
+
 <script>
   let heroContent = document.querySelectorAll(".hero .texte .h4");
 
@@ -29,6 +68,84 @@ const Component = components[node.layout] || HeroFull;
         "%year%",
         heroContent[0].dataset.year
       );
+      if (node.innerHTML.includes("%velletaz%")) {
+        const svgCode = `<svg id="logo--ban" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 167.08 188.13">
+          <defs>
+            <style>
+              .cls-1b {
+                stroke-width: 4px;
+              }
+
+              .cls-1b, .cls-2b, .cls-3b {
+                fill: none;
+                stroke: #EFEDE9;
+                stroke-miterlimit: 10;
+              }
+
+              .cls-1b, .cls-3b {
+                stroke-linecap: round;
+              }
+
+              .cls-4b {
+                fill: #EFEDE9;
+                stroke-width: 0px;
+              }
+
+              .cls-2b {
+                stroke-linecap: square;
+              }
+
+              .cls-2b, .cls-3b {
+                stroke-width: 6px;
+              }
+            </style>
+          </defs>
+          <path id="blason" class="cls-2b" d="M3,3v98.34c0,43.81,62.1,83.62,80.72,83.79h.11c10.37,0,35.07-13.09,54.13-31.99,11.92-11.83,26.13-30.42,26.13-51.8V3H3Z"/>
+          <g id="grappe">
+            <g id="pedoncule">
+              <rect class="cls-4b" x="80.85" y="5.79" width="5.34" height="10.3"/>
+            </g>
+            <g id="grains">
+              <path class="cls-4b" d="M61.45,41.77c4.75,0,8.6-3.87,8.6-8.64s-3.85-8.64-8.6-8.64-8.6,3.87-8.6,8.64,3.85,8.64,8.6,8.64Z"/>
+              <ellipse class="cls-4b" cx="83.52" cy="33.13" rx="8.6" ry="8.64"/>
+              <path class="cls-4b" d="M105.58,41.77c4.75,0,8.6-3.87,8.6-8.64s-3.85-8.64-8.6-8.64-8.6,3.87-8.6,8.64,3.85,8.64,8.6,8.64Z"/>
+              <ellipse class="cls-4b" cx="72.48" cy="54.41" rx="8.6" ry="8.64"/>
+              <ellipse class="cls-4b" cx="94.55" cy="54.41" rx="8.6" ry="8.64"/>
+              <ellipse class="cls-4b" cx="83.52" cy="76.55" rx="8.6" ry="8.64"/>
+            </g>
+          </g>
+          <g id="vignoble-gauche">
+            <path class="cls-3b" d="M3.47,87.32c57.16,3.26,93.93,49.27,96.21,92.81"/>
+            <path class="cls-1b" d="M3.41,107.75c51.25,6.26,73.72,42,75.09,76.61"/>
+            <path class="cls-1b" d="M10.64,128.83c30.62,8.02,38.54,21.65,46.71,45.68"/>
+          </g>
+          <g id="vignoble-droite">
+            <line class="cls-3b" x1="48.68" y1="100.27" x2="163.53" y2="100.27"/>
+            <line class="cls-1b" x1="73.61" y1="119.69" x2="92.85" y2="100.45"/>
+            <line class="cls-1b" x1="88.99" y1="139.54" x2="128.26" y2="100.27"/>
+            <line class="cls-1b" x1="98.96" y1="166.28" x2="164.1" y2="101.14"/>
+          </g>
+        </svg>`;
+        let wrap = document.createElement("div");
+        wrap.classList.add("ban-wrap");
+        wrap.innerHTML = svgCode;
+
+        let text = document.createElement("h1");
+        text.classList.add("ban-text");
+        let text1, text2, text3;
+        text1 = document.createElement("div");
+        text2 = document.createElement("div");
+        text3 = document.createElement("div");
+        text1.innerHTML = "VELLETAZ";
+        text2.innerHTML = "GROUPE";
+        text3.innerHTML = "PÉPINIÈRES VITICOLES";
+        text.append(text1, text2, text3);
+
+        wrap.append(text);
+
+        node.prepend(wrap);
+        node.innerHTML = node.innerHTML.replace("%velletaz%", "");
+      }
     });
   }
 </script>

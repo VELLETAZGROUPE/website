@@ -2,6 +2,7 @@
 import {PortableText} from "astro-portabletext";
 import Button from "../Button.astro";
 import Link from "../Link.astro";
+import Image from "../Image.astro";
 
 const year = new Date().getFullYear() - 1987;
 
@@ -9,13 +10,19 @@ let {node} = Astro.props;
 ---
 
 <div
-  class={`hero full ${node.fullscreen ? "h-screen" : ""} after:content-['*'] after:absolute after:top-0 after:left-0 after:h-full after:w-full ${node.opacity > 0 ? "colorbg" : "colorbody"} after:opacity-${Math.abs(node.opacity)} after:z-[1] relative z-[1] py-16 lg:py-28 px-0 bg-gray-100 bg-cover bg-no-repeat bg-center text-center ${node.textcolor == "bg" ? "clair" : "fonce"}`}
-  style=`background-image: url('${node.img.src}')`>
+  class={`hero full h-screen overflow-hidden ${node.fullscreen ? "h-screen" : ""} after:content-['*'] after:absolute after:top-0 after:left-0 after:h-full after:w-full ${node.opacity > 0 ? "colorbg" : "colorbody"} after:opacity-${Math.abs(node.opacity)} after:z-[1] relative z-[1] py-16 lg:py-28 px-0 bg-gray-100 bg-cover bg-no-repeat bg-center text-center ${node.textcolor == "bg" ? "clair" : "fonce"}`}>
+  <div>
+    <img
+      class="absolute sceneVertical w-full h-full object-cover"
+      src={node.img.src}
+      alt=" "
+    />
+  </div>
   <div
     class={`w-[calc(100%_-_3rem)] mx-auto max-w-lg sm:max-w-3xl relative z-[2] texte ${node.blur == "lo" ? "backdrop-blur-sm" : node.blur == "hi" ? "backdrop-blur-3xl" : "backdrop-blur-xl"}`}>
     {
       node.texte && (
-        <div class="h4 mx-auto p-4" data-year={year}>
+        <div class="h4 mx-auto p-4 relative" data-year={year}>
           <PortableText
             value={node.texte}
             components={{
@@ -25,6 +32,7 @@ let {node} = Astro.props;
               },
               type: {
                 button: Button,
+                img: Image,
               },
             }}
           />

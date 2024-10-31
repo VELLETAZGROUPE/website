@@ -153,6 +153,7 @@ export default {
     {
       name: 'texte',
       title: 'Texte',
+      description: 'Pour la bannière logo, utiliser %velletaz%',
       type: 'array',
       of: [
         {
@@ -208,6 +209,7 @@ export default {
           },
         },
         {type: 'button'},
+        {type: 'img'},
       ],
     },
     {
