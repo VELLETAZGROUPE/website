@@ -20,19 +20,26 @@ let uniq = blockcnt > 1 ? false : true;
 
 <section
   id={node.id || undefined}
-  class={`${node.img?.src ? "reversible" : ""} mx-[calc(-1*var(--space-s))] my-16 py-16 max-w-7xl md:mx-auto px-[var(--space-s)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]`}>
+  class={`${node.img?.src ? "reversible" : ""} mx-[calc(-1*var(--space-s))] py-16 max-w-7xl md:mx-auto px-[var(--space-s)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]`}>
   <div
     class={`${node.img?.src ? "withimg" : "withoutimg"} section ${node.bg ? node.bg : "white"}`}>
     {
       node.img?.src && (
-        <div class="image">
+        <div
+          class="image scroll-fx@md js-scroll-fx"
+          data-scroll-fx-1="opacity, 0, 1, 5%, 25%"
+          data-scroll-fx-2="translateY, 50px, -50px, 0%, 100%"
+          data-scroll-fx-3="translateX, -100px, 0px, 0%, 100%">
           <NetlifyImage alt={node.img.alt} src={node.img.src} />
         </div>
       )
     }
     {
       node.text && (
-        <div class={` text ml-0 ${uniq ? "uniq" : ""}`}>
+        <div
+          class={`scroll-fx@md js-scroll-fx text ml-0 ${uniq ? "uniq" : ""}`}
+          data-scroll-fx-1="opacity, 0, 1, 15%, 25%"
+          data-scroll-fx-2="translateY, 50px, -50px, 0%, 100%">
           <PortableText
             value={node.text}
             components={{

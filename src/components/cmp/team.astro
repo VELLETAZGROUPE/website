@@ -11,7 +11,10 @@ const {node} = Astro.props;
 <section class="py-8 max-w-7xl mx-auto">
   {
     node.title && (
-      <div class="flex flex-col justify-center items-start px-0 md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
+      <div
+        class="scroll-fx@md js-scroll-fx flex flex-col justify-center items-start px-0 md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]"
+        data-scroll-fx-1="opacity, 0, 1, 5%, 25%"
+        data-scroll-fx-2="translateY, 50px, -50px, 0%, 100%">
         <PortableText
           value={node.title}
           components={{
@@ -28,7 +31,10 @@ const {node} = Astro.props;
     <ul class="feature-v20__list grid grid-cols-12 gap-0 lg:gap-x-8 -mt-16">
       {
         node.members.map((member, idx) => (
-          <li class="relative feature-v20__item min-w-0 col-span-12 md:col-span-6 lg:col-span-3 flex justify-center max-w-[300px] justify-self-center">
+          <li
+            class="scroll-fx@md js-scroll-fx relative feature-v20__item min-w-0 col-span-12 md:col-span-6 lg:col-span-3 flex justify-center max-w-[300px] justify-self-center"
+            data-scroll-fx-1="opacity, 0, 1, 5%, 25%"
+            data-scroll-fx-2="translateX, 50px, -50px, 0%, 100%">
             <button
               class="modal-img-btn rounded"
               aria-controls={`modal-${uid}-${idx + 1}`}

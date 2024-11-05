@@ -4,8 +4,8 @@ import Snap from "lenis/snap";
 const scrollwrapper = document.querySelector("html");
 
 const lenis = new Lenis({
-  lerp: 0.1,
-  wheelMultiplier: 0.9,
+  lerp: 0.05,
+  wheelMultiplier: 0.8,
   wrapper: scrollwrapper,
   prevent: (node) => node.classList.contains("modal"),
 });

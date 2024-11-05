@@ -9,7 +9,9 @@ const {node} = Astro.props;
 
 <section class="my-32">
   <div
-    class="my-12 max-w-7xl mx-auto px-0 md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
+    class="my-12 max-w-7xl mx-auto px-0 md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)] scroll-fx js-scroll-fx"
+    data-scroll-fx-1="opacity, 0, 1, 5%, 25%"
+    data-scroll-fx-2="translateY, 50px, -50px, 0%, 100%">
     <PortableText
       value={node.title}
       components={{

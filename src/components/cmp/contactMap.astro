@@ -71,7 +71,7 @@ const {node} = Astro.props;
         data-coordinates="51.5658015,-0.40339">
         <p class="font-bold mb-1.5 lg:mb-0">Nous rendre visite</p>
         <NetlifyImage
-          src="https://velletaz-draft.netlify.app/images/maps_vaucluse.png"
+          src={node.mapImg.src}
           alt="Google map Velletaz Vaucluse"
         />
       </div>

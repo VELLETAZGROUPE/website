@@ -12,7 +12,10 @@ const {node} = Astro.props;
     <PortableText value={node.title} />
   </div>
 
-  <figure class="relative z-[1] pt-16 mr-4">
+  <figure
+    class="relative z-[1] pt-16 mr-4 scroll-fx@md js-scroll-fx"
+    data-scroll-fx-1="opacity, 0, 1, 5%, 25%"
+    data-scroll-fx-2="translateY, 50px, -50px, 0%, 100%">
     {
       node.img && (
         <NetlifyImage
