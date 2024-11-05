@@ -265,6 +265,7 @@ export default {
         {type: 'actupreview'},
         {type: 'timeline'},
         {type: 'video'},
+        {type: 'videobg'},
         {type: 'team'},
         {type: 'contactmap'},
         {type: 'testimonials'},

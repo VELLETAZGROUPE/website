@@ -12,6 +12,7 @@ export let request = `"seo": {title,description,slug,robots,canonical,schema,"og
         _type == "actupreview" => {_type, id, bigfirst, "actus":actus[]->{h1,abstract,date,slug,img{alt, 'src':asset->url}}, title[]{...,markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}} , _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}},
         _type == "timeline" => {_type,id,title,events},
         _type == "video" => {_type, id, title, ytID, img{alt,duotone,'src':asset->url}},
+        _type == "videobg" => {_type, id},
         _type == "team" => {_type, id,title,members[]->{...,img{'src':asset->url}}},
         _type == "contactmap" => {_type, id, title, address, mail, tel,horaires, mapImg{'src':asset->url},iframesrc},
         _type == "testimonials" => {_type, id, title, testimonials},

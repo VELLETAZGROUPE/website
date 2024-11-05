@@ -17,6 +17,7 @@ import logogallery from './cmp/logogallery'
 import actupreview from './cmp/actupreview'
 import timeline from './cmp/timeline'
 import video from './cmp/video'
+import videobg from './cmp/videobg'
 import team from './cmp/team'
 import contactmap from './cmp/contactmap'
 import testimonials from './cmp/testimonials'
@@ -53,6 +54,7 @@ export const schemaTypes = [
   actupreview,
   timeline,
   video,
+  videobg,
   team,
   contactmap,
   testimonials,
