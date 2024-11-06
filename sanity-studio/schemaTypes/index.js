@@ -34,6 +34,8 @@ import productlistall from './cmp/productlistall'
 import imggallery from './cmp/imggallery'
 import marqueelogo from './cmp/marqueelogo'
 import marqueetext from './cmp/marqueetext'
+import motiondesign from './cmp/motiondesign'
+import scrolltelling from './cmp/scrolltelling'
 
 export const schemaTypes = [
   global,
@@ -71,4 +73,6 @@ export const schemaTypes = [
   imggallery,
   marqueelogo,
   marqueetext,
+  motiondesign,
+  scrolltelling,
 ]

@@ -31,10 +31,7 @@ const {node} = Astro.props;
     <ul class="feature-v20__list grid grid-cols-12 gap-0 lg:gap-x-8 -mt-16">
       {
         node.members.map((member, idx) => (
-          <li
-            class="scroll-fx@md js-scroll-fx relative feature-v20__item min-w-0 col-span-12 md:col-span-6 lg:col-span-3 flex justify-center max-w-[300px] justify-self-center"
-            data-scroll-fx-1="opacity, 0, 1, 5%, 25%"
-            data-scroll-fx-2="translateX, 50px, -50px, 0%, 100%">
+          <li class="relative feature-v20__item min-w-0 col-span-12 md:col-span-6 lg:col-span-3 flex justify-center max-w-[300px] justify-self-center">
             <button
               class="modal-img-btn rounded"
               aria-controls={`modal-${uid}-${idx + 1}`}
@@ -71,14 +68,14 @@ const {node} = Astro.props;
                 role="alertdialog"
                 aria-labelledby="modal-title-1"
                 aria-describedby="modal-description-1">
-                <header class="bg-gray-300/50 py-3 lg:py-5 px-5 lg:px-8 flex flex-col items-center justify-between">
+                <header class="bg-[var(--color-accent1-dim)] text-[var(--color-bg)] py-3 lg:py-5 px-5 lg:px-8 flex flex-col items-center justify-between">
                   <p
                     id="modal-title-1"
                     class="truncate h3 font1 text-center">{`${member.name} - ${member.poste}`}</p>
                   <p class="h5 font2 text-center">{`Millésime ${member.year}`}</p>
                 </header>
 
-                <div class="py-3 lg:py-5 px-5 lg:px-8">
+                <div class="py-3 lg:py-5 px-5 lg:px-8 bg-[var(--color-accent1-dim)] text-[var(--color-bg)]">
                   <p class="h4">Sa devise</p>
                   <p set:text={member.devise} />
                   <p class="h4">Son parcours</p>
@@ -501,6 +498,8 @@ const {node} = Astro.props;
   // File#: _1_modal-window
   // Usage: codyhouse.co/license
   (function () {
+    var focusableElString =
+      '[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable], audio[controls], video[controls], summary';
     var Modal = function (element) {
       this.element = element;
       this.triggers = document.querySelectorAll(
@@ -731,8 +730,6 @@ const {node} = Astro.props;
       //initialize the Modal objects
       var modals = document.getElementsByClassName("js-modal");
       // generic focusable elements string selector
-      var focusableElString =
-        '[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable], audio[controls], video[controls], summary';
       if (modals.length > 0) {
         var modalArrays = [];
         for (var i = 0; i < modals.length; i++) {

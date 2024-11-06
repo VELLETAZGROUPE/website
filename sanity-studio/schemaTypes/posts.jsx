@@ -281,6 +281,8 @@ export default {
         {type: 'imggallery'},
         {type: 'marqueelogo'},
         {type: 'marqueetext'},
+        {type: 'motiondesign'},
+        {type: 'scrolltelling'},
       ],
     },
   ],

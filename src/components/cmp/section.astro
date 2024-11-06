@@ -29,7 +29,7 @@ let uniq = blockcnt > 1 ? false : true;
           class="image scroll-fx@md js-scroll-fx"
           data-scroll-fx-1="opacity, 0, 1, 5%, 25%"
           data-scroll-fx-2="translateY, 50px, -50px, 0%, 100%"
-          data-scroll-fx-3="translateX, -50px, 50px, 0%, 100%">
+          data-scroll-fx-3="translateX, -80px, 10px, 0%, 100%">
           <NetlifyImage alt={node.img.alt} src={node.img.src} />
         </div>
       )
@@ -69,7 +69,7 @@ let uniq = blockcnt > 1 ? false : true;
     @apply list-inside list-disc max-w-[65ch] ml-4;
   }
   .section .text.uniq > :global(p) {
-    font-size: clamp(2.3328rem, 1.7715rem + 2.8067vw, 3.9467rem);
+    font-size: var(--size-l);
     line-height: 1;
     margin-block-end: var(--space-2xl);
   }

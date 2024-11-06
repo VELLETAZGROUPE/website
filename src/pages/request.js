@@ -28,4 +28,6 @@ export let request = `"seo": {title,description,slug,robots,canonical,schema,"og
         _type == 'marqueelogo' => {_type, id, title[]{..., markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}} , _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}}, imgarray[]{link, img{alt,'src':asset->url}}},
         _type == 'marqueetext' => {_type, id, title[]{..., markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}} , _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}},texte},
         _type == "hero" => {_type, id, layout, fullscreen, duotone, blur, imgsize, opacity, textcolor, texte[]{...,markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}},_type=='img'=>{"alt":img.alt,"duotone":img.duotone,'src':img.asset->url},_type=="button"=>{color,content,href{isExt,linkExt,'linkInt':linkInt->slug}}},img{alt,'src':asset->url}},
+        _type == "motiondesign" => {_type, id},
+        _type == "scrolltelling" => {_type, id, slides[]{text, img{alt,duotone,'src':asset->url}}},
       }`;

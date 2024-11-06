@@ -65,7 +65,7 @@ const {node} = Astro.props;
             {
               node.listOfFacts &&
                 node.listOfFacts.map((fact) => (
-                  <li class="sticky-feature__media-item js-sticky-feature__media-item">
+                  <li class="sticky-feature__media-item js-sticky-feature__media-item m-24 max-w-64">
                     <figure class="sticky-feature__media-figure">
                       <NetlifyImage src={fact.img.src} alt={fact.img.alt} />
                     </figure>

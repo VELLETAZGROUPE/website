@@ -1,7 +1,7 @@
 export default {
-  name: 'videobg',
+  name: 'motiondesign',
   type: 'document',
-  title: 'Vidéo Background',
+  title: 'Animation Logo',
   preview: {
     select: {
       title: 'name',
@@ -9,7 +9,7 @@ export default {
     prepare(selection) {
       let {title} = selection
       return {
-        title: `Vidéo en Background`,
+        title: `Animation Logo`,
       }
     },
   },
