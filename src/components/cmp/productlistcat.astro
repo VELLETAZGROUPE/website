@@ -61,10 +61,12 @@ if (node.hasfilter) {
     }
   }
 }
+
+data.sort((a, b) => a.name.localeCompare(b.name));
 ---
 
 <section
-  class="py-12 lg:py-20 max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
+  class="listcat py-12 lg:py-20 max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
   {
     node.title && (
       <div class="mb-5 lg:mb-8 flex flex-col justify-center items-start">
