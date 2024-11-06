@@ -11,8 +11,7 @@ let {node} = Astro.props;
 ---
 
 <section id={node.id || undefined} class="hero remove-margin">
-  <div
-    class="img-wrap after:content-[''] after:absolute after:top-0 after:left-0 after:h-full after:w-full after:z-[1] relative z-[1] h-full">
+  <div class="img-wrap h-full">
     {
       node.img && (
         <NetlifyImage
@@ -48,32 +47,27 @@ let {node} = Astro.props;
 </section>
 
 <style>
-  .img-wrap:after {
-    background-color: var(--color-body);
-  }
-  section:has(.texte.vert) .img-wrap:after {
-    opacity: 0.25;
-  }
-
   .h4 {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    @apply justify-center lg:justify-start;
     justify-content: center;
   }
 
-  .h4 :global(a) {
+  .h4 :global(a.button) {
     text-decoration: underline;
     cursor: pointer;
     white-space: break-spaces;
     display: inline-block;
-    width: 40%;
-    @apply w-[70%] lg:w-[40%];
+    width: fit-content;
+    @apply min-w-[70%] lg:min-w-0 lg:max-w-[40%];
   }
   .h4 :global(p) {
     font-weight: 700;
     font-size: var(--size-s);
-    text-align: center;
+    text-align: left;
+    text-wrap: pretty;
   }
   .hero {
     height: 100vh;
@@ -91,7 +85,7 @@ let {node} = Astro.props;
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    @apply w-[90%] top-4 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:max-w-[70%] lg:top-1/4 lg:left-[12.5%];
+    @apply w-[90%] top-4 p-4 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:max-w-[70%] lg:top-1/4 lg:left-[12.5%];
   }
   .texte.vert {
     color: var(--color-bg);

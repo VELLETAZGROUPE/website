@@ -35,45 +35,13 @@ let css = `:root{
 ---
 
 <svg>
-  <filter
-    id="duotone-accent1"
-    x="-10%"
-    y="-10%"
-    width="120%"
-    height="120%"
-    filterUnits="objectBoundingBox"
-    primitiveUnits="userSpaceOnUse"
-    color-interpolation-filters="sRGB">
+  <filter id="duotone-accent1" class="jsx-715889512">
     <feColorMatrix
       type="matrix"
-      values="0 0 1 0 0
-            0 0 1 0 0
-            0 0 1 0 0
-            0 0 0 1 0"
-      in="SourceGraphic"
-      result="colormatrix">
+      values="-0.22265625 0 0 0 0.22265625 0.2265625 0 0 0 0.2109375 0.1875 0 0 0 0.18359375 0 0 0 1 0"
+      color-interpolation-filters="sRGB"
+      class="jsx-715889512">
     </feColorMatrix>
-    <feComponentTransfer in="colormatrix" result="componentTransfer">
-      <feFuncR
-        type="table"
-        tableValues={`${data.accent1Color.rgb.r / 255} ${data.bgColor.rgb.r / 255}`}>
-      </feFuncR>
-      <feFuncG
-        type="table"
-        tableValues={`${data.accent1Color.rgb.g / 255} ${data.bgColor.rgb.g / 255}`}>
-      </feFuncG>
-      <feFuncB
-        type="table"
-        tableValues={`${data.accent1Color.rgb.b / 255} ${data.bgColor.rgb.b / 255}`}>
-      </feFuncB>
-      <feFuncA type="table" tableValues="0 1"></feFuncA>
-    </feComponentTransfer>
-    <feBlend
-      mode="normal"
-      in="componentTransfer"
-      in2="SourceGraphic"
-      result="blend">
-    </feBlend>
   </filter>
   <filter
     id="duotone-accent2"
