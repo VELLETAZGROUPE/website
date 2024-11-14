@@ -55,8 +55,16 @@ const {node} = Astro.props;
                   </div>
                 </div>
                 <div class="divider" />
-                <div class="name text-center">{member.name}</div>
+                <div class="name mt-2 text-center">{member.name}</div>
                 <div class="title text-center">{member.poste}</div>
+                {node.contact && (
+                  <>
+                    <div class="name font-bold not-italic">
+                      En charge des secteurs :
+                    </div>
+                    <div class="name not-italic">{member.secteurs}</div>
+                  </>
+                )}
               </div>
             </button>
             <div
@@ -64,7 +72,7 @@ const {node} = Astro.props;
               class="modal modal--animate-scale flex justify-center items-center bg-gray-900/90 p-5 lg:p-8 js-modal"
               data-modal-prevent-scroll="html">
               <div
-                class="modal__content w-full max-h-full overflow-auto bg-white rounded shadow-lg max-w-5xl"
+                class={`modal__content ${node.contact ? "" : "w-full"} max-h-full overflow-auto bg-white rounded shadow-lg max-w-5xl`}
                 role="alertdialog"
                 aria-labelledby="modal-title-1"
                 aria-describedby="modal-description-1">
@@ -72,27 +80,42 @@ const {node} = Astro.props;
                   <p
                     id="modal-title-1"
                     class="truncate h3 font1 text-center">{`${member.name} - ${member.poste}`}</p>
-                  <p class="h5 font2 text-center">{`Millésime ${member.year}`}</p>
+                  {!node.contact && (
+                    <p class="h5 font2 text-center">{`Millésime ${member.year}`}</p>
+                  )}
                 </header>
 
-                <div class="py-3 lg:py-5 px-5 lg:px-8 bg-[var(--color-accent1-dim)] text-[var(--color-bg)]">
-                  <p class="h4">Sa devise</p>
-                  <p set:text={member.devise} />
-                  <p class="h4">Son parcours</p>
-                  <p set:text={member.parcours} />
-                  <p class="h4">Ce qu'il ou elle aime</p>
-                  <p set:text={member.like} />
-                  <p class="h4">Ce qu'il ou elle n'aime pas</p>
-                  <p set:text={member.hate} />
-                  <p class="h4">Son cépage préféré</p>
-                  <p set:text={member.cepage} />
-                  <p class="h4">Une de ses (nombreuses) qualités</p>
-                  <p set:text={member.qualite} />
-                  <p class="h4">Un de ses défauts</p>
-                  <p set:text={member.defaut} />
-                  <p class="h4">Une anecdote</p>
-                  <p set:text={member.anecdote} />
-                </div>
+                {node.contact && (
+                  <div class="py-3 lg:py-5 px-5 lg:px-8 bg-[var(--color-accent1-dim)] text-[var(--color-bg)]">
+                    <p class="h4 underline">Téléphone</p>
+                    <a href={`tel:${member.tel}`}>{member.tel}</a>
+                    <p class="h4 underline mt-4">Email</p>
+                    <a class="text-lg" href={`mailto:${member.email}`}>
+                      {member.email}
+                    </a>
+                  </div>
+                )}
+
+                {!node.contact && (
+                  <div class="py-3 lg:py-5 px-5 lg:px-8 bg-[var(--color-accent1-dim)] text-[var(--color-bg)]">
+                    <p class="h4">Sa devise</p>
+                    <p set:text={member.devise} />
+                    <p class="h4">Son parcours</p>
+                    <p set:text={member.parcours} />
+                    <p class="h4">Ce qu'il ou elle aime</p>
+                    <p set:text={member.like} />
+                    <p class="h4">Ce qu'il ou elle n'aime pas</p>
+                    <p set:text={member.hate} />
+                    <p class="h4">Son cépage préféré</p>
+                    <p set:text={member.cepage} />
+                    <p class="h4">Une de ses (nombreuses) qualités</p>
+                    <p set:text={member.qualite} />
+                    <p class="h4">Un de ses défauts</p>
+                    <p set:text={member.defaut} />
+                    <p class="h4">Une anecdote</p>
+                    <p set:text={member.anecdote} />
+                  </div>
+                )}
               </div>
 
               <button class="modal__close-btn modal__close-btn--outer hidden lg:flex js-modal__close js-tab-focus">
@@ -192,7 +215,7 @@ const {node} = Astro.props;
     color: var(--color-body-dim2);
     font-size: 14px;
     font-style: italic;
-    margin-top: 4px;
+    margin-bottom: 8px;
   }
 
   .modal__content :global(ul) {

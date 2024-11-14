@@ -9,9 +9,9 @@ const year = new Date().getFullYear() - 1987;
 let {node} = Astro.props;
 
 let components = {HeroClip, HeroSplit, HeroFull, HeroDuo};
-// const Component = components[node.layout] || HeroFull;
-const Component = HeroDuo;
-node.duotone = "duoAccent1";
+const Component = components[node.layout] || HeroFull;
+// const Component = HeroDuo;
+// node.duotone = "duoAccent1";
 ---
 
 <section id={node.id || undefined} class="hero mb-16 remove-margin">

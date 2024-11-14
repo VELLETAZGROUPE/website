@@ -19,6 +19,21 @@ export default {
       type: 'string',
     },
     {
+      name: 'tel',
+      title: 'Téléphone',
+      type: 'string',
+    },
+    {
+      name: 'email',
+      title: 'Email',
+      type: 'string',
+    },
+    {
+      name: 'secteurs',
+      title: 'En charge des secteurs :',
+      type: 'string',
+    },
+    {
       name: 'year',
       title: 'Millésime',
       type: 'string',

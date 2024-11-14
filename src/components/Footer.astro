@@ -58,7 +58,11 @@ for (let i = 0; i < data.links.length; i++) {
 }
 ---
 
-<footer class="border-t border-[var(--color-body-dim2)] mt-16">
+<footer
+  class="border-t border-[var(--color-body-dim2)] mt-16"
+  data-list={data.newsletter.listID}
+  data-template={data.newsletter.templateID}
+  data-redirect={data.newsletter.redirect}>
   <section>
     <div class="px-8 py-12 mx-auto md:px-10 lg:px-12 max-w-7xl relative">
       <div
@@ -76,7 +80,7 @@ for (let i = 0; i < data.links.length; i++) {
             <div class="intro_newsletter">
               <PortableText value={data.newsletter.title} />
             </div>
-            <form class="w-full mt-8 sm:flex sm:max-w-md">
+            <form class="w-full mt-8 sm:flex sm:max-w-md" id="success">
               <label for="email-address" class="sr-only">Adresse email</label>
               <input
                 id="email-address"
@@ -85,7 +89,8 @@ for (let i = 0; i < data.links.length; i++) {
                 autocomplete="email"
                 placeholder={data.newsletter.placeholder}
                 aria-placeholder={data.newsletter.placeholder}
-                required=""
+                aria-label="Email"
+                required
                 class="block w-full h-10 px-4 py-2 shadow text-sm border border-transparent appearance-none bg-white placeholder-gray-400 focus:border-gray-300 focus:bg-transparent focus:outline-none focus:ring-blue-500 focus:ring-offset-2 focus:ring-2 duration-300 sm:text-sm"
               />
               <div class="mt-2 sm:ml-2 sm:mt-0 sm:flex-shrink-0">
@@ -160,6 +165,38 @@ for (let i = 0; i < data.links.length; i++) {
     </div>
   </section>
 </footer>
+
+<script>
+  //Create contact via double optin flow : https://developers.brevo.com/reference/createdoicontact
+
+  const dataBrevo = document.querySelector("footer");
+
+  if (dataBrevo) {
+    const successMessage = document.querySelector("#success");
+    const btnSubmit = document.querySelector("#newsletter_send");
+    const email = document.querySelector("#email-address");
+
+    btnSubmit.addEventListener("click", async (event) => {
+      event.preventDefault;
+
+      let request = new URL(
+        "/.netlify/functions/addSubscription",
+        window.location.origin
+      );
+      request.searchParams.append("list", dataBrevo.dataset.list);
+      request.searchParams.append("email", email.value);
+      request.searchParams.append("template", dataBrevo.dataset.template);
+      request.searchParams.append("redirect", dataBrevo.dataset.redirect);
+
+      const status = await fetch(request).then((response) => {
+        return response.status;
+      });
+      if (status == 200) {
+        successMessage.classList.remove("hidden");
+      }
+    });
+  }
+</script>
 
 <style>
   #newsletter_send {

@@ -32,6 +32,22 @@ export default {
           title: 'Nom du bouton "Envoyer"',
           type: 'string',
         },
+        {
+          name: 'listID',
+          title: 'ID de la liste BREVO',
+          type: 'string',
+        },
+        {
+          name: 'templateID',
+          title: 'ID du template BREVO',
+          type: 'string',
+        },
+        {
+          name: 'redirect',
+          title: 'URL de la page de redirection BREVO',
+          type: 'reference',
+          to: [{type: 'page'}],
+        },
       ],
     },
     {

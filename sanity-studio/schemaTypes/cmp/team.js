@@ -4,6 +4,9 @@ export default {
   name: 'team',
   type: 'document',
   title: 'Présentation équipe',
+  initialValue: {
+    contact: false,
+  },
   fields: [
     {
       name: 'id',
@@ -17,6 +20,13 @@ export default {
       title: 'Titre',
       type: 'array',
       of: [{type: 'block'}, {type: 'button'}],
+    },
+    {
+      name: 'contact',
+      title: 'Contact ?',
+      description:
+        'Cocher la case si vous souhaitez que seuls les informations de contact soient affichées.',
+      type: 'boolean',
     },
     {
       name: 'members',
