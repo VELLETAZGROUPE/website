@@ -23,7 +23,7 @@ const {node} = Astro.props;
 
         <form
           netlify
-          name={node.formName}
+          name={Astro.url.pathname}
           method="POST"
           data-success={node.form.success || undefined}>
           <div class="mt-6 grid gap-4 lg:gap-6">
