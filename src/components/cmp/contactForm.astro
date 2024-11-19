@@ -137,27 +137,26 @@ const {node} = Astro.props;
                 class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"></textarea>
             </div>
           </div>
+          <!-- Checkbox -->
+          <div class="mt-3 flex">
+            <div class="flex">
+              <input
+                id="rgpd"
+                name="rgpd"
+                type="checkbox"
+                required
+                class="shrink-0 mt-1.5 border-gray-200 rounded text-[var(--color-accent1)] accent-[var(--color-bg)] focus:ring-[var(--color-accent1)]"
+              />
+            </div>
+            <div class="ms-3">
+              <label for="rgpd" class="text-sm text-gray-600">
+                {node.form.rgpd}
+              </label>
+            </div>
+          </div>
+          <!-- End Checkbox -->
         </form>
         <!-- End Grid -->
-
-        <!-- Checkbox -->
-        <div class="mt-3 flex">
-          <div class="flex">
-            <input
-              id="rgpd"
-              name="rgpd"
-              type="checkbox"
-              required
-              class="shrink-0 mt-1.5 border-gray-200 rounded text-[var(--color-accent1)] accent-[var(--color-bg)] focus:ring-[var(--color-accent1)]"
-            />
-          </div>
-          <div class="ms-3">
-            <label for="remember-me" class="text-sm text-gray-600">
-              {node.form.rgpd}
-            </label>
-          </div>
-        </div>
-        <!-- End Checkbox -->
 
         <div class="mt-6 grid">
           <button
@@ -185,7 +184,6 @@ const {node} = Astro.props;
 
       //Check validity of the current slide
       const inputs = formName.querySelectorAll("input");
-      console.log(inputs);
       let valid = true;
       inputs.forEach((input) => {
         if (!input.checkValidity() && valid) {
@@ -194,6 +192,7 @@ const {node} = Astro.props;
           return;
         }
       });
+
       if (valid) {
         const message = document.querySelector("textarea");
         if (!message.checkValidity()) {
