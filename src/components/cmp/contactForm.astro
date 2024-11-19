@@ -4,7 +4,6 @@ import {PortableText} from "astro-portabletext";
 const {node} = Astro.props;
 ---
 
-<!-- Hire Us -->
 <div
   class="max-w-[85rem] px-0 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto"
   id={node.id || undefined}>
@@ -25,6 +24,7 @@ const {node} = Astro.props;
           netlify
           name={Astro.url.pathname}
           method="POST"
+          class="contact"
           data-success={node.form.success || undefined}>
           <div class="mt-6 grid gap-4 lg:gap-6">
             <!-- Grid -->
@@ -37,6 +37,7 @@ const {node} = Astro.props;
                   type="text"
                   name="prenom"
                   id="prenom"
+                  required
                   placeholder={node.form.prenom.placeholder}
                   class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
                 />
@@ -50,6 +51,7 @@ const {node} = Astro.props;
                   type="text"
                   name="nom"
                   id="nom"
+                  required
                   placeholder={node.form.nom.placeholder}
                   class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
                 />
@@ -65,6 +67,7 @@ const {node} = Astro.props;
                 type="email"
                 name="email"
                 id="email"
+                required
                 placeholder={node.form.mail.placeholder}
                 autocomplete="email"
                 class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
@@ -79,6 +82,7 @@ const {node} = Astro.props;
                 type="text"
                 name="telephone"
                 id="telephone"
+                required
                 placeholder={node.form.tel.placeholder}
                 autocomplete="tel"
                 class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
@@ -95,6 +99,7 @@ const {node} = Astro.props;
                   type="text"
                   name="societe"
                   id="societe"
+                  required
                   placeholder={node.form.societe.placeholder}
                   class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
                 />
@@ -106,6 +111,7 @@ const {node} = Astro.props;
                 </label>
                 <input
                   type="text"
+                  required
                   name="codepostal"
                   id="codepostal"
                   placeholder={node.form.postcode.placeholder}
@@ -125,6 +131,7 @@ const {node} = Astro.props;
               <textarea
                 id="message"
                 name="message"
+                required
                 rows="4"
                 placeholder={node.form.message.placeholder}
                 class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"></textarea>
@@ -140,6 +147,7 @@ const {node} = Astro.props;
               id="rgpd"
               name="rgpd"
               type="checkbox"
+              required
               class="shrink-0 mt-1.5 border-gray-200 rounded text-[var(--color-accent1)] accent-[var(--color-bg)] focus:ring-[var(--color-accent1)]"
             />
           </div>
@@ -153,6 +161,7 @@ const {node} = Astro.props;
 
         <div class="mt-6 grid">
           <button
+            id="submitBtn"
             type="submit"
             class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[var(--color-accent1)] text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
             {node.form.btntext}
@@ -165,4 +174,49 @@ const {node} = Astro.props;
   </div>
   <!-- End Grid -->
 </div>
-<!-- End Hire Us -->
+
+<script>
+  const submitBtn = document.querySelector("#submitBtn");
+  const formName = document.querySelector("form.contact");
+
+  if (submitBtn) {
+    submitBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      //Check validity of the current slide
+      const inputs = formName.querySelectorAll("input");
+      console.log(inputs);
+      let valid = true;
+      inputs.forEach((input) => {
+        if (!input.checkValidity() && valid) {
+          input.reportValidity();
+          valid = false;
+          return;
+        }
+      });
+      if (valid) {
+        const message = document.querySelector("textarea");
+        if (!message.checkValidity()) {
+          message.reportValidity();
+          valid = false;
+          return;
+        }
+      }
+
+      if (valid) {
+        const success = formName.dataset.success;
+        let formData = new FormData(formName);
+        fetch("/", {
+          method: "POST",
+          headers: {"Content-Type": "application/x-www-form-urlencoded"},
+          body: new URLSearchParams(formData).toString(),
+        })
+          .then(() => {
+            alert(success);
+            formName.reset();
+          })
+          .catch((error) => alert(error));
+      }
+    });
+  }
+</script>
