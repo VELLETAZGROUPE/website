@@ -23,7 +23,6 @@ exports.handler = async (event) => {
   const status = await fetch(url, options).then((response) => {
     return response.status;
   });
-  console.log(status);
 
   if (status == 204 || status == 201) {
     return {

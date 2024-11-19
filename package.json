@@ -5,9 +5,12 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npm run favicon && npm run redirects && npm run headers",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "favicon": "node --experimental-modules favicon.mjs",
+    "redirects": "node --experimental-modules redirects.mjs",
+    "headers": "node --experimental-modules headers.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.1.6",
