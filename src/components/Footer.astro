@@ -20,7 +20,15 @@ QUERY = encodeURIComponent(`
       urldirect,
     }
   },
-  newsletter,
+  newsletter{
+    title,
+    placeholder,
+    btnname,
+    listID,
+    templateID,
+    'redirect':redirect->slug,
+    success,
+  },
   networks,
   legal[]{
     'nom':@->name,
@@ -60,13 +68,15 @@ for (let i = 0; i < data.links.length; i++) {
     }
   }
 }
+
+console.log(data.newsletter);
 ---
 
 <footer
   class="border-t border-[var(--color-body-dim2)] mt-16"
   data-list={data.newsletter.listID}
   data-template={data.newsletter.templateID}
-  data-redirect={data.newsletter.redirect}>
+  data-redirect={`${Astro.site}${data.newsletter.redirect}`}>
   <section>
     <div class="px-8 py-12 mx-auto md:px-10 lg:px-12 max-w-7xl relative">
       <div
