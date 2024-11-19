@@ -262,10 +262,16 @@ export default {
       group: 'seo',
     },
     {
-      name: 'legalUrl',
-      type: 'reference',
-      title: 'Choix de la page Mentions légales',
-      to: [{type: 'page'}],
+      name: 'legal',
+      type: 'array',
+      title: 'Choix des pages légales',
+      of: [
+        {
+          name: 'legalItem',
+          type: 'reference',
+          to: [{type: 'page'}],
+        },
+      ],
       group: 'menu',
     },
     {
