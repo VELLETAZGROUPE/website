@@ -100,12 +100,22 @@ for (let i = 0; i < data.links.length; i++) {
               <div class="mt-2 sm:ml-2 sm:mt-0 sm:flex-shrink-0">
                 <button
                   id="newsletter_send"
-                  type="submit"
+                  type="button"
                   class="flex items-center w-full sm:w-auto justify-center h-10 px-4 py-2 text-sm font-medium transition-all duration-200 focus:ring-2 focus:ring-offset-2 lg:w-auto">
                   {data.newsletter.btnname}
                 </button>
               </div>
             </form>
+            <p
+              id="success"
+              class="hidden mt-2 bg-[var(--color-accent1-dim)] w-fit p-2"
+              set:text={data.newsletter.success}
+            />
+            <p
+              id="error"
+              class="hidden mt-2 bg-[var(--color-accent1-dim)] w-fit p-2"
+              set:text="Un problème empêche l'inscription à notre newsletter. Merci de nous contacter sur contact@velletaz-groupe.fr"
+            />
           </div>
         </div>
         <div
@@ -203,11 +213,18 @@ for (let i = 0; i < data.links.length; i++) {
       request.searchParams.append("template", dataBrevo.dataset.template);
       request.searchParams.append("redirect", dataBrevo.dataset.redirect);
 
+      if (!email.checkValidity()) {
+        email.reportValidity();
+        return;
+      }
+
       const status = await fetch(request).then((response) => {
         return response.status;
       });
       if (status == 200) {
         successMessage.classList.remove("hidden");
+      } else {
+        document.querySelector("#error").classList.remove("hidden");
       }
     });
   }

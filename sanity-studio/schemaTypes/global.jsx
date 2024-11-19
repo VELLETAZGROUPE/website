@@ -48,6 +48,11 @@ export default {
           type: 'reference',
           to: [{type: 'page'}],
         },
+        {
+          name: 'success',
+          title: "Message à afficher en cas de succès de l'inscription",
+          type: 'string',
+        },
       ],
     },
     {
