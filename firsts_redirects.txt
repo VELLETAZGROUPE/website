@@ -12,7 +12,6 @@
 /nos-services	/#services
 /obtenir-entree-salon-vinequip	/vinequip-2023/
 /pepinieres-velletaz-pepiniere-viticole	/pepinieres-viticoles-velletaz/
-/politique-de-confidentialite	
 /produits/cepages	/produits/
 /produits/cepages/raisins-de-cuve-blanc	/produits/raisin-de-cuve/
 /produits/cepages/raisins-de-cuve-blanc/biancu-gentile	/produits/raisins-de-cuve/biancu-gentile/
@@ -84,7 +83,7 @@
 /produits/plants-de-vigne	/produits/plants-de-vigne/
 /produits/plants-de-vigne/plant-de-vigne-tige-haute	/produits/plants-de-vigne/plant-tige-haute-60cm/
 /produits/plants-de-vigne/plant-de-vigne-traditionnel	/produits/plants-de-vigne/greffe-soude-traditionnel/
-https://groupe-velletaz.com/acclimatation-dun-plant-de-vigne-avant-plantation	/acclimatation-dun-plant-de-vigne-avant-plantation/
+/acclimatation-dun-plant-de-vigne-avant-plantation	/acclimatation-dun-plant-de-vigne-avant-plantation/
 /2022/03	/
 /2022/04	/
 /2022/05	/
@@ -171,7 +170,7 @@ https://groupe-velletaz.com/acclimatation-dun-plant-de-vigne-avant-plantation	/a
 /raisins-de-table-noir/prima	/produits/raisin-de-table/prima
 /raisins-de-table-noir/ribol	/produits/raisin-de-table/ribol
 /stratification-plant-de-vigne	/stratification-plant-de-vigne/
-/stratification-plant-de-vigne/www.groupe-velletaz.com	
+/stratification-plant-de-vigne/www.groupe-velletaz.com  /stratification-plant-de-vigne/
 /wp-content/uploads/2024/06/VOLTIS-FICHE-TECHNIQUE-PLANTGRAPE.pdf	/produits/raisin-de-cuve/
 /wp-content/uploads/2024/06/FLOREAL-FICHE-TECHNIQUE-PLANTGRAPE.pdf	/produits/raisin-de-cuve/
 /wp-content/uploads/2022/02/11.-333-EM-ECOLE-DE-MONTPELLIER-FICHE-TECHNIQUE-PLANTGRAPE.pdf	https://cdn.sanity.io/files/39ozs2jh/production/cae744128922fc716435ae5f91041a73164bc49b.pdf

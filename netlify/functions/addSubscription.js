@@ -7,6 +7,7 @@ exports.handler = async (event) => {
     templateId: Number(template),
     redirectionUrl: redirect,
   });
+  console.log(body);
 
   let APIKey = process.env.BREVO;
 
@@ -21,6 +22,7 @@ exports.handler = async (event) => {
   };
 
   const status = await fetch(url, options).then((response) => {
+    console.log(response);
     return response.status;
   });
 
