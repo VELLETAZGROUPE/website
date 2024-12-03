@@ -1,5 +1,6 @@
 ---
 let {node} = Astro.props;
+
 if (node.markDef?.href?.startsWith("http") == false) {
   if (node.markDef?.href?.startsWith("/") == false) {
     node.markDef.href = "/" + node.markDef.href;

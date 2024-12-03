@@ -5,6 +5,7 @@ import Link from "../Link.astro";
 import Button from "../Button.astro";
 
 const {node} = Astro.props;
+
 ---
 
 <section class="customer-logos relative z-[1] mb-32 py-16">
@@ -30,7 +31,7 @@ const {node} = Astro.props;
     {
       node.logos.map((logo) => (
         <li>
-          <a href={logo.link}>
+          <a href={logo.link.startsWith("http") === false ? `https://${logo.link}` : logo.link}>
             <NetlifyImage
               src={logo.img.src}
               alt={logo.img.alt}
