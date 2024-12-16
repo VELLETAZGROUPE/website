@@ -1,4 +1,5 @@
 ---
+import NetlifyImage from "../NetlifyImage.astro";
 import {PortableText} from "astro-portabletext";
 
 const {node} = Astro.props;
@@ -10,11 +11,7 @@ const {node} = Astro.props;
       <section>
         <div class="content">
           <div class="relative bg-white">
-            <img
-              src={slide.img.src}
-              alt={slide.img.alt}
-              class={`w-full h-screen object-cover ${node.duotone || ""}`}
-            />
+            <NetlifyImage src={slide.img.src} alt={slide.img.alt} class={`w-full h-screen object-cover ${node.duotone || ""}`} />
             <div class="text">
               <PortableText value={slide.text} />
             </div>

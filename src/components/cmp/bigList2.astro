@@ -11,23 +11,23 @@ const {node} = Astro.props;
       <div class={`${node.order ? "lg:order-last" : ""} title lg:sticky top-8`}>
         <PortableText value={node.title} />
       </div>
-      <dl class="flex flex-col gap-10">
+      <div class="flex flex-col gap-10">
         {
           node.items.map((item) => (
             <div class="flex flex-col">
               <div class="flex gap-3 items-center">
                 <NetlifyImage
                   src={item.img.src}
-                  alt={item.img.alt}
+                  alt={item.itemtitle}
                   class="w-24"
                 />
-                <dt class="tracking-tight text-lg font-medium text-base-900">
+                <div class="tracking-tight text-lg font-medium text-base-900">
                   {item.itemtitle}
-                </dt>
+                </div>
               </div>
-              <dd class="mt-2 text-sm text-base-500 text-pretty">
+              <div class="mt-2 text-sm text-base-500 text-pretty">
                 <PortableText value={item.itemtext} />
-              </dd>
+              </div>
             </div>
           ))
         }

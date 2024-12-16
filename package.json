@@ -13,9 +13,9 @@
     "headers": "node --experimental-modules headers.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.1.6",
-    "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.11.3",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^5.1.3",
+    "astro": "^5.0.5",
     "astro-portabletext": "^0.10.0",
     "dotenv": "^16.4.5",
     "gsap": "^3.12.5",
