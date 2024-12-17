@@ -99,12 +99,8 @@ if (content) {
     <Footer />
     <Filters />
     <script>
-      import "../scripts/components1";
-      import "../scripts/components2";
-      import "../scripts/components3";
-      import "../scripts/lenis.js";
-
       import simpleParallax from "simple-parallax-js";
+
       let textWrap = document.querySelector(".textwrap");
       if (textWrap) {
         if (window.matchMedia("(min-width: 1024px)").matches) {
@@ -113,6 +109,7 @@ if (content) {
           textWrap.classList.remove("sceneTextRight");
         }
       }
+
       let parallaxVertical = document.querySelectorAll(".sceneVertical");
       new simpleParallax(parallaxVertical, {
         scale: 1.4,
