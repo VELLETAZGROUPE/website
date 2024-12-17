@@ -370,9 +370,7 @@
   }
 
   let OneDay = new Date().getTime() - 24 * 60 * 60 * 1000;
-
-  lastAnim = false;
-
+  
   if (!lastAnim || lastAnim.getTime() <= OneDay) {
     if (motionLogo) {
       document.body.style.overflow = "hidden";
@@ -402,7 +400,6 @@
       var lVd2 = vd2.getTotalLength();
       var lVd3 = vd3.getTotalLength();
       var lVd4 = vd4.getTotalLength();
-      console.log(lVd1,lVd2,lVd3,lVd4)
 
       const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
       if (!mediaQuery.matches) {
