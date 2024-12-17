@@ -267,20 +267,101 @@
 <style>
   #logotype {
     opacity: 0;
+    transition: opacity 2s;
   }
   #blason {
     opacity: 0;
   }
   #logomark {
     opacity: 0;
+    transition: transform 0.3s ease-in-out;
   }
+
+  #grappe.animate{
+    animation: opacity 1s linear forwards;
+  }
+
+  #blason.animate{
+    animation: blason .5s linear forwards;
+  }
+
+  #vignoble-gauche.animate .one{
+    animation: vignoble-gauche-one .3s ease-in-out forwards;
+  }
+
+  #vignoble-gauche.animate .two{
+    animation: vignoble-gauche-two .3s ease-in-out 0.3s forwards;
+  }
+
+  #vignoble-gauche.animate .three{
+    animation: vignoble-gauche-three .3s ease-in-out 0.6s forwards;
+  }
+
+  #vignoble-droite.animate .one{
+    animation: vignoble-droite-one .3s ease-in-out forwards;
+  }
+
+  #vignoble-droite.animate .two{
+    animation: vignoble-droite-two .3s ease-in-out 0.3s forwards;
+  }
+
+  #vignoble-droite.animate .three{
+    animation: vignoble-droite-three .3s ease-in-out 0.6s forwards;
+  }
+
+  #vignoble-droite.animate .four{
+    animation: vignoble-droite-four .3s ease-in-out 0.9s forwards;
+  }
+
+  @keyframes vignoble-droite-one {
+    0% {stroke-dashoffset: 115;opacity: 0;}
+    100% {stroke-dashoffset: 229;opacity: 1;}
+  }
+
+  @keyframes vignoble-droite-two {
+    0% {stroke-dashoffset: 28;opacity: 0;}
+    100% {stroke-dashoffset: 55;opacity: 1;}
+  }
+
+  @keyframes vignoble-droite-three {
+    0% {stroke-dashoffset: 56;opacity: 0;}
+    100% {stroke-dashoffset: 111;opacity: 1;}
+  }
+
+  @keyframes vignoble-droite-four {
+    0% {stroke-dashoffset: 93;opacity: 0;}
+    100% {stroke-dashoffset: 185;opacity: 1;}
+  }
+
+  @keyframes vignoble-gauche-one {
+    0% {stroke-dashoffset: 147;opacity: 0;}
+    100% {stroke-dashoffset: 293;opacity: 1;}
+  }
+
+  @keyframes vignoble-gauche-two {
+    0% {stroke-dashoffset: 118;opacity: 0;}
+    100% {stroke-dashoffset: 235;opacity: 1;}
+  }
+
+  @keyframes vignoble-gauche-three {
+    0% {stroke-dashoffset: 70;opacity: 0;}
+    100% {stroke-dashoffset: 139;opacity: 1;}
+  }
+
+  @keyframes blason {
+    0% {stroke-dashoffset: 605;opacity: 0;}
+    100% {stroke-dashoffset: 1209;opacity: 1;}
+  }
+
+  @keyframes opacity {
+    0% {opacity: 0;}
+    100% {opacity: 1;}    
+  }
+
+
 </style>
 
 <script>
-  // import {gsap} from "gsap";
-  // import {ScrollTrigger} from "gsap/ScrollTrigger";
-  // gsap.registerPlugin(ScrollTrigger);
-
   const motionLogo = document.querySelector(".motion-logo");
 
   let lastAnim;
@@ -290,106 +371,85 @@
 
   let OneDay = new Date().getTime() - 24 * 60 * 60 * 1000;
 
+  lastAnim = false;
+
   if (!lastAnim || lastAnim.getTime() <= OneDay) {
-    // if (motionLogo) {
-    //   document.body.style.overflow = "hidden";
+    if (motionLogo) {
+      document.body.style.overflow = "hidden";
 
-    //   let tl = gsap.timeline({
-    //     // yes, we can add it to an entire timeline!
-    //     scrollTrigger: {
-    //       trigger: ".box",
-    //     },
-    //   });
+      var logo = document.querySelector("#logo--motion");
+      var logotype = logo.querySelector("#logotype");
+      var logomark = logo.querySelector("#logomark");
+      var grappe = logomark.querySelector("#grappe");
+      var grains = logomark.querySelector("#grains");
+      var pedoncule = logomark.querySelector("#pedoncule");
+      var vigneGauche = logomark.querySelector("#vignoble-gauche");
+      var vigneDroite = logomark.querySelector("#vignoble-droite");
+      var blason = logomark.querySelector("#blason");
+      var vg1 = vigneGauche.querySelector(".one");
+      var vg2 = vigneGauche.querySelector(".two");
+      var vg3 = vigneGauche.querySelector(".three");
+      var vd1 = vigneDroite.querySelector(".one");
+      var vd2 = vigneDroite.querySelector(".two");
+      var vd3 = vigneDroite.querySelector(".three");
+      var vd4 = vigneDroite.querySelector(".four");
 
-    //   var logo = document.querySelector("#logo--motion");
-    //   var logotype = logo.querySelector("#logotype");
-    //   var logomark = logo.querySelector("#logomark");
-    //   var grappe = logomark.querySelector("#grappe");
-    //   var grains = logomark.querySelector("#grains");
-    //   var pedoncule = logomark.querySelector("#pedoncule");
-    //   var vigneGauche = logomark.querySelector("#vignoble-gauche");
-    //   var vigneDroite = logomark.querySelector("#vignoble-droite");
-    //   var blason = logomark.querySelector("#blason");
-    //   var vg1 = vigneGauche.querySelector(".one");
-    //   var vg2 = vigneGauche.querySelector(".two");
-    //   var vg3 = vigneGauche.querySelector(".three");
-    //   var vd1 = vigneDroite.querySelector(".one");
-    //   var vd2 = vigneDroite.querySelector(".two");
-    //   var vd3 = vigneDroite.querySelector(".three");
-    //   var vd4 = vigneDroite.querySelector(".four");
+      var lBlason = blason.getTotalLength();
+      var lVg1 = vg1.getTotalLength();
+      var lVg2 = vg2.getTotalLength();
+      var lVg3 = vg3.getTotalLength();
+      var lVd1 = vd1.getTotalLength();
+      var lVd2 = vd2.getTotalLength();
+      var lVd3 = vd3.getTotalLength();
+      var lVd4 = vd4.getTotalLength();
+      console.log(lVd1,lVd2,lVd3,lVd4)
 
-    //   var lBlason = blason.getTotalLength();
-    //   var lVg1 = vg1.getTotalLength();
-    //   var lVg2 = vg2.getTotalLength();
-    //   var lVg3 = vg3.getTotalLength();
-    //   var lVd1 = vd1.getTotalLength();
-    //   var lVd2 = vd2.getTotalLength();
-    //   var lVd3 = vd3.getTotalLength();
-    //   var lVd4 = vd4.getTotalLength();
+      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      if (!mediaQuery.matches) {
+        logotype.style.opacity = 0;
+        logomark.style = "opacity: 1; transform: translateX(225px);";
+        blason.style.opacity = 1;
+        blason.style.strokeDasharray = lBlason;
+        blason.style.strokeDashoffset = lBlason;
+        vg1.style.strokeDasharray = lVg1;
+        vg1.style.strokeDashoffset = lVg1;
+        vg2.style.strokeDasharray = lVg2;
+        vg2.style.strokeDashoffset = lVg2;
+        vg3.style.strokeDasharray = lVg3;
+        vg3.style.strokeDashoffset = lVg3;
+        vd1.style.strokeDasharray = lVd1;
+        vd1.style.strokeDashoffset = lVd1;
+        vd2.style.strokeDasharray = lVd2;
+        vd2.style.strokeDashoffset = lVd2;
+        vd3.style.strokeDasharray = lVd3;
+        vd3.style.strokeDashoffset = lVd3;
+        vd4.style.strokeDasharray = lVd4;
+        vd4.style.strokeDashoffset = lVd4;
+        grappe.style.opacity = 0;
 
-    //   const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    //   if (!mediaQuery.matches) {
-    //     tl.set(logotype, {opacity: 0});
-    //     tl.set(logomark, {translateX: "250px"});
-    //     tl.set(blason, {opacity: 0});
-    //     tl.set(blason, {strokeDasharray: lBlason});
-    //     tl.set(vg1, {strokeDasharray: lVg1});
-    //     tl.set(vg2, {strokeDasharray: lVg2});
-    //     tl.set(vg3, {strokeDasharray: lVg3});
-    //     tl.set(vd1, {strokeDasharray: lVd1});
-    //     tl.set(vd2, {strokeDasharray: lVd2});
-    //     tl.set(vd3, {strokeDasharray: lVd3});
-    //     tl.set(vd4, {strokeDasharray: lVd4});
-    //     tl.to(logomark, {opacity: 1, duration: 1});
-    //     tl.fromTo(
-    //       blason,
-    //       {strokeDashoffset: lBlason, opacity: 0},
-    //       {strokeDashoffset: 2 * lBlason - 1, opacity: 1, duration: 1}
-    //     );
-    //     tl.fromTo(
-    //       vg1,
-    //       {strokeDashoffset: lVg1, opacity: 0},
-    //       {strokeDashoffset: 2 * lVg1, opacity: 1, duration: 0.2}
-    //     );
-    //     tl.fromTo(
-    //       vg2,
-    //       {strokeDashoffset: lVg2, opacity: 0},
-    //       {strokeDashoffset: 2 * lVg2, opacity: 1, duration: 0.2}
-    //     );
-    //     tl.fromTo(
-    //       vg3,
-    //       {strokeDashoffset: lVg3, opacity: 0},
-    //       {strokeDashoffset: 2 * lVg3, opacity: 1, duration: 0.2}
-    //     );
-    //     tl.fromTo(
-    //       vd1,
-    //       {strokeDashoffset: lVd1, opacity: 0},
-    //       {strokeDashoffset: 2 * lVd1, opacity: 1, duration: 0.2}
-    //     );
-    //     tl.fromTo(
-    //       vd2,
-    //       {strokeDashoffset: lVd2, opacity: 0},
-    //       {strokeDashoffset: 2 * lVd2, opacity: 1, duration: 0.2}
-    //     );
-    //     tl.fromTo(
-    //       vd3,
-    //       {strokeDashoffset: lVd3, opacity: 0},
-    //       {strokeDashoffset: 2 * lVd3, opacity: 1, duration: 0.2}
-    //     );
-    //     tl.fromTo(
-    //       vd4,
-    //       {strokeDashoffset: lVd4, opacity: 0},
-    //       {strokeDashoffset: 2 * lVd4, opacity: 1, duration: 0.2}
-    //     );
-    //     tl.to(logomark, {translateX: 0});
-    //     tl.to(logotype, {opacity: 1});
-    //     tl.to(motionLogo, 2, {opacity: 0, display: "none"});
+        grappe.classList.add("animate");
+        blason.classList.add("animate");
+        blason.addEventListener("animationend", () => {
+          vigneGauche.classList.add("animate");
+          vg3.addEventListener("animationend", () => {
+            vigneDroite.classList.add("animate");
+            vd4.addEventListener("animationend", () => {
+              logomark.style = "opacity:1;transform: translateX(0px);";
+              logomark.addEventListener("transitionend", () => {
+                logotype.style.opacity = 1;
+                logotype.addEventListener("transitionend", () => {
+                  motionLogo.style.display = "none";
+                });
+              });
+            });
+          });
+        });
 
-    //     document.body.style.overflow = "visible";
+        document.body.style.overflow = "visible";
 
-    //     localStorage.setItem("lastAnim", +new Date());
-    //   }
-    // }
+        localStorage.setItem("lastAnim", +new Date());
+      }
+    }
   } else {
     if (motionLogo) {
       motionLogo.style.display = "none";
