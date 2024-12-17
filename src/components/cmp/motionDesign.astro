@@ -277,9 +277,9 @@
 </style>
 
 <script>
-  import {gsap} from "gsap";
-  import {ScrollTrigger} from "gsap/ScrollTrigger";
-  gsap.registerPlugin(ScrollTrigger);
+  // import {gsap} from "gsap";
+  // import {ScrollTrigger} from "gsap/ScrollTrigger";
+  // gsap.registerPlugin(ScrollTrigger);
 
   const motionLogo = document.querySelector(".motion-logo");
 
@@ -291,105 +291,105 @@
   let OneDay = new Date().getTime() - 24 * 60 * 60 * 1000;
 
   if (!lastAnim || lastAnim.getTime() <= OneDay) {
-    if (motionLogo) {
-      document.body.style.overflow = "hidden";
+    // if (motionLogo) {
+    //   document.body.style.overflow = "hidden";
 
-      let tl = gsap.timeline({
-        // yes, we can add it to an entire timeline!
-        scrollTrigger: {
-          trigger: ".box",
-        },
-      });
+    //   let tl = gsap.timeline({
+    //     // yes, we can add it to an entire timeline!
+    //     scrollTrigger: {
+    //       trigger: ".box",
+    //     },
+    //   });
 
-      var logo = document.querySelector("#logo--motion");
-      var logotype = logo.querySelector("#logotype");
-      var logomark = logo.querySelector("#logomark");
-      var grappe = logomark.querySelector("#grappe");
-      var grains = logomark.querySelector("#grains");
-      var pedoncule = logomark.querySelector("#pedoncule");
-      var vigneGauche = logomark.querySelector("#vignoble-gauche");
-      var vigneDroite = logomark.querySelector("#vignoble-droite");
-      var blason = logomark.querySelector("#blason");
-      var vg1 = vigneGauche.querySelector(".one");
-      var vg2 = vigneGauche.querySelector(".two");
-      var vg3 = vigneGauche.querySelector(".three");
-      var vd1 = vigneDroite.querySelector(".one");
-      var vd2 = vigneDroite.querySelector(".two");
-      var vd3 = vigneDroite.querySelector(".three");
-      var vd4 = vigneDroite.querySelector(".four");
+    //   var logo = document.querySelector("#logo--motion");
+    //   var logotype = logo.querySelector("#logotype");
+    //   var logomark = logo.querySelector("#logomark");
+    //   var grappe = logomark.querySelector("#grappe");
+    //   var grains = logomark.querySelector("#grains");
+    //   var pedoncule = logomark.querySelector("#pedoncule");
+    //   var vigneGauche = logomark.querySelector("#vignoble-gauche");
+    //   var vigneDroite = logomark.querySelector("#vignoble-droite");
+    //   var blason = logomark.querySelector("#blason");
+    //   var vg1 = vigneGauche.querySelector(".one");
+    //   var vg2 = vigneGauche.querySelector(".two");
+    //   var vg3 = vigneGauche.querySelector(".three");
+    //   var vd1 = vigneDroite.querySelector(".one");
+    //   var vd2 = vigneDroite.querySelector(".two");
+    //   var vd3 = vigneDroite.querySelector(".three");
+    //   var vd4 = vigneDroite.querySelector(".four");
 
-      var lBlason = blason.getTotalLength();
-      var lVg1 = vg1.getTotalLength();
-      var lVg2 = vg2.getTotalLength();
-      var lVg3 = vg3.getTotalLength();
-      var lVd1 = vd1.getTotalLength();
-      var lVd2 = vd2.getTotalLength();
-      var lVd3 = vd3.getTotalLength();
-      var lVd4 = vd4.getTotalLength();
+    //   var lBlason = blason.getTotalLength();
+    //   var lVg1 = vg1.getTotalLength();
+    //   var lVg2 = vg2.getTotalLength();
+    //   var lVg3 = vg3.getTotalLength();
+    //   var lVd1 = vd1.getTotalLength();
+    //   var lVd2 = vd2.getTotalLength();
+    //   var lVd3 = vd3.getTotalLength();
+    //   var lVd4 = vd4.getTotalLength();
 
-      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-      if (!mediaQuery.matches) {
-        tl.set(logotype, {opacity: 0});
-        tl.set(logomark, {translateX: "250px"});
-        tl.set(blason, {opacity: 0});
-        tl.set(blason, {strokeDasharray: lBlason});
-        tl.set(vg1, {strokeDasharray: lVg1});
-        tl.set(vg2, {strokeDasharray: lVg2});
-        tl.set(vg3, {strokeDasharray: lVg3});
-        tl.set(vd1, {strokeDasharray: lVd1});
-        tl.set(vd2, {strokeDasharray: lVd2});
-        tl.set(vd3, {strokeDasharray: lVd3});
-        tl.set(vd4, {strokeDasharray: lVd4});
-        tl.to(logomark, {opacity: 1, duration: 1});
-        tl.fromTo(
-          blason,
-          {strokeDashoffset: lBlason, opacity: 0},
-          {strokeDashoffset: 2 * lBlason - 1, opacity: 1, duration: 1}
-        );
-        tl.fromTo(
-          vg1,
-          {strokeDashoffset: lVg1, opacity: 0},
-          {strokeDashoffset: 2 * lVg1, opacity: 1, duration: 0.2}
-        );
-        tl.fromTo(
-          vg2,
-          {strokeDashoffset: lVg2, opacity: 0},
-          {strokeDashoffset: 2 * lVg2, opacity: 1, duration: 0.2}
-        );
-        tl.fromTo(
-          vg3,
-          {strokeDashoffset: lVg3, opacity: 0},
-          {strokeDashoffset: 2 * lVg3, opacity: 1, duration: 0.2}
-        );
-        tl.fromTo(
-          vd1,
-          {strokeDashoffset: lVd1, opacity: 0},
-          {strokeDashoffset: 2 * lVd1, opacity: 1, duration: 0.2}
-        );
-        tl.fromTo(
-          vd2,
-          {strokeDashoffset: lVd2, opacity: 0},
-          {strokeDashoffset: 2 * lVd2, opacity: 1, duration: 0.2}
-        );
-        tl.fromTo(
-          vd3,
-          {strokeDashoffset: lVd3, opacity: 0},
-          {strokeDashoffset: 2 * lVd3, opacity: 1, duration: 0.2}
-        );
-        tl.fromTo(
-          vd4,
-          {strokeDashoffset: lVd4, opacity: 0},
-          {strokeDashoffset: 2 * lVd4, opacity: 1, duration: 0.2}
-        );
-        tl.to(logomark, {translateX: 0});
-        tl.to(logotype, {opacity: 1});
-        tl.to(motionLogo, 2, {opacity: 0, display: "none"});
+    //   const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    //   if (!mediaQuery.matches) {
+    //     tl.set(logotype, {opacity: 0});
+    //     tl.set(logomark, {translateX: "250px"});
+    //     tl.set(blason, {opacity: 0});
+    //     tl.set(blason, {strokeDasharray: lBlason});
+    //     tl.set(vg1, {strokeDasharray: lVg1});
+    //     tl.set(vg2, {strokeDasharray: lVg2});
+    //     tl.set(vg3, {strokeDasharray: lVg3});
+    //     tl.set(vd1, {strokeDasharray: lVd1});
+    //     tl.set(vd2, {strokeDasharray: lVd2});
+    //     tl.set(vd3, {strokeDasharray: lVd3});
+    //     tl.set(vd4, {strokeDasharray: lVd4});
+    //     tl.to(logomark, {opacity: 1, duration: 1});
+    //     tl.fromTo(
+    //       blason,
+    //       {strokeDashoffset: lBlason, opacity: 0},
+    //       {strokeDashoffset: 2 * lBlason - 1, opacity: 1, duration: 1}
+    //     );
+    //     tl.fromTo(
+    //       vg1,
+    //       {strokeDashoffset: lVg1, opacity: 0},
+    //       {strokeDashoffset: 2 * lVg1, opacity: 1, duration: 0.2}
+    //     );
+    //     tl.fromTo(
+    //       vg2,
+    //       {strokeDashoffset: lVg2, opacity: 0},
+    //       {strokeDashoffset: 2 * lVg2, opacity: 1, duration: 0.2}
+    //     );
+    //     tl.fromTo(
+    //       vg3,
+    //       {strokeDashoffset: lVg3, opacity: 0},
+    //       {strokeDashoffset: 2 * lVg3, opacity: 1, duration: 0.2}
+    //     );
+    //     tl.fromTo(
+    //       vd1,
+    //       {strokeDashoffset: lVd1, opacity: 0},
+    //       {strokeDashoffset: 2 * lVd1, opacity: 1, duration: 0.2}
+    //     );
+    //     tl.fromTo(
+    //       vd2,
+    //       {strokeDashoffset: lVd2, opacity: 0},
+    //       {strokeDashoffset: 2 * lVd2, opacity: 1, duration: 0.2}
+    //     );
+    //     tl.fromTo(
+    //       vd3,
+    //       {strokeDashoffset: lVd3, opacity: 0},
+    //       {strokeDashoffset: 2 * lVd3, opacity: 1, duration: 0.2}
+    //     );
+    //     tl.fromTo(
+    //       vd4,
+    //       {strokeDashoffset: lVd4, opacity: 0},
+    //       {strokeDashoffset: 2 * lVd4, opacity: 1, duration: 0.2}
+    //     );
+    //     tl.to(logomark, {translateX: 0});
+    //     tl.to(logotype, {opacity: 1});
+    //     tl.to(motionLogo, 2, {opacity: 0, display: "none"});
 
-        document.body.style.overflow = "visible";
+    //     document.body.style.overflow = "visible";
 
-        localStorage.setItem("lastAnim", +new Date());
-      }
-    }
+    //     localStorage.setItem("lastAnim", +new Date());
+    //   }
+    // }
   } else {
     if (motionLogo) {
       motionLogo.style.display = "none";
