@@ -5,7 +5,7 @@ import Block from "./Block.astro";
 import List from "./List.astro";
 import Link from "./Link.astro";
 
-const composants = await Astro.glob("./cmp/*.astro");
+const composants = Object.values(import.meta.glob('./cmp/*.astro', {eager: true}));
 
 const {data, context} = Astro.props;
 let value;
