@@ -1,4 +1,6 @@
 ---
+import "../styles/global.css";
+import "../styles/animations.css";
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { seo } = Astro.props;
@@ -28,6 +30,8 @@ let data = await fetch(URLQUERY)
 if (seo.canonical === null) {
   seo.canonical = canonicalURL;
 }
+
+
 ---
 
 <head>
