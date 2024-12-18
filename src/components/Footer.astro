@@ -134,7 +134,7 @@ for (let i = 0; i < data.links.length; i++) {
               <nav aria-labelledby={`footer-heading-${idx}`}>
                 {page.url != null && (
                   <a
-                    class="text-md leading-tight font-bold block"
+                    class="text-md leading-tight font-bold block my-2 py-2 px-2"
                     id={`footer-heading-${idx}`}
                     href={`/${page.url}`}>
                     {page.nom}
@@ -148,10 +148,10 @@ for (let i = 0; i < data.links.length; i++) {
                   </span>
                 )}
                 {page.subpages && (
-                  <ul class="text-sm pl-4 mt-4">
+                  <ul class="text-sm pl-4 mt-4 flex flex-col gap-4">
                     {page.subpages.map((woot) => (
                       <li>
-                        <a href={`/${woot.url}`}>{woot.nom}</a>
+                        <a class='my-2 py-2 px-2' href={`/${woot.url}`}>{woot.nom}</a>
                       </li>
                     ))}
                   </ul>
@@ -160,11 +160,11 @@ for (let i = 0; i < data.links.length; i++) {
             ))
           }
           <div>
-            <ul class="text-sm pl-4 mt-4">
+            <ul class="text-sm pl-4 mt-4 flex flex-col gap-4">
               {
                 data.legal.map((item) => (
-                  <li>
-                    <a href={`/${item.slug}`}>{item.nom}</a>
+                  <li class=''>
+                    <a class='my-2 py-2 px-2' href={`/${item.slug}`}>{item.nom}</a>
                   </li>
                 ))
               }
