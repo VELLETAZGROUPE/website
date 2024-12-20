@@ -3,6 +3,7 @@ import {PortableText} from "astro-portabletext";
 import Button from "../Button.astro";
 import Image from "../Image.astro";
 import Link from "../Link.astro";
+import NetlifyImage from "../NetlifyImage.astro";
 
 const {node} = Astro.props;
 ---
@@ -48,7 +49,7 @@ const {node} = Astro.props;
       Pl@ntGrape, Catalogue des vignes cultivées en France, IFV – INRAE –
       Institut Agro Montpellier, 2009-2023
     </p>
-    <img
+    <NetlifyImage 
       src="https://cdn.sanity.io/images/39ozs2jh/production/29b08d4d09813600ae4dea20d94a2c60237a1a54-1257x301.png"
       alt="logo plant grape"
       class="w-48 inline"
