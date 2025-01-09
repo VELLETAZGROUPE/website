@@ -47,6 +47,8 @@ let first;
 if (node.bigfirst) {
   first = node.actus.shift();
 }
+
+console.log(node);
 ---
 
 <section
@@ -54,9 +56,9 @@ if (node.bigfirst) {
   class="actuPreview py-12 lg:py-20 max-w-7xl mx-auto px-0 md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
   {
     node.title && (
-      <div class="mb-5 lg:mb-8 flex flex-col justify-center items-center">
+      <div class="mb-5 lg:mb-8 flex flex-col justify-center">
         <PortableText
-          value={node.texte}
+          value={node.title}
           components={{
             mark: {
               link: Link,
