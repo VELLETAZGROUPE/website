@@ -11,6 +11,7 @@ const {
   loading = "lazy",
   nocomp = "0",
   duotone,
+  fetchpriority,
 } = Astro.props;
 
 let url300, url600, url1400, newUrl, width, height;
@@ -44,6 +45,7 @@ if (src) {
       width={width}
       height={height}
       loading={loading}
+      fetchpriority={fetchpriority || undefined}
       data-philter-duotone={duotone || undefined}
     />
   )

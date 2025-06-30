@@ -1,11 +1,11 @@
 ---
 import NetlifyImage from "../NetlifyImage.astro";
-import {PortableText} from "astro-portabletext";
+import { PortableText } from "astro-portabletext";
 import Button from "../Button.astro";
 import moment from "moment";
 import Link from "../Link.astro";
 
-const {node} = Astro.props;
+const { node } = Astro.props;
 
 moment.locale("fr");
 
@@ -31,7 +31,7 @@ if (!node.actus) {
   // Global is a singleton, so you return the first element of the array (result[0])
   let data = await fetch(URLQUERY)
     .then((res) => res.json())
-    .then(({result}) => {
+    .then(({ result }) => {
       return result;
     })
     .catch((err) => console.error(err));
@@ -47,8 +47,6 @@ let first;
 if (node.bigfirst) {
   first = node.actus.shift();
 }
-
-console.log(node);
 ---
 
 <section
