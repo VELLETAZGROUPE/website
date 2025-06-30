@@ -3,10 +3,10 @@ import tailwind from "@astrojs/tailwind";
 
 import sitemap from "@astrojs/sitemap";
 
-import criticalCss from "astro-critical-css";
+import purgecss from "astro-purgecss";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://groupe-velletaz.com/",
-  integrations: [tailwind(), sitemap(), criticalCss()],
+  integrations: [tailwind(), sitemap(), purgecss()],
 });
