@@ -11,7 +11,7 @@ let { node } = Astro.props;
 ---
 
 <div
-  class={`hero full h-screen overflow-hidden ${node.fullscreen ? "h-screen" : ""} after:content-[''] after:absolute after:top-0 after:left-0 after:h-full after:w-full ${node.opacity > 0 ? "colorbg" : "colorbody"} after:opacity-${Math.abs(node.opacity)} after:z-[1] relative z-[1] px-0 bg-gray-100 bg-cover bg-no-repeat bg-center text-center ${node.textcolor == "bg" ? "clair" : "fonce"} py-16 lg:py-28`}>
+  class={`hero full h-screen overflow-hidden ${node.fullscreen ? "h-screen" : ""} after:content-[''] after:absolute after:top-0 after:left-0 after:h-full after:w-full ${node.opacity > 0 ? "colorbg" : "colorbody"} after:opacity-${Math.abs(node.opacity)} after:z-[1] relative z-[1] px-0 bg-gray-100 bg-cover bg-no-repeat bg-center text-center ${node.textcolor == "bg" ? "clair" : "fonce"}`}>
   <div>
     <NetlifyImage
       src={node.img.src}
