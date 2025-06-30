@@ -1,11 +1,11 @@
 ---
-import {PortableText} from "astro-portabletext";
+import { PortableText } from "astro-portabletext";
 import Button from "../Button.astro";
 import NetlifyImage from "../NetlifyImage.astro";
 import HN from "../HN.astro";
 import Link from "../Link.astro";
 
-const {node} = Astro.props;
+const { node } = Astro.props;
 
 let allFilters = [];
 
@@ -157,6 +157,7 @@ for (let filter of uniqueFilters) {
                         src={product.img.src}
                         alt={product.img.alt}
                         class={` ${product.img.duotone || ""} ${node.height || "small"}`}
+                        sizes="(max-width:768px) 100vw, 50vw"
                       />
                     </figure>
                   )}
