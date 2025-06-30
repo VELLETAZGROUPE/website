@@ -14,19 +14,25 @@ const {
   fetchpriority,
 } = Astro.props;
 
-let url300, url600, url1400, newUrl, width, height;
+let url640, url768, url1024, url1366, url1600, url1920, newUrl, width, height;
 
 if (src) {
   newUrl = new URL(".netlify/images", "https://velletaz-draft.netlify.app");
   newUrl.searchParams.set("url", src);
 
   let urlw = new URL(newUrl);
-  urlw.searchParams.set("w", "300");
-  url300 = urlw.href;
-  urlw.searchParams.set("w", "600");
-  url600 = urlw.href;
-  urlw.searchParams.set("w", "1400");
-  url1400 = urlw.href;
+  urlw.searchParams.set("w", "640");
+  url640 = urlw.href;
+  urlw.searchParams.set("w", "768");
+  url768 = urlw.href;
+  urlw.searchParams.set("w", "1024");
+  url1024 = urlw.href;
+  urlw.searchParams.set("w", "1366");
+  url1366 = urlw.href;
+  urlw.searchParams.set("w", "1600");
+  url1600 = urlw.href;
+  urlw.searchParams.set("w", "1920");
+  url1920 = urlw.href;
 
   let meta = await probe(src);
   width = meta.width;
@@ -37,7 +43,7 @@ if (src) {
 {
   src && (
     <img
-      srcset={`${url300} 300w, ${url600} 600w, ${url1400} 1400w`}
+      srcset={`${url640} 640w, ${url768} 768w, ${url1024} 1024w, ${url1366} 1366w, ${url1600} 1600w, ${url1920} 1920w`}
       sizes={sizes}
       src={newUrl.href}
       alt={alt}
