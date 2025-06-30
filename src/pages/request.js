@@ -1,4 +1,4 @@
-export let request = `"seo": {title,description,slug,robots,canonical,schema,"ogimage":ogimage.asset->url},
+export let request = `"seo": {title,description,published,slug,robots,canonical,schema,"ogimage":ogimage.asset->url},
       content[]{
         _type == "block" => {..., markDefs[]{..., _type == "internalLink" =>{...,"href":reference->slug}} , _type == "button" => {color, size, href{isExt, 'linkInt':linkInt->slug, linkExt}}},
         _type == "feature" => {_type, id, heading, subheading, factsHeadingLevel, listOfFacts[]{heading, subheading, img{alt,duotone,'src':asset->url}}},

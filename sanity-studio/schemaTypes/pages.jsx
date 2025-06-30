@@ -47,6 +47,13 @@ export default {
       validation: (Rule) => Rule.required().warning('Le nom de la page est obligatoire'),
     },
     {
+      name: 'published',
+      type: 'boolean',
+      title: 'Publiée',
+      description: 'Permet de publier ou de dépublier la page',
+      initialValue: true,
+    },
+    {
       name: 'title',
       type: 'string',
       title: 'Title',

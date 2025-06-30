@@ -30,13 +30,16 @@ export async function getStaticPaths() {
     })
     .catch((err) => console.error(err));
 
-  let pages = data.map((page) => {
-    return {
-      pageslug: page.seo.slug,
-      seo: page.seo,
-      content: page.content,
-    };
-  });
+  // console.log(data);
+  let pages = data
+    .filter((page) => page.seo.published != false)
+    .map((page) => {
+      return {
+        pageslug: page.seo.slug,
+        seo: page.seo,
+        content: page.content,
+      };
+    });
   return pages.map(({ pageslug, seo, content }) => {
     if (pageslug == null) {
       pageslug = undefined;

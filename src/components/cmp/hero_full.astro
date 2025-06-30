@@ -54,6 +54,14 @@ let { node } = Astro.props;
   :global(section):has(.full) {
     position: relative;
   }
+  .h4 :global(ul) {
+    text-align: left;
+    margin-block: 1rem;
+    list-style: inside;
+    list-style-type: disc;
+    line-height: 1.5;
+    font-size: var(--size-xs);
+  }
 
   .full.clair {
     @apply text-[var(--color-bg)];
