@@ -8,8 +8,7 @@ import Filters from "../styles/filters.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
-import {request} from "./request.js";
-
+import { request } from "./request.js";
 
 export async function getStaticPaths() {
   let QUERY, URL;
@@ -26,7 +25,7 @@ export async function getStaticPaths() {
   // fetch the content
   let data = await fetch(URL)
     .then((res) => res.json())
-    .then(({result}) => {
+    .then(({ result }) => {
       return result;
     })
     .catch((err) => console.error(err));
@@ -38,19 +37,19 @@ export async function getStaticPaths() {
       content: page.content,
     };
   });
-  return pages.map(({pageslug, seo, content}) => {
+  return pages.map(({ pageslug, seo, content }) => {
     if (pageslug == null) {
       pageslug = undefined;
     }
     return {
-      params: {pageslug},
-      props: {seo, content},
+      params: { pageslug },
+      props: { seo, content },
     };
   });
 }
 
-const {pageslug} = Astro.params;
-const {seo, content} = Astro.props;
+const { pageslug } = Astro.params;
+const { seo, content } = Astro.props;
 
 //ADD EAGER LOADING TO FIRST IMAGE
 let eager = 0;
@@ -114,47 +113,47 @@ if (content) {
         delay: 0.6,
         transition: "cubic-bezier(0,0,0,1)",
       });
-      let parallaxVerticalOverflow = document.querySelectorAll(
-        ".sceneVerticalOverflow"
-      );
-      new simpleParallax(parallaxVerticalOverflow, {
-        orientation: "down",
-        scale: 1.4,
-        delay: 0.6,
-        transition: "cubic-bezier(0,0,0,1)",
-        overflow: true,
-      });
-      let parallaxVerticalSmall = document.querySelectorAll(
-        ".sceneVerticalSmall"
-      );
-      new simpleParallax(parallaxVerticalSmall, {
-        scale: 1.1,
-        delay: 0.6,
-        transition: "cubic-bezier(0,0,0,1)",
-      });
-      let parallaxHorizontal = document.querySelectorAll(".sceneHorizontal");
-      new simpleParallax(parallaxHorizontal, {
-        orientation: "right",
-        scale: 1.8,
-        delay: 0.6,
-        transition: "cubic-bezier(0,0,0,1)",
-      });
-      let parallaxTextRight = document.querySelectorAll(".sceneTextRight");
-      new simpleParallax(parallaxTextRight, {
-        orientation: "right",
-        scale: 1.8,
-        delay: 0.6,
-        transition: "cubic-bezier(0,0,0,1)",
-        overflow: "true",
-      });
-      let parallaxTextBottom = document.querySelectorAll(".sceneTextBottom");
-      new simpleParallax(parallaxTextBottom, {
-        orientation: "down",
-        scale: 1.8,
-        delay: 0.6,
-        transition: "cubic-bezier(0,0,0,1)",
-        overflow: "true",
-      });
+      // let parallaxVerticalOverflow = document.querySelectorAll(
+      //   ".sceneVerticalOverflow"
+      // );
+      // new simpleParallax(parallaxVerticalOverflow, {
+      //   orientation: "down",
+      //   scale: 1.4,
+      //   delay: 0.6,
+      //   transition: "cubic-bezier(0,0,0,1)",
+      //   overflow: true,
+      // });
+      // let parallaxVerticalSmall = document.querySelectorAll(
+      //   ".sceneVerticalSmall"
+      // );
+      // new simpleParallax(parallaxVerticalSmall, {
+      //   scale: 1.1,
+      //   delay: 0.6,
+      //   transition: "cubic-bezier(0,0,0,1)",
+      // });
+      // let parallaxHorizontal = document.querySelectorAll(".sceneHorizontal");
+      // new simpleParallax(parallaxHorizontal, {
+      //   orientation: "right",
+      //   scale: 1.8,
+      //   delay: 0.6,
+      //   transition: "cubic-bezier(0,0,0,1)",
+      // });
+      // let parallaxTextRight = document.querySelectorAll(".sceneTextRight");
+      // new simpleParallax(parallaxTextRight, {
+      //   orientation: "right",
+      //   scale: 1.8,
+      //   delay: 0.6,
+      //   transition: "cubic-bezier(0,0,0,1)",
+      //   overflow: "true",
+      // });
+      // let parallaxTextBottom = document.querySelectorAll(".sceneTextBottom");
+      // new simpleParallax(parallaxTextBottom, {
+      //   orientation: "down",
+      //   scale: 1.8,
+      //   delay: 0.6,
+      //   transition: "cubic-bezier(0,0,0,1)",
+      //   overflow: "true",
+      // });
       // File#: _1_back-to-top
       // Usage: codyhouse.co/license
       (function () {
@@ -191,8 +190,8 @@ if (content) {
               scrollElement.scrollTo(0, 0);
             } else {
               dataElement
-                ? scrollElement.scrollTo({top: 0, behavior: "smooth"})
-                : window.scrollTo({top: 0, behavior: "smooth"});
+                ? scrollElement.scrollTo({ top: 0, behavior: "smooth" })
+                : window.scrollTo({ top: 0, behavior: "smooth" });
             }
             //move the focus to the #top-element - don't break keyboard navigation
             moveFocus(
