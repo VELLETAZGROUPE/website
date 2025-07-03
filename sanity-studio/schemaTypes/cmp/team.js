@@ -22,10 +22,16 @@ export default {
       of: [{type: 'block'}, {type: 'button'}],
     },
     {
+      name: 'bio',
+      title: 'Fiche biographique ?',
+      type: 'boolean',
+      description: 'Cocher la case si vous souhaitez que la fiche biographique soit affichée.',
+    },
+    {
       name: 'contact',
       title: 'Contact ?',
       description:
-        'Cocher la case si vous souhaitez que seuls les informations de contact soient affichées.',
+        'Cocher la case si vous souhaitez que les informations de contact soient affichées.',
       type: 'boolean',
     },
     {

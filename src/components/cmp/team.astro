@@ -1,11 +1,14 @@
 ---
-import {PortableText} from "astro-portabletext";
+import { PortableText } from "astro-portabletext";
 import Button from "../Button.astro";
 import NetlifyImage from "../NetlifyImage.astro";
-import {nanoid} from "nanoid/non-secure";
+import { nanoid } from "nanoid/non-secure";
 const uid = nanoid(5);
 
-const {node} = Astro.props;
+let { node } = Astro.props;
+if (node.bio == null) {
+  node.bio = true;
+}
 ---
 
 <section class="py-8 max-w-7xl mx-auto">
@@ -32,41 +35,86 @@ const {node} = Astro.props;
       {
         node.members.map((member, idx) => (
           <li class="relative feature-v20__item min-w-0 col-span-12 md:col-span-6 lg:col-span-3 flex justify-center max-w-[300px] justify-self-center">
-            <button
-              class="modal-img-btn rounded"
-              aria-controls={`modal-${uid}-${idx + 1}`}
-              aria-label="Show larger image preview">
-              <div class="person">
-                <div class="wrap">
-                  <div class="wrap-inner">
-                    <svg
-                      class="circle"
-                      height="400"
-                      width="400"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <circle
-                        r="400"
-                        cx="200"
-                        cy="200"
-                        fill="var(--color-accent1)"
+            {node.bio && (
+              <button
+                class="modal-img-btn rounded"
+                aria-controls={`modal-${uid}-${idx + 1}`}
+                aria-label="Show larger image preview">
+                <div class="person">
+                  <div class="wrap">
+                    <div class="wrap-inner">
+                      <svg
+                        class="circle"
+                        height="400"
+                        width="400"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <circle
+                          r="400"
+                          cx="200"
+                          cy="200"
+                          fill="var(--color-accent1)"
+                        />
+                      </svg>
+                      <NetlifyImage
+                        src={member.img.src}
+                        alt={`portrait de ${member.name}`}
+                        class="img img1"
                       />
-                    </svg>
-                    <NetlifyImage src={member.img.src} alt={`portrait de ${member.name}`} class="img img1" />
-                  </div>
-                </div>
-                <div class="divider" />
-                <div class="name mt-2 text-center">{member.name}</div>
-                <div class="title text-center">{member.poste}</div>
-                {node.contact && (
-                  <>
-                    <div class="name font-bold not-italic">
-                      En charge des secteurs :
                     </div>
-                    <div class="name not-italic">{member.secteurs}</div>
-                  </>
-                )}
+                  </div>
+                  <div class="divider" />
+                  <div class="name mt-2 text-center">{member.name}</div>
+                  <div class="title text-center">{member.poste}</div>
+                  {node.contact && (
+                    <>
+                      <div class="name font-bold not-italic">
+                        En charge des secteurs :
+                      </div>
+                      <div class="name not-italic">{member.secteurs}</div>
+                    </>
+                  )}
+                </div>
+              </button>
+            )}
+            {!node.bio && (
+              <div class="modal-img-btn rounded">
+                <div class="person">
+                  <div class="wrap">
+                    <div class="wrap-inner">
+                      <svg
+                        class="circle"
+                        height="400"
+                        width="400"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <circle
+                          r="400"
+                          cx="200"
+                          cy="200"
+                          fill="var(--color-accent1)"
+                        />
+                      </svg>
+                      <NetlifyImage
+                        src={member.img.src}
+                        alt={`portrait de ${member.name}`}
+                        class="img img1"
+                      />
+                    </div>
+                  </div>
+                  <div class="divider" />
+                  <div class="name mt-2 text-center">{member.name}</div>
+                  <div class="title text-center">{member.poste}</div>
+                  {node.contact && (
+                    <>
+                      <div class="name font-bold not-italic">
+                        En charge des secteurs :
+                      </div>
+                      <div class="name not-italic">{member.secteurs}</div>
+                    </>
+                  )}
+                </div>
               </div>
-            </button>
+            )}
+
             <div
               id={`modal-${uid}-${idx + 1}`}
               class="modal modal--animate-scale flex justify-center items-center bg-gray-900/90 p-5 lg:p-8 js-modal"
@@ -735,7 +783,7 @@ const {node} = Astro.props;
     };
 
     Modal.prototype.emitModalEvents = function (eventName) {
-      var event = new CustomEvent(eventName, {detail: this.selectedTrigger});
+      var event = new CustomEvent(eventName, { detail: this.selectedTrigger });
       this.element.dispatchEvent(event);
     };
 

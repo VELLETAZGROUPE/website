@@ -1,10 +1,10 @@
 ---
-import {PortableText} from "astro-portabletext";
+import { PortableText } from "astro-portabletext";
 import Button from "../Button.astro";
 import NetlifyImage from "../NetlifyImage.astro";
 import Link from "../Link.astro";
 
-const {node} = Astro.props;
+const { node } = Astro.props;
 
 let blockcnt = 0;
 if (node.text) {
@@ -75,7 +75,7 @@ let uniq = blockcnt > 1 ? false : true;
   }
 
   .withimg {
-    @apply flex flex-col md:flex-row gap-6;
+    @apply flex flex-col md:flex-row gap-16;
   }
 
   .withoutimg {

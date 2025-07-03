@@ -1,16 +1,18 @@
 ---
-import {PortableText} from "astro-portabletext";
+import { PortableText } from "astro-portabletext";
 
 import Block from "./Block.astro";
 import List from "./List.astro";
 import Link from "./Link.astro";
 
-const composants = Object.values(import.meta.glob('./cmp/*.astro', {eager: true}));
+const composants = Object.values(
+  import.meta.glob("./cmp/*.astro", { eager: true })
+);
 
-const {data, context} = Astro.props;
+const { data, context } = Astro.props;
 let value;
 if (data) {
-  value = data.map((e) => ({...e, ...context}));
+  value = data.map((e) => ({ ...e, ...context }));
 }
 
 let wrapper = [];
@@ -124,6 +126,9 @@ let bloctext = [];
                 scrolltelling: composants.find(
                   (cmp) => cmp.default.name === "scrollTelling"
                 ).default,
+                productlistcustom: composants.find(
+                  (cmp) => cmp.default.name === "productlistcustom"
+                ).default,
               },
             }}
           />
@@ -223,6 +228,9 @@ let bloctext = [];
               ).default,
               scrolltelling: composants.find(
                 (cmp) => cmp.default.name === "scrollTelling"
+              ).default,
+              productlistcustom: composants.find(
+                (cmp) => cmp.default.name === "productlistcustom"
               ).default,
             },
           }}

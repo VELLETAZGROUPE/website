@@ -49,9 +49,16 @@ export default {
     {
       name: 'published',
       type: 'boolean',
-      title: 'Publiée',
-      description: 'Permet de publier ou de dépublier la page',
+      title: 'Dev only',
+      description: "Permet de n'afficher une page qu'en mode dev",
       initialValue: true,
+    },
+    {
+      name: 'footermin',
+      type: 'boolean',
+      title: 'Footer version minimale',
+      description: 'Pour les landing pages',
+      initialValue: false,
     },
     {
       name: 'title',
@@ -187,6 +194,7 @@ export default {
         {type: 'steps'},
         {type: 'faq'},
         {type: 'productlistall'},
+        {type: 'productlistcustom'},
         {type: 'imggallery'},
         {type: 'marqueelogo'},
         {type: 'marqueetext'},

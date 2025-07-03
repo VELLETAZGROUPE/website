@@ -28,6 +28,7 @@ import cta from './cmp/cta'
 import img from './cmp/img'
 import biglist2 from './cmp/biglist2'
 import productlistcat from './cmp/productlistcat'
+import productlistcustom from './cmp/productlistcustom'
 import steps from './cmp/steps'
 import faq from './cmp/faq'
 import productlistall from './cmp/productlistall'
@@ -51,6 +52,7 @@ export const schemaTypes = [
   tableofcontent,
   biglist,
   productlist,
+  productlistcustom,
   map,
   logogallery,
   actupreview,

@@ -1,9 +1,11 @@
 ---
-import {PortableText} from "astro-portabletext";
+import { PortableText } from "astro-portabletext";
 import Link from "../Link.astro";
 import Button from "../Button.astro";
 
-const {node} = Astro.props;
+const { node } = Astro.props;
+
+let longText = node.texte + " " + node.texte + " " + node.texte + " ";
 ---
 
 <section class="my-32">
@@ -14,7 +16,7 @@ const {node} = Astro.props;
   <div class="marquee">
     <div class="track">
       <div class="content">
-        &nbsp;{node.texte}
+        &nbsp;{longText}
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 ---
-import {PortableText} from "astro-portabletext";
+import { PortableText } from "astro-portabletext";
 
 const currentyear = new Date().getFullYear();
 
@@ -46,7 +46,7 @@ URLQUERY = `https://${
 // Global is a singleton, so you return the first element of the array (result[0])
 let data = await fetch(URLQUERY)
   .then((res) => res.json())
-  .then(({result}) => {
+  .then(({ result }) => {
     return result[0];
   })
   .catch((err) => console.error(err));
@@ -67,6 +67,11 @@ for (let i = 0; i < data.links.length; i++) {
       }
     }
   }
+}
+let { version } = Astro.props;
+
+if (version != true) {
+  version = false;
 }
 ---
 
@@ -89,82 +94,93 @@ for (let i = 0; i < data.links.length; i++) {
               <Fragment set:html={data.logo} />
             </div>
           </a>
-          <div id="inscription-newsletter">
-            <div class="intro_newsletter">
-              <PortableText value={data.newsletter.title} />
-            </div>
-            <form class="w-full mt-8 sm:flex sm:max-w-md" id="success">
-              <label for="email-address" class="sr-only">Adresse email</label>
-              <input
-                id="email-address"
-                type="email"
-                name="email-address"
-                autocomplete="email"
-                placeholder={data.newsletter.placeholder}
-                aria-placeholder={data.newsletter.placeholder}
-                aria-label="Email"
-                required
-                class="block w-full h-10 px-4 py-2 shadow text-sm border border-transparent appearance-none bg-white placeholder-gray-400 focus:border-gray-300 focus:bg-transparent focus:outline-none focus:ring-blue-500 focus:ring-offset-2 focus:ring-2 duration-300 sm:text-sm"
-              />
-              <div class="mt-2 sm:ml-2 sm:mt-0 sm:flex-shrink-0">
-                <button
-                  id="newsletter_send"
-                  type="button"
-                  class="flex items-center w-full sm:w-auto justify-center h-10 px-4 py-2 text-sm font-medium transition-all duration-200 focus:ring-2 focus:ring-offset-2 lg:w-auto">
-                  {data.newsletter.btnname}
-                </button>
+          {
+            !version && (
+              <div id="inscription-newsletter">
+                <div class="intro_newsletter">
+                  <PortableText value={data.newsletter.title} />
+                </div>
+                <form class="w-full mt-8 sm:flex sm:max-w-md" id="success">
+                  <label for="email-address" class="sr-only">
+                    Adresse email
+                  </label>
+                  <input
+                    id="email-address"
+                    type="email"
+                    name="email-address"
+                    autocomplete="email"
+                    placeholder={data.newsletter.placeholder}
+                    aria-placeholder={data.newsletter.placeholder}
+                    aria-label="Email"
+                    required
+                    class="block w-full h-10 px-4 py-2 shadow text-sm border border-transparent appearance-none bg-white placeholder-gray-400 focus:border-gray-300 focus:bg-transparent focus:outline-none focus:ring-blue-500 focus:ring-offset-2 focus:ring-2 duration-300 sm:text-sm"
+                  />
+                  <div class="mt-2 sm:ml-2 sm:mt-0 sm:flex-shrink-0">
+                    <button
+                      id="newsletter_send"
+                      type="button"
+                      class="flex items-center w-full sm:w-auto justify-center h-10 px-4 py-2 text-sm font-medium transition-all duration-200 focus:ring-2 focus:ring-offset-2 lg:w-auto">
+                      {data.newsletter.btnname}
+                    </button>
+                  </div>
+                </form>
+                <p
+                  id="success"
+                  class="hidden mt-2 bg-[var(--color-accent1-dim)] w-fit p-2"
+                  set:text={data.newsletter.success}
+                />
+                <p
+                  id="error"
+                  class="hidden mt-2 bg-[var(--color-accent1-dim)] w-fit p-2"
+                  set:text="Un problème empêche l'inscription à notre newsletter. Merci de nous contacter sur contact@velletaz-groupe.fr"
+                />
               </div>
-            </form>
-            <p
-              id="success"
-              class="hidden mt-2 bg-[var(--color-accent1-dim)] w-fit p-2"
-              set:text={data.newsletter.success}
-            />
-            <p
-              id="error"
-              class="hidden mt-2 bg-[var(--color-accent1-dim)] w-fit p-2"
-              set:text="Un problème empêche l'inscription à notre newsletter. Merci de nous contacter sur contact@velletaz-groupe.fr"
-            />
-          </div>
+            )
+          }
         </div>
         <div
           class="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-24 col-span-full md:col-start-7">
           {
-            data.links.map((page, idx) => (
-              <nav aria-labelledby={`footer-heading-${idx}`}>
-                {page.url != null && (
-                  <a
-                    class="text-md leading-tight font-bold block my-2 py-2 px-2"
-                    id={`footer-heading-${idx}`}
-                    href={`/${page.url}`}>
-                    {page.nom}
-                  </a>
-                )}
-                {page.url == null && (
-                  <span
-                    id={`footer-heading-${idx}`}
-                    class="text-sm font-bold block">
-                    {page.nom}
-                  </span>
-                )}
-                {page.subpages && (
-                  <ul class="text-sm pl-4 mt-4 flex flex-col gap-4">
-                    {page.subpages.map((woot) => (
-                      <li>
-                        <a class='my-2 py-2 px-2' href={`/${woot.url}`}>{woot.nom}</a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </nav>
-            ))
+            !version &&
+              data.links.map((page, idx) => (
+                <nav aria-labelledby={`footer-heading-${idx}`}>
+                  {page.url != null && (
+                    <a
+                      class="text-md leading-tight font-bold block my-2 py-2 px-2"
+                      id={`footer-heading-${idx}`}
+                      href={`/${page.url}`}>
+                      {page.nom}
+                    </a>
+                  )}
+                  {page.url == null && (
+                    <span
+                      id={`footer-heading-${idx}`}
+                      class="text-sm font-bold block">
+                      {page.nom}
+                    </span>
+                  )}
+                  {page.subpages && (
+                    <ul class="text-sm pl-4 mt-4 flex flex-col gap-4">
+                      {page.subpages.map((woot) => (
+                        <li>
+                          <a class="my-2 py-2 px-2" href={`/${woot.url}`}>
+                            {woot.nom}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </nav>
+              ))
           }
           <div>
             <ul class="text-sm pl-4 mt-4 flex flex-col gap-4">
               {
                 data.legal.map((item) => (
-                  <li class=''>
-                    <a class='my-2 py-2 px-2' href={`/${item.slug}`}>{item.nom}</a>
+                  <li class="">
+                    <a class="my-2 py-2 px-2" href={`/${item.slug}`}>
+                      {item.nom}
+                    </a>
                   </li>
                 ))
               }
