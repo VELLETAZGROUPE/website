@@ -70,7 +70,7 @@ if (content) {
 }
 ---
 
-<html lang="fr">
+<html lang={seo.lang || "fr"}>
   <Head seo={seo} />
   <Fonts />
   <Colors />
@@ -92,7 +92,7 @@ if (content) {
         </polyline>
       </svg>
     </a>
-    <Header />
+    {!seo.footermin && <Header />}
     <div id="top" class="wrap-margin">
       <Render data={content} />
     </div>

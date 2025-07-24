@@ -30,8 +30,6 @@ let data = await fetch(URLQUERY)
 if (seo.canonical === null) {
   seo.canonical = canonicalURL;
 }
-
-
 ---
 
 <head>
@@ -39,12 +37,43 @@ if (seo.canonical === null) {
   {data.themeColor && <meta name="theme-color" content={data.themeColor.hex} />}
   <meta name="color-scheme" content="light dark" />
 
-  <!-- 🤔 // need some limiting for scaling ? impact on a11y -->
   <meta
     name="viewport"
     content="width=device-width,initial-scale=1,maximum-scale=5"
   />
   <link rel="canonical" href={canonicalURL} />
+  { seo.alternates && 
+    seo.alternates.map((item) => {
+      if (item.xdefault) {
+        return (
+          <link
+            rel="alternate"
+            hreflang="x-default"
+            href={new URL(item.url, Astro.site)}
+          />
+          <link
+            rel="alternate"
+            hreflang={item.lang || "fr"}
+            href={new URL(item.url, Astro.site)}
+          />
+        );
+      }
+      return (
+        <link
+          rel="alternate"
+          hreflang={item.lang || "fr"}
+          href={new URL(item.url, Astro.site)}
+        />
+      );
+    })
+  }
+  {seo.alternates &&
+    <link
+      rel="alternate"
+      hreflang={seo.lang || "fr"}
+      href={canonicalURL}
+    />
+  }
   <title>{seo.title}{data.titleExtension}</title>
   <meta name="description" content={seo.description} />
 
@@ -53,7 +82,6 @@ if (seo.canonical === null) {
   {seo.next && <link rel="next" href={seo.next} />}
   {seo.prev && <link rel="prev" href={seo.prev} />}
 
-  <!-- 🎅 // This is the only OG block of the site. We need more control on this. -->
   <meta name="og:title" content={seo.title} />
   <meta name="og:description" content={seo.description} />
   <meta property="og:url" content={canonicalURL} />
@@ -61,7 +89,6 @@ if (seo.canonical === null) {
   <meta property="og:site_name" content={import.meta.env.PUBLIC_SITENAME} />
   <meta property="og:image" content={seo.ogimage || data.ogImageFallback} />
 
-  <!-- 🎅 // Favicons -->
   <!-- normal SVG favicon -->
   <link rel="icon" href="/favicon/favicon.svg" />
   <!-- mask icon for pinned tab on Safari -->
@@ -97,7 +124,6 @@ if (seo.canonical === null) {
   <!-- manifest -->
   <!-- <link rel="manifest" href="/favicon/site.webmanifest" /> -->
 
-  <!-- 🎅 // Schema.org -->
   {seo.schema && <script type="application/ld+json" set:html={seo.schema} />}
 
   <!-- scripts -->

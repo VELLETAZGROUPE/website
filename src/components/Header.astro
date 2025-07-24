@@ -28,7 +28,7 @@ URLQUERY = `https://${
 // Global is a singleton, so you return the first element of the array (result[0])
 let data = await fetch(URLQUERY)
   .then((res) => res.json())
-  .then(({result}) => {
+  .then(({ result }) => {
     return result[0];
   })
   .catch((err) => console.error(err));
@@ -140,9 +140,198 @@ for (let i = 0; i < data.links.length; i++) {
           ))
         }
       </ul>
+      <div
+        class="language-picker language-picker--flags js-language-picker my-4"
+        data-trigger-class="shadow-md text-[1em] px-4 py-2 rounded-md relative inline-flex justify-center items-center whitespace-nowrap cursor-pointer no-underline leading-tight transition-all duration-200 hover:shadow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700 js-tab-focus">
+        <form action="" class="language-picker__form">
+          <label for="language-picker-select">Select your language</label>
+
+          <select name="language-picker-select" id="language-picker-select">
+            <option lang="fr" value="francais" selected>Français</option>
+            <option lang="en" value="english">English</option>
+            <option lang="it" value="italiano">Italiano</option>
+            <option lang="es" value="espanol">Español</option>
+          </select>
+        </form>
+      </div>
     </div>
   </div>
 </header>
+
+<style is:global>
+  /* --------------------------------
+
+File#: _1_language-picker
+Title: Language Picker
+Descr: A custom selector allowing users to choose their preferred language on a page
+Usage: codyhouse.co/license
+
+-------------------------------- */
+  :root {
+    --picker-vertical-gap: 4px;
+  }
+
+  .language-picker {
+    display: inline-block;
+    position: relative;
+  }
+
+  .language-picker__form {
+    display: none;
+  }
+
+  .language-picker__button .icon {
+    height: 16px;
+    width: 16px;
+  }
+  .language-picker__button .icon:first-of-type {
+    @apply mr-1 lg:mr-1.5;
+  }
+  .language-picker__button .icon:last-of-type {
+    @apply ml-1 lg:ml-1.5;
+  }
+
+  .language-picker__dropdown {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 200px;
+    @apply bg-white;
+    @apply shadow-lg;
+    @apply py-1 lg:py-1.5 px-0;
+    @apply rounded;
+    @apply z-[5];
+    margin-top: var(--picker-vertical-gap);
+    margin-bottom: var(--picker-vertical-gap);
+    @apply text-base;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      visibility 0s 0.2s,
+      opacity 0.2s;
+  }
+
+  .language-picker__dropdown--right {
+    right: 0;
+    left: auto;
+  }
+
+  .language-picker__dropdown--up {
+    bottom: 100%;
+    top: auto;
+  }
+
+  .language-picker__button[aria-expanded="true"] + .language-picker__dropdown {
+    visibility: visible;
+    opacity: 1;
+    transition:
+      visibility 0s,
+      opacity 0.2s;
+  }
+
+  .language-picker__item {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    @apply py-1.5 lg:py-2 px-3 lg:px-5;
+    @apply text-gray-700;
+    transition: background 0.2s;
+  }
+  .language-picker__item span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .language-picker__item:hover {
+    @apply bg-gray-900/[.07];
+  }
+  .language-picker__item:focus {
+    outline: none;
+    @apply bg-indigo-700/10;
+  }
+  .language-picker__item[aria-selected="true"] {
+    position: relative;
+    @apply bg-indigo-700;
+    @apply text-white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .language-picker__item[aria-selected="true"]:focus {
+    @apply outline-2 outline outline-indigo-700/20;
+  }
+  .language-picker__item[aria-selected="true"]::after {
+    content: "";
+    height: 16px;
+    width: 16px;
+    background-color: currentColor;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpolyline stroke-width='2' stroke='%23ffffff' fill='none' stroke-linecap='round' stroke-linejoin='round' points='1,9 5,13 15,3 '/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpolyline stroke-width='2' stroke='%23ffffff' fill='none' stroke-linecap='round' stroke-linejoin='round' points='1,9 5,13 15,3 '/%3E%3C/svg%3E");
+    margin-left: auto;
+  }
+
+  .language-picker__flag {
+    display: flex;
+    align-items: center;
+  }
+  .language-picker__flag::before {
+    display: none;
+    flex-shrink: 0;
+    content: "";
+    height: 16px;
+    width: 16px;
+    @apply mr-1.5 lg:mr-2;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  .language-picker__dropdown .language-picker__flag::before {
+    @apply mr-2 lg:mr-3;
+  }
+
+  .language-picker--flags .language-picker__flag::before {
+    display: inline-block;
+    display: inline-flex;
+  }
+  .language-picker--flags .language-picker__button .icon:first-of-type {
+    display: none;
+  }
+
+  .language-picker__flag--espanol::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23f1c142' d='M1 10H31V22H1z'%3E%3C/path%3E%3Cpath d='M5,4H27c2.208,0,4,1.792,4,4v3H1v-3c0-2.208,1.792-4,4-4Z' fill='%23a0251e'%3E%3C/path%3E%3Cpath d='M5,21H27c2.208,0,4,1.792,4,4v3H1v-3c0-2.208,1.792-4,4-4Z' transform='rotate(180 16 24.5)' fill='%23a0251e'%3E%3C/path%3E%3Cpath d='M27,4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Zm3,20c0,1.654-1.346,3-3,3H5c-1.654,0-3-1.346-3-3V8c0-1.654,1.346-3,3-3H27c1.654,0,3,1.346,3,3V24Z' opacity='.15'%3E%3C/path%3E%3Cpath d='M27,5H5c-1.657,0-3,1.343-3,3v1c0-1.657,1.343-3,3-3H27c1.657,0,3,1.343,3,3v-1c0-1.657-1.343-3-3-3Z' fill='%23fff' opacity='.2'%3E%3C/path%3E%3Cpath d='M12.614,13.091c.066-.031,.055-.14-.016-.157,.057-.047,.02-.15-.055-.148,.04-.057-.012-.144-.082-.13,.021-.062-.042-.127-.104-.105,.01-.068-.071-.119-.127-.081,.004-.068-.081-.112-.134-.069-.01-.071-.11-.095-.15-.035-.014-.068-.111-.087-.149-.028-.027-.055-.114-.057-.144-.004-.03-.047-.107-.045-.136,.002-.018-.028-.057-.044-.09-.034,.009-.065-.066-.115-.122-.082,.002-.07-.087-.111-.138-.064-.013-.064-.103-.087-.144-.036-.02-.063-.114-.075-.148-.017-.036-.056-.129-.042-.147,.022-.041-.055-.135-.031-.146,.036-.011-.008-.023-.014-.037-.016,.006-.008,.01-.016,.015-.025h.002c.058-.107,.004-.256-.106-.298v-.098h.099v-.154h-.099v-.101h-.151v.101h-.099v.154h.099v.096c-.113,.04-.169,.191-.11,.299h.002c.004,.008,.009,.017,.014,.024-.015,.002-.029,.008-.04,.017-.011-.067-.106-.091-.146-.036-.018-.064-.111-.078-.147-.022-.034-.057-.128-.046-.148,.017-.041-.052-.131-.028-.144,.036-.051-.047-.139-.006-.138,.064-.056-.033-.131,.017-.122,.082-.034-.01-.072,.006-.091,.034-.029-.047-.106-.049-.136-.002-.03-.054-.117-.051-.143,.004-.037-.059-.135-.04-.149,.028-.039-.06-.14-.037-.15,.035-.053-.043-.138,0-.134,.069-.056-.038-.137,.013-.127,.081-.062-.021-.125,.044-.104,.105-.05-.009-.096,.033-.096,.084h0c0,.017,.005,.033,.014,.047-.075-.002-.111,.101-.055,.148-.071,.017-.082,.125-.016,.157-.061,.035-.047,.138,.022,.154-.013,.015-.021,.034-.021,.055h0c0,.042,.03,.077,.069,.084-.023,.048,.009,.11,.06,.118-.013,.03-.012,.073-.012,.106,.09-.019,.2,.006,.239,.11-.015,.068,.065,.156,.138,.146,.06,.085,.133,.165,.251,.197-.021,.093,.064,.093,.123,.118-.013,.016-.043,.063-.055,.081,.024,.013,.087,.041,.113,.051,.005,.019,.004,.028,.004,.031,.091,.501,2.534,.502,2.616-.001v-.002s.004,.003,.004,.004c0-.003-.001-.011,.004-.031l.118-.042-.062-.09c.056-.028,.145-.025,.123-.119,.119-.032,.193-.112,.253-.198,.073,.01,.153-.078,.138-.146,.039-.104,.15-.129,.239-.11,0-.035,.002-.078-.013-.109,.044-.014,.07-.071,.049-.115,.062-.009,.091-.093,.048-.139,.069-.016,.083-.12,.022-.154Zm-.296-.114c0,.049-.012,.098-.034,.141-.198-.137-.477-.238-.694-.214-.002-.009-.006-.017-.011-.024,0,0,0-.001,0-.002,.064-.021,.074-.12,.015-.153,0,0,0,0,0,0,.048-.032,.045-.113-.005-.141,.328-.039,.728,.09,.728,.393Zm-.956-.275c0,.063-.02,.124-.054,.175-.274-.059-.412-.169-.717-.185-.007-.082-.005-.171-.011-.254,.246-.19,.81-.062,.783,.264Zm-1.191-.164c-.002,.05-.003,.102-.007,.151-.302,.013-.449,.122-.719,.185-.26-.406,.415-.676,.73-.436-.002,.033-.005,.067-.004,.101Zm-1.046,.117c0,.028,.014,.053,.034,.069,0,0,0,0,0,0-.058,.033-.049,.132,.015,.152,0,0,0,.001,0,.002-.005,.007-.008,.015-.011,.024-.219-.024-.495,.067-.698,.206-.155-.377,.323-.576,.698-.525-.023,.015-.039,.041-.039,.072Zm3.065-.115s0,0,0,0c0,0,0,0,0,0,0,0,0,0,0,0Zm-3.113,1.798v.002s-.002,0-.003,.002c0-.001,.002-.003,.003-.003Z' fill='%239b8028'%3E%3C/path%3E%3Cpath d='M14.133,16.856c.275-.65,.201-.508-.319-.787v-.873c.149-.099-.094-.121,.05-.235h.072v-.339h-.99v.339h.075c.136,.102-.091,.146,.05,.235v.76c-.524-.007-.771,.066-.679,.576h.039s0,0,0,0l.016,.036c.14-.063,.372-.107,.624-.119v.224c-.384,.029-.42,.608,0,.8v1.291c-.053,.017-.069,.089-.024,.123,.007,.065-.058,.092-.113,.083,0,.026,0,.237,0,.269-.044,.024-.113,.03-.17,.028v.108s0,0,0,0v.107s0,0,0,0v.107s0,0,0,0v.108s0,0,0,0v.186c.459-.068,.895-.068,1.353,0v-.616c-.057,.002-.124-.004-.17-.028,0-.033,0-.241,0-.268-.054,.008-.118-.017-.113-.081,.048-.033,.034-.108-.021-.126v-.932c.038,.017,.073,.035,.105,.053-.105,.119-.092,.326,.031,.429l.057-.053c.222-.329,.396-.743-.193-.896v-.35c.177-.019,.289-.074,.319-.158Z' fill='%239b8028'%3E%3C/path%3E%3Cpath d='M8.36,16.058c-.153-.062-.39-.098-.653-.102v-.76c.094-.041,.034-.115-.013-.159,.02-.038,.092-.057,.056-.115h.043v-.261h-.912v.261h.039c-.037,.059,.039,.078,.057,.115-.047,.042-.108,.118-.014,.159v.873c-.644,.133-.611,.748,0,.945v.35c-.59,.154-.415,.567-.193,.896l.057,.053c.123-.103,.136-.31,.031-.429,.032-.018,.067-.036,.105-.053v.932c-.055,.018-.069,.093-.021,.126,.005,.064-.059,.089-.113,.081,0,.026,0,.236,0,.268-.045,.024-.113,.031-.17,.028v.401h0v.215c.459-.068,.895-.068,1.352,0v-.186s0,0,0,0v-.108s0,0,0,0v-.107s0,0,0,0v-.107s0,0,0,0v-.108c-.056,.002-.124-.004-.169-.028,0-.033,0-.241,0-.269-.055,.008-.119-.018-.113-.083,.045-.034,.03-.107-.024-.124v-1.29c.421-.192,.383-.772,0-.8v-.224c.575,.035,.796,.314,.653-.392Z' fill='%239b8028'%3E%3C/path%3E%3Cpath d='M12.531,14.533h-4.28l.003,2.572v1.485c0,.432,.226,.822,.591,1.019,.473,.252,1.024,.391,1.552,.391s1.064-.135,1.544-.391c.364-.197,.591-.587,.591-1.019v-4.057Z' fill='%23a0251e'%3E%3C/path%3E%3C/svg%3E");
+  }
+
+  .language-picker__flag--english::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23002781' d='M46,6H2C0.896,6,0,6.896,0,8v32c0,1.104,0.896,2,2,2h44c1.104,0,2-0.896,2-2V8C48,6.896,47.104,6,46,6z'/%3E%3Cpath fill='%23E6E6E6' d='M48,8c0-1.104-0.896-2-2-2h-5.161L28,15.876V6h-8v9.876L7.161,6H2C0.896,6,0,6.896,0,8v2.586L12.239,20H0v8 h12.239L0,37.415V40c0,1.104,0.896,2,2,2h5.161L20,32.124V42h8v-9.876L40.839,42H46c1.104,0,2-0.896,2-2v-2.585L35.761,28H48v-8 H35.761L48,10.586V8z'/%3E%3Cpolygon fill='%23D10D24' points='48,22 26,22 26,6 22,6 22,22 0,22 0,26 22,26 22,42 26,42 26,26 48,26 '/%3E%3Cpath fill='%23D10D24' d='M47.001,6.307L29.2,20h3.28L48,8.062V8C48,7.268,47.587,6.656,47.001,6.307z'/%3E%3Cpath fill='%23D10D24' d='M32.48,28H29.2l17.801,13.693C47.587,41.344,48,40.732,48,40v-0.062L32.48,28z'/%3E%3Cpath fill='%23D10D24' d='M15.52,28L0,39.938V40c0,0.732,0.413,1.344,0.999,1.693L18.8,28H15.52z'/%3E%3Cpath fill='%23D10D24' d='M15.52,20h3.28L0.999,6.307C0.413,6.656,0,7.268,0,8v0.062L15.52,20z'/%3E%3C/svg%3E");
+  }
+
+  .language-picker__flag--francais::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%2301209F' d='M16,42H2c-1.105,0-2-0.895-2-2V8c0-1.105,0.895-2,2-2h14V42z'/%3E%3Cpath fill='%23EF4234' d='M48,40c0,1.105-0.895,2-2,2H32V6h14c1.105,0,2,0.895,2,2V40z'/%3E%3Crect x='16' y='6' fill='%23E6E6E6' width='16' height='36'/%3E%3C/svg%3E");
+  }
+
+  .language-picker__flag--italiano::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23009345' d='M16,42H2c-1.105,0-2-0.895-2-2V8c0-1.105,0.895-2,2-2h14V42z'/%3E%3Cpath fill='%23CF2B36' d='M48,40c0,1.105-0.895,2-2,2H32V6h14c1.105,0,2,0.895,2,2V40z'/%3E%3Crect x='16' y='6' fill='%23E6E6E6' width='16' height='36'/%3E%3C/svg%3E");
+  }
+
+  .language-picker--hide-label .language-picker__button .icon {
+    margin-left: 0;
+  }
+  .language-picker--hide-label .language-picker__button .icon:first-of-type {
+    display: none;
+  }
+  .language-picker--hide-label .language-picker__button em {
+    display: none;
+  }
+  .language-picker--hide-label
+    .language-picker__button
+    .language-picker__flag::before {
+    @apply mr-1 lg:mr-1.5;
+  }
+
+  .language-picker--hide-label .language-picker__flag::before {
+    display: inline-block;
+    display: inline-flex;
+  }
+</style>
 
 <style>
   /* component */
@@ -560,7 +749,7 @@ for (let i = 0; i < data.links.length; i++) {
     .f-header__item {
       position: relative;
       border-bottom: none;
-      margin-right: var(--space-s);
+      /* margin-right: var(--space-s); */
       /* margin between nav items */
     }
     .f-header__item:last-child {
@@ -775,3 +964,330 @@ for (let i = 0; i < data.links.length; i++) {
     }
   }
 </style>
+
+<script>
+  if (!Util) function Util() {}
+
+  Util.addClass = function (el, className) {
+    var classList = className.split(" ");
+    el.classList.add(classList[0]);
+    if (classList.length > 1) Util.addClass(el, classList.slice(1).join(" "));
+  };
+
+  Util.addClass = function (el, className) {
+    var classList = className.split(" ");
+    el.classList.add(classList[0]);
+    if (classList.length > 1) Util.addClass(el, classList.slice(1).join(" "));
+  };
+
+  Util.removeClass = function (el, className) {
+    var classList = className.split(" ");
+    el.classList.remove(classList[0]);
+    if (classList.length > 1)
+      Util.removeClass(el, classList.slice(1).join(" "));
+  };
+
+  Util.toggleClass = function (el, className, bool) {
+    if (bool) Util.addClass(el, className);
+    else Util.removeClass(el, className);
+  };
+
+  Util.moveFocus = function (element) {
+    if (!element) element = document.getElementsByTagName("body")[0];
+    element.focus();
+    if (document.activeElement !== element) {
+      element.setAttribute("tabindex", "-1");
+      element.focus();
+    }
+  };
+
+  Util.getIndexInArray = function (array, el) {
+    return Array.prototype.indexOf.call(array, el);
+  };
+
+  // File#: _1_language-picker
+  // Usage: codyhouse.co/license
+  (function () {
+    var LanguagePicker = function (element) {
+      this.element = element;
+      this.select = this.element.getElementsByTagName("select")[0];
+      this.options = this.select.getElementsByTagName("option");
+      this.selectedOption = getSelectedOptionText(this);
+      this.pickerId = this.select.getAttribute("id");
+      this.trigger = false;
+      this.dropdown = false;
+      this.firstLanguage = false;
+      // dropdown arrow inside the button element
+      this.arrowSvgPath =
+        '<svg viewBox="0 0 16 16"><polygon points="3,5 8,11 13,5 "></polygon></svg>';
+      this.globeSvgPath =
+        '<svg viewBox="0 0 16 16"><path d="M8,0C3.6,0,0,3.6,0,8s3.6,8,8,8s8-3.6,8-8S12.4,0,8,0z M13.9,7H12c-0.1-1.5-0.4-2.9-0.8-4.1 C12.6,3.8,13.6,5.3,13.9,7z M8,14c-0.6,0-1.8-1.9-2-5H10C9.8,12.1,8.6,14,8,14z M6,7c0.2-3.1,1.3-5,2-5s1.8,1.9,2,5H6z M4.9,2.9 C4.4,4.1,4.1,5.5,4,7H2.1C2.4,5.3,3.4,3.8,4.9,2.9z M2.1,9H4c0.1,1.5,0.4,2.9,0.8,4.1C3.4,12.2,2.4,10.7,2.1,9z M11.1,13.1 c0.5-1.2,0.7-2.6,0.8-4.1h1.9C13.6,10.7,12.6,12.2,11.1,13.1z"></path></svg>';
+
+      initLanguagePicker(this);
+      initLanguagePickerEvents(this);
+    };
+
+    function initLanguagePicker(picker) {
+      // create the HTML for the custom dropdown element
+      picker.element.insertAdjacentHTML(
+        "beforeend",
+        initButtonPicker(picker) + initListPicker(picker)
+      );
+
+      // save picker elements
+      picker.dropdown = picker.element.getElementsByClassName(
+        "language-picker__dropdown"
+      )[0];
+      picker.languages = picker.dropdown.getElementsByClassName(
+        "language-picker__item"
+      );
+      picker.firstLanguage = picker.languages[0];
+      picker.trigger = picker.element.getElementsByClassName(
+        "language-picker__button"
+      )[0];
+    }
+
+    function initLanguagePickerEvents(picker) {
+      // make sure to add the icon class to the arrow dropdown inside the button element
+      var svgs = picker.trigger.getElementsByTagName("svg");
+      Util.addClass(svgs[0], "icon");
+      Util.addClass(svgs[1], "icon");
+      // language selection in dropdown
+      // ⚠️ Important: you need to modify this function in production
+      initLanguageSelection(picker);
+
+      // click events
+      picker.trigger.addEventListener("click", function () {
+        toggleLanguagePicker(picker, false);
+      });
+      // keyboard navigation
+      picker.dropdown.addEventListener("keydown", function (event) {
+        if (
+          (event.keyCode && event.keyCode == 38) ||
+          (event.key && event.key.toLowerCase() == "arrowup")
+        ) {
+          keyboardNavigatePicker(picker, "prev");
+        } else if (
+          (event.keyCode && event.keyCode == 40) ||
+          (event.key && event.key.toLowerCase() == "arrowdown")
+        ) {
+          keyboardNavigatePicker(picker, "next");
+        }
+      });
+    }
+
+    function toggleLanguagePicker(picker, bool) {
+      var ariaExpanded;
+      if (bool) {
+        ariaExpanded = bool;
+      } else {
+        ariaExpanded =
+          picker.trigger.getAttribute("aria-expanded") == "true"
+            ? "false"
+            : "true";
+      }
+      picker.trigger.setAttribute("aria-expanded", ariaExpanded);
+      if (ariaExpanded == "true") {
+        picker.firstLanguage.focus(); // fallback if transition is not supported
+        picker.dropdown.addEventListener("transitionend", function cb() {
+          picker.firstLanguage.focus();
+          picker.dropdown.removeEventListener("transitionend", cb);
+        });
+        // place dropdown
+        placeDropdown(picker);
+      }
+    }
+
+    function placeDropdown(picker) {
+      var triggerBoundingRect = picker.trigger.getBoundingClientRect();
+      Util.toggleClass(
+        picker.dropdown,
+        "language-picker__dropdown--right",
+        window.innerWidth <
+          triggerBoundingRect.left + picker.dropdown.offsetWidth
+      );
+      Util.toggleClass(
+        picker.dropdown,
+        "language-picker__dropdown--up",
+        window.innerHeight <
+          triggerBoundingRect.bottom + picker.dropdown.offsetHeight
+      );
+    }
+
+    function checkLanguagePickerClick(picker, target) {
+      // if user clicks outside the language picker -> close it
+      if (!picker.element.contains(target))
+        toggleLanguagePicker(picker, "false");
+    }
+
+    function moveFocusToPickerTrigger(picker) {
+      if (picker.trigger.getAttribute("aria-expanded") == "false") return;
+      if (
+        document.activeElement.closest(".language-picker__dropdown") ==
+        picker.dropdown
+      )
+        picker.trigger.focus();
+    }
+
+    function initButtonPicker(picker) {
+      // create the button element -> picker trigger
+      // check if we need to add custom classes to the button trigger
+      var customClasses = picker.element.getAttribute("data-trigger-class")
+        ? " " + picker.element.getAttribute("data-trigger-class")
+        : "";
+
+      var button =
+        '<button class="language-picker__button' +
+        customClasses +
+        '" aria-label="' +
+        picker.select.value +
+        " " +
+        picker.element.getElementsByTagName("label")[0].textContent +
+        '" aria-expanded="false" aria-controls="' +
+        picker.pickerId +
+        '-dropdown">';
+      button =
+        button +
+        '<span aria-hidden="true" class="language-picker__label language-picker__flag language-picker__flag--' +
+        picker.select.value +
+        '">' +
+        picker.globeSvgPath +
+        '<em class="not-italic">' +
+        picker.selectedOption +
+        "</em>";
+      button = button + picker.arrowSvgPath + "</span>";
+      return button + "</button>";
+    }
+
+    function initListPicker(picker) {
+      // create language picker dropdown
+      var list =
+        '<div class="language-picker__dropdown" aria-describedby="' +
+        picker.pickerId +
+        '-description" id="' +
+        picker.pickerId +
+        '-dropdown">';
+      list =
+        list +
+        '<p class="sr-only" id="' +
+        picker.pickerId +
+        '-description">' +
+        picker.element.getElementsByTagName("label")[0].textContent +
+        "</p>";
+      list = list + '<ul class="language-picker__list" role="listbox">';
+      for (var i = 0; i < picker.options.length; i++) {
+        var selected = picker.options[i].selected
+            ? ' aria-selected="true"'
+            : "",
+          language = picker.options[i].getAttribute("lang");
+        list =
+          list +
+          '<li><a lang="' +
+          language +
+          '" hreflang="' +
+          language +
+          '" href="' +
+          getLanguageUrl(picker.options[i]) +
+          '"' +
+          selected +
+          ' role="option" data-value="' +
+          picker.options[i].value +
+          '" class="language-picker__item language-picker__flag language-picker__flag--' +
+          picker.options[i].value +
+          '"><span>' +
+          picker.options[i].text +
+          "</span></a></li>";
+      }
+      return list;
+    }
+
+    function getSelectedOptionText(picker) {
+      // used to initialize the label of the picker trigger button
+      var label = "";
+      if ("selectedIndex" in picker.select) {
+        label = picker.options[picker.select.selectedIndex].text;
+      } else {
+        label = picker.select.querySelector("option[selected]").text;
+      }
+      return label;
+    }
+
+    function getLanguageUrl(option) {
+      if (option.value == "francais") {
+        return "#";
+      }
+      if (option.value == "english") {
+        return "french-vine-plants";
+      }
+      if (option.value == "espanol") {
+        return "planta-de-vid-francesa";
+      }
+      if (option.value == "italiano") {
+        return "vivai-viticoli-internazionali";
+      }
+      // ⚠️ Important: You should replace this return value with the real link to your website in the selected language
+      // option.value gives you the value of the language that you can use to create your real url (e.g, 'english' or 'italiano')
+      return "#";
+    }
+
+    function initLanguageSelection(picker) {
+      picker.element
+        .getElementsByClassName("language-picker__list")[0]
+        .addEventListener("click", function (event) {
+          var language = event.target.closest(".language-picker__item");
+          if (!language) return;
+
+          if (
+            language.hasAttribute("aria-selected") &&
+            language.getAttribute("aria-selected") == "true"
+          ) {
+            // selecting the same language
+            event.preventDefault();
+            picker.trigger.setAttribute("aria-expanded", "false"); // hide dropdown
+          }
+        });
+    }
+
+    function keyboardNavigatePicker(picker, direction) {
+      var index = Util.getIndexInArray(
+        picker.languages,
+        document.activeElement
+      );
+      index = direction == "next" ? index + 1 : index - 1;
+      if (index < 0) index = picker.languages.length - 1;
+      if (index >= picker.languages.length) index = 0;
+      Util.moveFocus(picker.languages[index]);
+    }
+
+    //initialize the LanguagePicker objects
+    var languagePicker = document.getElementsByClassName("js-language-picker");
+    if (languagePicker.length > 0) {
+      var pickerArray = [];
+      for (var i = 0; i < languagePicker.length; i++) {
+        (function (i) {
+          pickerArray.push(new LanguagePicker(languagePicker[i]));
+        })(i);
+      }
+
+      // listen for key events
+      window.addEventListener("keyup", function (event) {
+        if (
+          (event.keyCode && event.keyCode == 27) ||
+          (event.key && event.key.toLowerCase() == "escape")
+        ) {
+          // close language picker on 'Esc'
+          pickerArray.forEach(function (element) {
+            moveFocusToPickerTrigger(element); // if focus is within dropdown, move it to dropdown trigger
+            toggleLanguagePicker(element, "false"); // close dropdown
+          });
+        }
+      });
+      // close language picker when clicking outside it
+      window.addEventListener("click", function (event) {
+        pickerArray.forEach(function (element) {
+          checkLanguagePickerClick(element, event.target);
+        });
+      });
+    }
+  })();
+</script>

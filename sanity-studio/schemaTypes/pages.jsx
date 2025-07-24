@@ -47,6 +47,40 @@ export default {
       validation: (Rule) => Rule.required().warning('Le nom de la page est obligatoire'),
     },
     {
+      name: 'lang',
+      type: 'string',
+      title: 'Langue de la page',
+      description: 'Si vide, fr. Sinon un code pour le pays.',
+    },
+    {
+      name: 'alternates',
+      type: 'array',
+      title: 'Pages alternatives',
+      description:
+        'Vont apparaitre dans les balises hreflang pour indiquer aux moteurs de recherche les variants linguistiques de la page',
+      group: 'seo',
+      of: [
+        {
+          name: 'alternate',
+          type: 'object',
+          fields: [
+            {
+              name: 'xdefault',
+              type: 'boolean',
+              title: 'Langue par défaut',
+              description: 'Utilisé avec x-default',
+              initialValue: false,
+            },
+            {
+              name: 'altpage',
+              type: 'reference',
+              to: [{type: 'page'}],
+            },
+          ],
+        },
+      ],
+    },
+    {
       name: 'published',
       type: 'boolean',
       title: 'Dev only',
