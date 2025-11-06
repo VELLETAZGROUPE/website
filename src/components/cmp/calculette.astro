@@ -3,6 +3,7 @@ import HN from "../HN.astro"
 import { PortableText } from "astro-portabletext"
 
 const { node } = Astro.props
+console.log(node)
 ---
 
 <section id={node.id || undefined} class="mb-8">
@@ -213,7 +214,9 @@ const { node } = Astro.props
         class="h4 font-mono font-black">
         ---
       </output>
-      <a class="vert small button" href={node.btnHref || "/contact"}>
+      <a
+        class="vert small button"
+        href=`/${node.btnHref.isExt ? node.btnHref.linkExt : node.btnHref.linkInt || "contact"}`>
         {node.btnContent || "Nous contacter"}
       </a>
     </div>
