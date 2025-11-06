@@ -1,13 +1,13 @@
 ---
-import { PortableText } from "astro-portabletext";
-import Button from "../Button.astro";
-import Link from "../Link.astro";
-import Image from "../Image.astro";
-import NetlifyImage from "../NetlifyImage.astro";
+import { PortableText } from "astro-portabletext"
+import Button from "../Button.astro"
+import Link from "../Link.astro"
+import Image from "../Image.astro"
+import NetlifyImage from "../NetlifyImage.astro"
 
-const year = new Date().getFullYear() - 1987;
+const year = new Date().getFullYear() - 1987
 
-let { node } = Astro.props;
+let { node } = Astro.props
 ---
 
 <div
@@ -31,12 +31,12 @@ let { node } = Astro.props;
             components={{
               mark: {
                 link: Link,
-                internalLink: Link,
+                internalLink: Link
               },
               type: {
                 button: Button,
-                img: Image,
-              },
+                img: Image
+              }
             }}
           />
         </div>

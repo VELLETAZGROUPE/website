@@ -1,31 +1,31 @@
 ---
-import { PortableText } from "astro-portabletext";
+import { PortableText } from "astro-portabletext"
 
-import Block from "./Block.astro";
-import List from "./List.astro";
-import Link from "./Link.astro";
+import Block from "./Block.astro"
+import List from "./List.astro"
+import Link from "./Link.astro"
 
 const composants = Object.values(
   import.meta.glob("./cmp/*.astro", { eager: true })
-);
+)
 
-const { data, context } = Astro.props;
-let value;
+const { data, context } = Astro.props
+let value
 if (data) {
-  value = data.map((e) => ({ ...e, ...context }));
+  value = data.map((e) => ({ ...e, ...context }))
 }
 
-let wrapper = [];
-let bloctext = [];
+let wrapper = []
+let bloctext = []
 ---
 
 {
   value.map((item, idx) => {
     if (item._type == "block") {
-      wrapper.push(item);
-      if (value[idx + 1]?._type == "block") return;
-      bloctext = wrapper;
-      wrapper = [];
+      wrapper.push(item)
+      if (value[idx + 1]?._type == "block") return
+      bloctext = wrapper
+      wrapper = []
       return (
         <div class="bloctext">
           <PortableText
@@ -33,12 +33,12 @@ let bloctext = [];
             components={{
               mark: {
                 link: Link,
-                internalLink: Link,
+                internalLink: Link
               },
               list: {
                 bullet: List,
                 number: List,
-                menu: List,
+                menu: List
               },
               block: {
                 h1: Block,
@@ -48,7 +48,7 @@ let bloctext = [];
                 h5: Block,
                 h6: Block,
                 blockquote: Block,
-                normal: Block,
+                normal: Block
               },
               type: {
                 feature: composants.find(
@@ -128,24 +128,24 @@ let bloctext = [];
                 ).default,
                 productlistcustom: composants.find(
                   (cmp) => cmp.default.name === "productlistcustom"
-                ).default,
-              },
+                ).default
+              }
             }}
           />
         </div>
-      );
+      )
     } else {
       return (
         <PortableText
           value={item}
           components={{
             mark: {
-              link: Link,
+              link: Link
             },
             list: {
               bullet: List,
               number: List,
-              menu: List,
+              menu: List
             },
             block: {
               h1: Block,
@@ -155,7 +155,7 @@ let bloctext = [];
               h5: Block,
               h6: Block,
               blockquote: Block,
-              normal: Block,
+              normal: Block
             },
             type: {
               feature: composants.find((cmp) => cmp.default.name === "features")
@@ -232,10 +232,13 @@ let bloctext = [];
               productlistcustom: composants.find(
                 (cmp) => cmp.default.name === "productlistcustom"
               ).default,
-            },
+              calculette: composants.find(
+                (cmp) => cmp.default.name === "calculette"
+              ).default
+            }
           }}
         />
-      );
+      )
     }
   })
 }

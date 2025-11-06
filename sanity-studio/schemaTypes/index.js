@@ -37,6 +37,7 @@ import marqueelogo from './cmp/marqueelogo'
 import marqueetext from './cmp/marqueetext'
 import motiondesign from './cmp/motiondesign'
 import scrolltelling from './cmp/scrolltelling'
+import calculette from './cmp/calculette'
 
 export const schemaTypes = [
   global,
@@ -77,4 +78,5 @@ export const schemaTypes = [
   marqueetext,
   motiondesign,
   scrolltelling,
+  calculette,
 ]

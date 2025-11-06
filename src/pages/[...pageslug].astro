@@ -1,68 +1,68 @@
 ---
-import Head from "../components/Head.astro";
-import Render from "../components/Render.astro";
-import Fonts from "../styles/fonts.astro";
-import Colors from "../styles/colors.astro";
-import Filters from "../styles/filters.astro";
+import Head from "../components/Head.astro"
+import Render from "../components/Render.astro"
+import Fonts from "../styles/fonts.astro"
+import Colors from "../styles/colors.astro"
+import Filters from "../styles/filters.astro"
 
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro"
+import Footer from "../components/Footer.astro"
 
-import { request } from "./request.js";
+import { request } from "./request.js"
 
 export async function getStaticPaths() {
-  let QUERY, URL;
+  let QUERY, URL
 
   //FETCH PAGE, CAT CONTENT
-  QUERY = encodeURIComponent(`*[_type=="page"]{${request}}`);
+  QUERY = encodeURIComponent(`*[_type=="page"]{${request}}`)
 
   // Compose the URL for your project's endpoint and add the query
   URL = `https://${
     import.meta.env.PROJECT_ID
   }.api.sanity.io/v2022-03-07/data/query/${
     import.meta.env.DATASET
-  }?query=${QUERY}`;
+  }?query=${QUERY}`
   // fetch the content
   let data = await fetch(URL)
     .then((res) => res.json())
     .then(({ result }) => {
-      return result;
+      return result
     })
-    .catch((err) => console.error(err));
+    .catch((err) => console.error(err))
 
   // console.log(data);
   let pages = data
-    .filter((page) => page.seo.published != true)
+    // .filter((page) => page.seo.published != true)
     .map((page) => {
       return {
         pageslug: page.seo.slug,
         seo: page.seo,
-        content: page.content,
-      };
-    });
+        content: page.content
+      }
+    })
   return pages.map(({ pageslug, seo, content }) => {
     if (pageslug == null) {
-      pageslug = undefined;
+      pageslug = undefined
     }
     return {
       params: { pageslug },
-      props: { seo, content },
-    };
-  });
+      props: { seo, content }
+    }
+  })
 }
 
-const { pageslug } = Astro.params;
-const { seo, content } = Astro.props;
+const { pageslug } = Astro.params
+const { seo, content } = Astro.props
 
 //ADD EAGER LOADING TO FIRST IMAGE
-let eager = 0;
+let eager = 0
 if (content) {
   for (let i = 0; i < content.length; i++) {
     if (!eager) {
       if ("img" in content[i]) {
         if (content[i].img) {
-          eager = 1;
-          content[i].img.eager = true;
+          eager = 1
+          content[i].img.eager = true
         }
       }
     }
@@ -101,12 +101,12 @@ if (content) {
     <script>
       // import simpleParallax from "simple-parallax-js";
 
-      let textWrap = document.querySelector(".textwrap");
+      let textWrap = document.querySelector(".textwrap")
       if (textWrap) {
         if (window.matchMedia("(min-width: 1024px)").matches) {
-          textWrap.classList.add("sceneTextRight");
+          textWrap.classList.add("sceneTextRight")
         } else {
-          textWrap.classList.remove("sceneTextRight");
+          textWrap.classList.remove("sceneTextRight")
         }
       }
 
@@ -159,13 +159,13 @@ if (content) {
       // });
       // File#: _1_back-to-top
       // Usage: codyhouse.co/license
-      (function () {
-        var backTop = document.getElementsByClassName("js-back-to-top")[0];
+      ;(function () {
+        var backTop = document.getElementsByClassName("js-back-to-top")[0]
         if (backTop) {
-          var dataElement = backTop.getAttribute("data-element");
+          var dataElement = backTop.getAttribute("data-element")
           var scrollElement = dataElement
             ? document.querySelector(dataElement)
-            : window;
+            : window
           var scrollOffsetInit =
               parseInt(backTop.getAttribute("data-offset-in")) ||
               parseInt(backTop.getAttribute("data-offset")) ||
@@ -174,7 +174,7 @@ if (content) {
               parseInt(backTop.getAttribute("data-offset-out")) || 0,
             scrollOffset = 0,
             scrollOffsetOut = 0,
-            scrolling = false;
+            scrolling = false
 
           // check if target-in/target-out have been set
           var targetIn = backTop.getAttribute("data-target-in")
@@ -182,94 +182,91 @@ if (content) {
               : false,
             targetOut = backTop.getAttribute("data-target-out")
               ? document.querySelector(backTop.getAttribute("data-target-out"))
-              : false;
+              : false
 
-          updateOffsets();
+          updateOffsets()
 
           //detect click on back-to-top link
           backTop.addEventListener("click", function (event) {
-            event.preventDefault();
+            event.preventDefault()
             if (!window.requestAnimationFrame) {
-              scrollElement.scrollTo(0, 0);
+              scrollElement.scrollTo(0, 0)
             } else {
               dataElement
                 ? scrollElement.scrollTo({ top: 0, behavior: "smooth" })
-                : window.scrollTo({ top: 0, behavior: "smooth" });
+                : window.scrollTo({ top: 0, behavior: "smooth" })
             }
             //move the focus to the #top-element - don't break keyboard navigation
             moveFocus(
               document.getElementById(
                 backTop.getAttribute("href").replace("#", "")
               )
-            );
-          });
+            )
+          })
 
           //listen to the window scroll and update back-to-top visibility
-          checkBackToTop();
+          checkBackToTop()
           if (scrollOffset > 0 || scrollOffsetOut > 0) {
             scrollElement.addEventListener("scroll", function (event) {
               if (!scrolling) {
-                scrolling = true;
+                scrolling = true
                 !window.requestAnimationFrame
                   ? setTimeout(function () {
-                      checkBackToTop();
+                      checkBackToTop()
                     }, 250)
-                  : window.requestAnimationFrame(checkBackToTop);
+                  : window.requestAnimationFrame(checkBackToTop)
               }
-            });
+            })
           }
 
           function checkBackToTop() {
-            updateOffsets();
+            updateOffsets()
             var windowTop =
-              scrollElement.scrollTop || document.documentElement.scrollTop;
+              scrollElement.scrollTop || document.documentElement.scrollTop
             if (!dataElement)
-              windowTop = window.scrollY || document.documentElement.scrollTop;
-            var condition = windowTop >= scrollOffset;
+              windowTop = window.scrollY || document.documentElement.scrollTop
+            var condition = windowTop >= scrollOffset
             if (scrollOffsetOut > 0) {
               condition =
                 windowTop >= scrollOffset &&
-                window.innerHeight + windowTop < scrollOffsetOut;
+                window.innerHeight + windowTop < scrollOffsetOut
             }
-            backTop.classList.toggle("back-to-top--is-visible", condition);
-            scrolling = false;
+            backTop.classList.toggle("back-to-top--is-visible", condition)
+            scrolling = false
           }
 
           function updateOffsets() {
-            scrollOffset = getOffset(targetIn, scrollOffsetInit, true);
-            scrollOffsetOut = getOffset(targetOut, scrollOffsetOutInit);
+            scrollOffset = getOffset(targetIn, scrollOffsetInit, true)
+            scrollOffsetOut = getOffset(targetOut, scrollOffsetOutInit)
           }
 
           function getOffset(target, startOffset, bool) {
-            var offset = 0;
+            var offset = 0
             if (target) {
               var windowTop =
-                scrollElement.scrollTop || document.documentElement.scrollTop;
+                scrollElement.scrollTop || document.documentElement.scrollTop
               if (!dataElement)
-                windowTop =
-                  window.scrollY || document.documentElement.scrollTop;
-              var boundingClientRect = target.getBoundingClientRect();
-              offset = bool
-                ? boundingClientRect.bottom
-                : boundingClientRect.top;
-              offset = offset + windowTop;
+                windowTop = window.scrollY || document.documentElement.scrollTop
+              var boundingClientRect = target.getBoundingClientRect()
+              offset = bool ? boundingClientRect.bottom : boundingClientRect.top
+              offset = offset + windowTop
             }
             if (startOffset && startOffset) {
-              offset = offset + parseInt(startOffset);
+              offset = offset + parseInt(startOffset)
             }
-            return offset;
+            return offset
           }
 
           function moveFocus(element) {
-            if (!element) element = document.getElementsByTagName("body")[0];
-            element.focus();
+            if (!element) element = document.getElementsByTagName("body")[0]
+            element.focus()
             if (document.activeElement !== element) {
-              element.setAttribute("tabindex", "-1");
-              element.focus();
+              element.setAttribute("tabindex", "-1")
+              element.focus()
             }
           }
         }
-      })();
+      })()
     </script>
   </body>
 </html>

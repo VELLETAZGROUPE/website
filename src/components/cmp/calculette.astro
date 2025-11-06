@@ -1,0 +1,470 @@
+---
+import HN from "../HN.astro"
+import { PortableText } from "astro-portabletext"
+
+const { node } = Astro.props
+---
+
+<section id={node.id || undefined} class="mb-8">
+  <div class="intro remove-margin">
+    <div
+      class="max-w-7xl mx-auto px-[var(--space-xs)] md:px-[var(--space-m)] lg:px-[var(--space-l)] xl:px-[var(--space-xl)]">
+      {
+        node.heading && (
+          <HN class="heading" Level={node.heading.level}>
+            {node.heading.content}
+          </HN>
+        )
+      }
+      {
+        node.subheading && (
+          <div class="subheading">
+            <PortableText value={node.subheading} />
+          </div>
+        )
+      }
+    </div>
+  </div>
+  <form
+    id="calc-form"
+    class="border border-[var(--color-body)] p-4 sm:p-6 lg:p-10 max-w-3xl mx-auto mt-6 grid md:grid-cols-2 items-center gap-12">
+    <div class="flex flex-col gap-4">
+      <label class="inline-block" for="surface">
+        {node.labelSurface || "Surface cadastrale (en hectares)"}
+      </label>
+
+      <div class="number-input number-input--v2 js-number-input">
+        <input
+          class="form-control appearance-none border-[var(--color-body)] border bg-[var(--color-bg)] py-2 px-3 rounded-md text-[1em] leading-tight transition duration-200 outline-none placeholder:opacity-100 placeholder:text-gray-400 focus-within:border-indigo-700 js-number-input__value"
+          type="number"
+          name="surface"
+          id="surface"
+          min="0"
+          step="0.1"
+          placeholder={node.placeholderSurface || "Ex. 1"}
+          required
+        />
+
+        <button
+          class="number-input__btn number-input__btn--plus js-number-input__btn"
+          aria-label="Augmenter"
+          type="button">
+          <svg
+            class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
+            viewBox="0 0 12 12"
+            aria-hidden="true">
+            <path
+              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z">
+            </path>
+          </svg>
+        </button>
+
+        <button
+          class="number-input__btn number-input__btn--minus js-number-input__btn"
+          aria-label="Diminuer"
+          type="button">
+          <svg
+            class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
+            viewBox="0 0 12 12"
+            aria-hidden="true">
+            <path d="M11,7H1A1,1,0,0,1,1,5H11a1,1,0,0,1,0,2Z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <label class="inline-block" for="gapRangs">
+        {node.labelGapRangs || "Écartement entre les rangs (en mètres)"}
+      </label>
+
+      <div class="number-input number-input--v2 js-number-input">
+        <input
+          class="form-control appearance-none border-[var(--color-body)] border bg-[var(--color-bg)] py-2 px-3 rounded-md text-[1em] leading-tight transition duration-200 outline-none placeholder:opacity-100 placeholder:text-gray-400 focus-within:border-indigo-700 js-number-input__value"
+          type="number"
+          name="gapRangs"
+          id="gapRangs"
+          min="0"
+          step="0.1"
+          placeholder={node.placeholderGapRangs || "Ex. 2.5"}
+          required
+        />
+
+        <button
+          class="number-input__btn number-input__btn--plus js-number-input__btn"
+          aria-label="Augmenter"
+          type="button">
+          <svg
+            class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
+            viewBox="0 0 12 12"
+            aria-hidden="true">
+            <path
+              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z">
+            </path>
+          </svg>
+        </button>
+
+        <button
+          class="number-input__btn number-input__btn--minus js-number-input__btn"
+          aria-label="Diminuer"
+          type="button">
+          <svg
+            class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
+            viewBox="0 0 12 12"
+            aria-hidden="true">
+            <path d="M11,7H1A1,1,0,0,1,1,5H11a1,1,0,0,1,0,2Z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <label class="inline-block" for="gapCeps">
+        {node.labelGapCeps || "Écartement entre les ceps (en mètres)"}
+      </label>
+
+      <div class="number-input number-input--v2 js-number-input">
+        <input
+          class="form-control appearance-none border-[var(--color-body)] border bg-[var(--color-bg)] py-2 px-3 rounded-md text-[1em] leading-tight transition duration-200 outline-none placeholder:opacity-100 placeholder:text-gray-400 focus-within:border-indigo-700 js-number-input__value"
+          type="number"
+          name="gapCeps"
+          id="gapCeps"
+          min="0"
+          step="0.1"
+          placeholder={node.placeholderGapCeps || "Ex. 1"}
+          required
+        />
+
+        <button
+          class="number-input__btn number-input__btn--plus js-number-input__btn"
+          aria-label="Augmenter"
+          type="button">
+          <svg
+            class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
+            viewBox="0 0 12 12"
+            aria-hidden="true">
+            <path
+              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z">
+            </path>
+          </svg>
+        </button>
+
+        <button
+          class="number-input__btn number-input__btn--minus js-number-input__btn"
+          aria-label="Diminuer"
+          type="button">
+          <svg
+            class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
+            viewBox="0 0 12 12"
+            aria-hidden="true">
+            <path d="M11,7H1A1,1,0,0,1,1,5H11a1,1,0,0,1,0,2Z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <label class="inline-block" for="tournieres">
+        {node.labelTournieres || "Pourcentage de tournières (en %)"}
+      </label>
+
+      <div class="number-input number-input--v2 js-number-input">
+        <input
+          class="form-control appearance-none border-[var(--color-body)] border bg-[var(--color-bg)] py-2 px-3 rounded-md text-[1em] leading-tight transition duration-200 outline-none placeholder:opacity-100 placeholder:text-gray-400 focus-within:border-indigo-700 js-number-input__value"
+          type="number"
+          name="tournieres"
+          id="tournieres"
+          min="0"
+          max="100"
+          step="0.1"
+          placeholder={node.placeholderTournieres || "Ex. 7"}
+          required
+        />
+
+        <button
+          class="number-input__btn number-input__btn--plus js-number-input__btn"
+          aria-label="Augmenter"
+          type="button">
+          <svg
+            class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
+            viewBox="0 0 12 12"
+            aria-hidden="true">
+            <path
+              d="M11,5H7V1A1,1,0,0,0,5,1V5H1A1,1,0,0,0,1,7H5v4a1,1,0,0,0,2,0V7h4a1,1,0,0,0,0-2Z">
+            </path>
+          </svg>
+        </button>
+
+        <button
+          class="number-input__btn number-input__btn--minus js-number-input__btn"
+          aria-label="Diminuer"
+          type="button">
+          <svg
+            class="icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
+            viewBox="0 0 12 12"
+            aria-hidden="true">
+            <path d="M11,7H1A1,1,0,0,1,1,5H11a1,1,0,0,1,0,2Z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="flex flex-col items-center justify-center">
+      <p class="h3 leading-none pb-4 text-center">
+        {node.resultTitle || "Nombre de plants à prévoir"}
+      </p>
+      <output
+        name="nbOfPlants"
+        id="nbOfPlants"
+        for="surface gapRangs gapCeps tournieres"
+        class="h4 font-mono font-black">
+        ---
+      </output>
+      <a class="vert small button" href={node.btnHref || "/contact"}>
+        {node.btnContent || "Nous contacter"}
+      </a>
+    </div>
+  </form>
+</section>
+
+<script>
+  function calculate() {
+    const rangs = parseFloat(document.getElementById("gapRangs").value)
+    const ceps = parseFloat(document.getElementById("gapCeps").value)
+    const surface = parseFloat(document.getElementById("surface").value)
+    const tourniere = document.getElementById("tournieres").value
+
+    if (!rangs || !ceps || !surface || !tourniere) return
+
+    const plants = ((surface * 10000) / (rangs * ceps)) * (1 - tourniere / 100)
+
+    // document.getElementById("densite").textContent = densite.toFixed(0)
+    document.getElementById("nbOfPlants").textContent = plants.toFixed(0)
+  }
+
+  document.querySelectorAll("input.form-control").forEach((el) => {
+    el.addEventListener("input", calculate)
+  })
+
+  calculate()
+  // initial call
+
+  // File#: _1_number-input
+  // Usage: codyhouse.co/license
+  ;(function () {
+    var InputNumber = function (element) {
+      this.element = element
+      this.input = this.element.getElementsByClassName(
+        "js-number-input__value"
+      )[0]
+      this.min = parseFloat(this.input.getAttribute("min"))
+      this.max = parseFloat(this.input.getAttribute("max"))
+      this.step = parseFloat(this.input.getAttribute("step"))
+      if (isNaN(this.step)) this.step = 1
+      this.precision = getStepPrecision(this.step)
+      initInputNumberEvents(this)
+    }
+
+    function initInputNumberEvents(input) {
+      // listen to the click event on the custom increment buttons
+      input.element.addEventListener("click", function (event) {
+        var increment = event.target.closest(".js-number-input__btn")
+        if (increment) {
+          event.preventDefault()
+          updateInputNumber(input, increment)
+        }
+      })
+
+      // when input changes, make sure the new value is acceptable
+      input.input.addEventListener("focusout", function (event) {
+        var value = parseFloat(input.input.value)
+        if (value < input.min) value = input.min
+        if (value > input.max) value = input.max
+        // check value is multiple of step
+        value = checkIsMultipleStep(input, value)
+        if (value != parseFloat(input.input.value)) input.input.value = value
+      })
+    }
+
+    function getStepPrecision(step) {
+      // if step is a floating number, return its precision
+      return step.toString().length - Math.floor(step).toString().length - 1
+    }
+
+    function updateInputNumber(input, btn) {
+      var value = btn.classList.contains("number-input__btn--plus")
+        ? parseFloat(input.input.value) + input.step
+        : parseFloat(input.input.value) - input.step
+      if (input.precision > 0) value = value.toFixed(input.precision)
+      if (value < input.min) value = input.min
+      if (value > input.max) value = input.max
+      input.input.value = value
+      input.input.dispatchEvent(new CustomEvent("change", { bubbles: true })) // trigger change event
+    }
+
+    function checkIsMultipleStep(input, value) {
+      // check if the number inserted is a multiple of the step value
+      var remain =
+        (value * 10 * input.precision) % (input.step * 10 * input.precision)
+      if (remain != 0) value = value - Math.abs(remain / 10)
+      if (input.precision > 0) value = value.toFixed(input.precision)
+      return value
+    }
+
+    window.InputNumber = InputNumber
+
+    //initialize the InputNumber objects
+    var inputNumbers = document.getElementsByClassName("js-number-input")
+    if (inputNumbers.length > 0) {
+      for (var i = 0; i < inputNumbers.length; i++) {
+        ;(function (i) {
+          new InputNumber(inputNumbers[i])
+        })(i)
+      }
+    }
+  })()
+</script>
+
+<style>
+  a.vert {
+    background-color: var(--color-accent1);
+    color: var(--color-bg);
+  }
+
+  a.bordeau {
+    background-color: var(--color-accent2);
+    color: var(--color-bg);
+  }
+
+  a.vert:hover,
+  a.vert:focus {
+    box-shadow: inset 100em 0 0 0 var(--color-accent2);
+  }
+
+  a.bordeau:hover,
+  a.bordeau:focus {
+    box-shadow: inset 100em 0 0 0 var(--color-accent1);
+  }
+
+  a.small {
+    font-size: var(--size-s);
+  }
+
+  a.medium {
+    font-size: var(--size-m);
+  }
+
+  a.large {
+    font-size: var(--size-l);
+  }
+
+  a {
+    display: inline-block;
+    padding-inline: var(--space-xs);
+    padding-block: var(--space-3xs);
+    margin-block: var(--space-xs);
+    transition: 0.2s;
+  }
+  /* --------------------------------
+
+File#: _1_number-input
+Title: Number input
+Descr: Number input field with custom increment buttons
+Usage: codyhouse.co/license
+
+-------------------------------- */
+  .number-input__btn {
+    display: none;
+  }
+
+  .number-input .form-control::-webkit-inner-spin-button,
+  .number-input .form-control::-webkit-outer-spin-button {
+    display: none;
+  }
+  .number-input .form-control {
+    -moz-appearance: textfield;
+    display: block;
+  }
+  .number-input__btn {
+    display: flex;
+    @apply bg-gray-300;
+  }
+  .number-input__btn:hover {
+    @apply bg-gray-400;
+  }
+  .number-input__btn:focus {
+    outline: none;
+    @apply bg-indigo-700;
+  }
+  .number-input__btn:focus .icon {
+    @apply fill-white;
+  }
+  .number-input__btn:active {
+    @apply bg-indigo-700/90;
+  }
+  .number-input__btn .icon {
+    --size: var(--number-input-icon-size, 12px);
+    display: block;
+    margin: auto;
+  }
+
+  .number-input--v1 {
+    --number-input-btn-width: 1.75em;
+    --number-input-btn-gap: 2px;
+    --number-input-btn-input-gap: 0.25rem;
+    --number-input-icon-size: 8px;
+    position: relative;
+  }
+  @media (min-width: 64rem) {
+    .number-input--v1 {
+      --number-input-btn-input-gap: 0.375rem;
+    }
+  }
+  .number-input--v1 .form-control {
+    padding-right: calc(
+      var(--number-input-btn-width) + var(--number-input-btn-input-gap) * 2
+    );
+    width: 100%;
+    height: 100%;
+  }
+  .number-input--v1 .number-input__btns {
+    position: absolute;
+    top: var(--number-input-btn-input-gap);
+    right: var(--number-input-btn-input-gap);
+    width: var(--number-input-btn-width);
+    height: calc(100% - var(--number-input-btn-input-gap) * 2);
+  }
+  .number-input--v1 .number-input__btn {
+    position: absolute;
+    width: 100%;
+    height: calc(50% - var(--number-input-btn-gap) / 2);
+    @apply rounded-sm;
+  }
+  .number-input--v1 .number-input__btn.number-input__btn--plus {
+    top: 0;
+  }
+  .number-input--v1 .number-input__btn.number-input__btn--minus {
+    bottom: 0;
+  }
+
+  .number-input--v2 {
+    --number-input-btn-width: 1.6em;
+    --number-input-btn-input-gap: 0.25rem;
+    --number-input-icon-size: 12px;
+    display: flex;
+    align-items: center;
+  }
+  @media (min-width: 64rem) {
+    .number-input--v2 {
+      --number-input-btn-input-gap: 0.375rem;
+    }
+  }
+  .number-input--v2 .form-control {
+    margin: 0 var(--number-input-btn-input-gap);
+    order: 1;
+    flex-grow: 1;
+    text-align: center;
+  }
+  .number-input--v2 .number-input__btn {
+    width: var(--number-input-btn-width);
+    height: var(--number-input-btn-width);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .number-input--v2 .number-input__btn--plus {
+    order: 2;
+  }
+</style>

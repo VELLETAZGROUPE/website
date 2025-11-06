@@ -283,6 +283,7 @@ export default {
         {type: 'marqueetext'},
         {type: 'motiondesign'},
         {type: 'scrolltelling'},
+        {type: 'calculette'},
       ],
     },
   ],
