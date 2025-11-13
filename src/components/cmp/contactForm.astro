@@ -78,14 +78,14 @@ const { node } = Astro.props
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
               <div>
                 <label for="ville" class="block mb-2 text-sm font-medium">
-                  {node.form.ville.title || "Ville"}
+                  {node.form?.ville?.title || "Ville"}
                 </label>
                 <input
                   type="text"
                   name="ville"
                   id="ville"
                   required
-                  placeholder={node.form.ville.placeholder || "Ville"}
+                  placeholder={node.form?.ville?.placeholder || "Ville"}
                   class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
                 />
               </div>
