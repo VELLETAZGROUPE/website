@@ -1,7 +1,7 @@
 ---
-import {PortableText} from "astro-portabletext";
+import { PortableText } from "astro-portabletext"
 
-const {node} = Astro.props;
+const { node } = Astro.props
 ---
 
 <div
@@ -74,20 +74,37 @@ const {node} = Astro.props;
               />
             </div>
 
-            <div>
-              <label for="telephone" class="block mb-2 text-sm font-medium">
-                {node.form.tel.title}
-              </label>
-              <input
-                type="text"
-                name="telephone"
-                id="telephone"
-                required
-                placeholder={node.form.tel.placeholder}
-                autocomplete="tel"
-                class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
-              />
+            <!-- Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+              <div>
+                <label for="ville" class="block mb-2 text-sm font-medium">
+                  {node.form.ville.title}
+                </label>
+                <input
+                  type="text"
+                  name="ville"
+                  id="ville"
+                  required
+                  placeholder={node.form.ville.placeholder}
+                  class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
+                />
+              </div>
+
+              <div>
+                <label for="codepostal" class="block mb-2 text-sm font-medium">
+                  {node.form.postcode.title}
+                </label>
+                <input
+                  type="text"
+                  required
+                  name="codepostal"
+                  id="codepostal"
+                  placeholder={node.form.postcode.placeholder}
+                  class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
+                />
+              </div>
             </div>
+            <!-- End Grid -->
 
             <!-- Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
@@ -106,15 +123,16 @@ const {node} = Astro.props;
               </div>
 
               <div>
-                <label for="codepostal" class="block mb-2 text-sm font-medium">
-                  {node.form.postcode.title}
+                <label for="telephone" class="block mb-2 text-sm font-medium">
+                  {node.form.tel.title}
                 </label>
                 <input
                   type="text"
+                  name="telephone"
+                  id="telephone"
                   required
-                  name="codepostal"
-                  id="codepostal"
-                  placeholder={node.form.postcode.placeholder}
+                  placeholder={node.form.tel.placeholder}
+                  autocomplete="tel"
                   class="py-3 px-4 block w-full border-[var(--color-body)] border bg-[var(--color-bg)] text-sm focus:border-[var(--color-accent1)] focus:ring-[var(--color-accent1)] disabled:opacity-50 disabled:pointer-events-none"
                 />
               </div>
@@ -175,47 +193,47 @@ const {node} = Astro.props;
 </div>
 
 <script>
-  const submitBtn = document.querySelector("#submitBtn");
-  const formName = document.querySelector("form.contact");
+  const submitBtn = document.querySelector("#submitBtn")
+  const formName = document.querySelector("form.contact")
 
   if (submitBtn) {
     submitBtn.addEventListener("click", (event) => {
-      event.preventDefault();
+      event.preventDefault()
 
       //Check validity of the current slide
-      const inputs = formName.querySelectorAll("input");
-      let valid = true;
+      const inputs = formName.querySelectorAll("input")
+      let valid = true
       inputs.forEach((input) => {
         if (!input.checkValidity() && valid) {
-          input.reportValidity();
-          valid = false;
-          return;
+          input.reportValidity()
+          valid = false
+          return
         }
-      });
+      })
 
       if (valid) {
-        const message = document.querySelector("textarea");
+        const message = document.querySelector("textarea")
         if (!message.checkValidity()) {
-          message.reportValidity();
-          valid = false;
-          return;
+          message.reportValidity()
+          valid = false
+          return
         }
       }
 
       if (valid) {
-        const success = formName.dataset.success;
-        let formData = new FormData(formName);
+        const success = formName.dataset.success
+        let formData = new FormData(formName)
         fetch("/", {
           method: "POST",
-          headers: {"Content-Type": "application/x-www-form-urlencoded"},
-          body: new URLSearchParams(formData).toString(),
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData).toString()
         })
           .then(() => {
-            alert(success);
-            formName.reset();
+            alert(success)
+            formName.reset()
           })
-          .catch((error) => alert(error));
+          .catch((error) => alert(error))
       }
-    });
+    })
   }
 </script>

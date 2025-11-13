@@ -108,6 +108,19 @@ export default {
           ],
         },
         {
+          name: 'ville',
+          type: 'object',
+          title: 'Champ Ville',
+          fields: [
+            {name: 'title', type: 'string', title: 'Titre du champ'},
+            {
+              name: 'placeholder',
+              type: 'string',
+              title: 'Placeholder (exemple de valeur acceptée)',
+            },
+          ],
+        },
+        {
           name: 'message',
           type: 'object',
           title: 'Champ Message',
