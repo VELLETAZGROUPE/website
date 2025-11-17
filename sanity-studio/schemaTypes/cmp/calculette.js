@@ -4,6 +4,17 @@ export default {
   name: 'calculette',
   type: 'document',
   title: 'Calculateur',
+  preview: {
+    select: {
+      title: 'name',
+    },
+    prepare(selection) {
+      let {title} = selection
+      return {
+        title: `Composant Calculateur`,
+      }
+    },
+  },
   fields: [
     copyPaste,
     {
