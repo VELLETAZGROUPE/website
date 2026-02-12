@@ -1,10 +1,10 @@
 ---
-import {PortableText} from "astro-portabletext";
-import Link from "../Link.astro";
-import Button from "../Button.astro";
-import NetlifyImage from "../NetlifyImage.astro";
+import { PortableText } from "astro-portabletext"
+import Link from "../Link.astro"
+import Button from "../Button.astro"
+import NetlifyImage from "../NetlifyImage.astro"
 
-const {node} = Astro.props;
+const { node } = Astro.props
 ---
 
 <section class="my-32">
@@ -17,11 +17,11 @@ const {node} = Astro.props;
       components={{
         mark: {
           link: Link,
-          internalLink: Link,
+          internalLink: Link
         },
         type: {
-          button: Button,
-        },
+          button: Button
+        }
       }}
     />
   </div>
@@ -141,20 +141,17 @@ const {node} = Astro.props;
 </style>
 
 <script>
-  const root = document.documentElement;
+  const root = document.documentElement
   const marqueeElementsDisplayed = getComputedStyle(root).getPropertyValue(
     "--marquee-elements-displayed"
-  );
-  const marqueeContent = document.querySelector("ul.marquee-content");
+  )
+  const marqueeContent = document.querySelector("ul.marquee-content")
 
   if (marqueeContent) {
-    root.style.setProperty(
-      "--marquee-elements",
-      marqueeContent.children.length
-    );
+    root.style.setProperty("--marquee-elements", marqueeContent.children.length)
 
     for (let i = 0; i < marqueeElementsDisplayed; i++) {
-      marqueeContent.appendChild(marqueeContent.children[i].cloneNode(true));
+      marqueeContent.appendChild(marqueeContent.children[i].cloneNode(true))
     }
   }
 </script>

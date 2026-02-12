@@ -1,11 +1,11 @@
 ---
-import { PortableText } from "astro-portabletext";
-import Button from "../Button.astro";
-import NetlifyImage from "../NetlifyImage.astro";
+import { PortableText } from "astro-portabletext"
+import Button from "../Button.astro"
+import NetlifyImage from "../NetlifyImage.astro"
 
-let { node } = Astro.props;
+let { node } = Astro.props
 if (node.link == null) {
-  node.link = true;
+  node.link = true
 }
 ---
 
@@ -18,8 +18,8 @@ if (node.link == null) {
           value={node.title}
           components={{
             type: {
-              button: Button,
-            },
+              button: Button
+            }
           }}
         />
       </div>

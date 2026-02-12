@@ -1,21 +1,21 @@
 ---
-import { PortableText } from "astro-portabletext";
-import Button from "../Button.astro";
-import NetlifyImage from "../NetlifyImage.astro";
-import Link from "../Link.astro";
+import { PortableText } from "astro-portabletext"
+import Button from "../Button.astro"
+import NetlifyImage from "../NetlifyImage.astro"
+import Link from "../Link.astro"
 
-const { node } = Astro.props;
+const { node } = Astro.props
 
-let blockcnt = 0;
+let blockcnt = 0
 if (node.text) {
   node.text.map((section) => {
     if (section._type == "block") {
-      blockcnt += 1;
+      blockcnt += 1
     }
-  });
+  })
 }
 
-let uniq = blockcnt > 1 ? false : true;
+let uniq = blockcnt > 1 ? false : true
 ---
 
 <section
@@ -45,11 +45,11 @@ let uniq = blockcnt > 1 ? false : true;
             components={{
               mark: {
                 link: Link,
-                internalLink: Link,
+                internalLink: Link
               },
               type: {
-                button: Button,
-              },
+                button: Button
+              }
             }}
           />
         </div>
@@ -57,7 +57,6 @@ let uniq = blockcnt > 1 ? false : true;
     }
   </div>
 </section>
-
 <style>
   .section :global(a) {
     text-decoration: underline;

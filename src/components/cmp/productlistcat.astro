@@ -1,11 +1,11 @@
 ---
-import {PortableText} from "astro-portabletext";
-import Button from "../Button.astro";
-import NetlifyImage from "../NetlifyImage.astro";
+import { PortableText } from "astro-portabletext"
+import Button from "../Button.astro"
+import NetlifyImage from "../NetlifyImage.astro"
 
-const {node} = Astro.props;
+const { node } = Astro.props
 
-let QUERY, URLQUERY;
+let QUERY, URLQUERY
 
 //FETCH MENU ORGANISATION AND LOGO FROM GLOBAL
 if (node.cat) {
@@ -13,13 +13,13 @@ if (node.cat) {
     `*[_type=="products" && category._ref=="${node.cat._ref}"]{
   ...,img{'src':asset->url}
   }`
-  );
+  )
 } else {
   QUERY = encodeURIComponent(
     `*[_type=="categories"]{
   ...,img{'src':asset->url}
   }`
-  );
+  )
 }
 
 // Compose the URL for your project's endpoint and add the query
@@ -28,41 +28,41 @@ URLQUERY = `https://${
   import.meta.env.PROJECT_ID
 }.api.sanity.io/v2021-10-21/data/query/${
   import.meta.env.DATASET
-}?query=${QUERY}`;
+}?query=${QUERY}`
 // fetch the content
 // Global is a singleton, so you return the first element of the array (result[0])
 let data = await fetch(URLQUERY)
   .then((res) => res.json())
-  .then(({result}) => {
-    return result;
+  .then(({ result }) => {
+    return result
   })
-  .catch((err) => console.error(err));
+  .catch((err) => console.error(err))
 
-let allFilters = [];
-let datafilter = [];
+let allFilters = []
+let datafilter = []
 
 if (node.hasfilter) {
   for (let i = 0; i < data.length; i++) {
     if (data[i].filtre) {
-      allFilters.push(data[i].filtre);
+      allFilters.push(data[i].filtre)
     }
   }
 
   if (allFilters.length > 0) {
-    allFilters = allFilters.flat();
+    allFilters = allFilters.flat()
 
-    let uniqueFilters = [...new Set(allFilters)];
+    let uniqueFilters = [...new Set(allFilters)]
 
     for (let filter of uniqueFilters) {
       datafilter.push({
         name: filter.replaceAll(" ", "-"),
-        display: filter,
-      });
+        display: filter
+      })
     }
   }
 }
 
-data.sort((a, b) => a.name.localeCompare(b.name));
+data.sort((a, b) => a.name.localeCompare(b.name))
 ---
 
 <section
@@ -74,8 +74,8 @@ data.sort((a, b) => a.name.localeCompare(b.name));
           value={node.title}
           components={{
             type: {
-              button: Button,
-            },
+              button: Button
+            }
           }}
         />
       </div>

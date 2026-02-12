@@ -119,7 +119,6 @@ h6 {
 
 .h6 {
   font-size: var(--size-s);
-  ;
 }
 
 h1 {
@@ -165,7 +164,7 @@ p {
   font-size: var(--size-xs);
 }
 
-p+p {
+p + p {
   margin-block-start: var(--space-s);
 }
 
@@ -215,7 +214,12 @@ p+p {
 
 .bloctext code {
   font-size: 85%;
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font-family:
+    SFMono-Regular,
+    Consolas,
+    Liberation Mono,
+    Menlo,
+    monospace;
   padding: 0.2em 0.4em;
   border-radius: 0.4em;
   background: var(--color-body);
@@ -265,4 +269,16 @@ blockquote:before {
 
 .duoAccent2 {
   filter: url(#duotone-accent2);
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }

@@ -1,15 +1,15 @@
 ---
-import HeroClip from "./hero_clipped.astro";
-import HeroSplit from "./hero_split.astro";
-import HeroFull from "./hero_full.astro";
-import HeroDuo from "./hero_duo.astro";
+import HeroClip from "./hero_clipped.astro"
+import HeroSplit from "./hero_split.astro"
+import HeroFull from "./hero_full.astro"
+import HeroDuo from "./hero_duo.astro"
 
-const year = new Date().getFullYear() - 1987;
+const year = new Date().getFullYear() - 1987
 
-let {node} = Astro.props;
+let { node } = Astro.props
 
-let components = {HeroClip, HeroSplit, HeroFull, HeroDuo};
-const Component = components[node.layout] || HeroFull;
+let components = { HeroClip, HeroSplit, HeroFull, HeroDuo }
+const Component = components[node.layout] || HeroFull
 // const Component = HeroDuo;
 // node.duotone = "duoAccent1";
 ---
@@ -75,14 +75,14 @@ const Component = components[node.layout] || HeroFull;
 </style>
 
 <script>
-  let heroContent = document.querySelectorAll(".hero .texte .h4");
+  let heroContent = document.querySelectorAll(".hero .texte .h4")
 
   if (heroContent.length > 0) {
     heroContent.forEach((node) => {
       node.innerHTML = node.innerHTML.replaceAll(
         "%year%",
         heroContent[0].dataset.year
-      );
+      )
       if (node.innerHTML.includes("%velletaz%")) {
         const svgCode = `<svg id="logo--ban" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 167.08 188.13">
           <defs>
@@ -140,27 +140,27 @@ const Component = components[node.layout] || HeroFull;
             <line class="cls-1b" x1="88.99" y1="139.54" x2="128.26" y2="100.27"/>
             <line class="cls-1b" x1="98.96" y1="166.28" x2="164.1" y2="101.14"/>
           </g>
-        </svg>`;
-        let wrap = document.createElement("div");
-        wrap.classList.add("ban-wrap");
-        wrap.innerHTML = svgCode;
+        </svg>`
+        let wrap = document.createElement("div")
+        wrap.classList.add("ban-wrap")
+        wrap.innerHTML = svgCode
 
-        let text = document.createElement("h1");
-        text.classList.add("ban-text");
-        let text1, text2, text3;
-        text1 = document.createElement("div");
-        text2 = document.createElement("div");
-        text3 = document.createElement("div");
-        text1.innerHTML = "VELLETAZ";
-        text2.innerHTML = "GROUPE";
-        text3.innerHTML = "PÉPINIÈRES VITICOLES";
-        text.append(text1, text2, text3);
+        let text = document.createElement("h1")
+        text.classList.add("ban-text")
+        let text1, text2, text3
+        text1 = document.createElement("div")
+        text2 = document.createElement("div")
+        text3 = document.createElement("div")
+        text1.innerHTML = "VELLETAZ"
+        text2.innerHTML = "GROUPE"
+        text3.innerHTML = "PÉPINIÈRES VITICOLES"
+        text.append(text1, text2, text3)
 
-        wrap.append(text);
+        wrap.append(text)
 
-        node.prepend(wrap);
-        node.innerHTML = node.innerHTML.replace("%velletaz%", "");
+        node.prepend(wrap)
+        node.innerHTML = node.innerHTML.replace("%velletaz%", "")
       }
-    });
+    })
   }
 </script>

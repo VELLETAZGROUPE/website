@@ -1,9 +1,9 @@
 ---
-import {PortableText} from "astro-portabletext";
-import NetlifyImage from "../NetlifyImage.astro";
-import Button from "../Button.astro";
+import { PortableText } from "astro-portabletext"
+import NetlifyImage from "../NetlifyImage.astro"
+import Button from "../Button.astro"
 
-const {node} = Astro.props;
+const { node } = Astro.props
 ---
 
 <section
@@ -13,15 +13,19 @@ const {node} = Astro.props;
   </div>
 
   <figure
-    class="relative z-[1] pt-16 mr-4 scroll-fx@md js-scroll-fx"
-    data-scroll-fx-1="opacity, 0, 1, 5%, 25%"
-    data-scroll-fx-2="translateY, 50px, -50px, 0%, 100%">
+    class="relative z-[1] pt-16 mr-4"
+    style={node.img?.width && node.img?.height
+      ? `aspect-ratio: ${node.img.width / node.img.height}`
+      : undefined}>
     {
       node.img && (
         <NetlifyImage
           src={node.img.src}
           alt={node.img.alt}
           class={`block h-full max-h-[75vh] w-auto mx-auto ${node.img.duotone || undefined}`}
+          loading="eager"
+          width={node.img.width || 800}
+          height={node.img.height || 600}
         />
       )
     }
@@ -50,9 +54,6 @@ const {node} = Astro.props;
     </ul>
   </figure>
 
-  <!-- Modal elements - one for each POI -->
-  <!-- POI 1 -->
-
   {
     node.poi &&
       node.poi.map((poi, idx) => (
@@ -79,8 +80,8 @@ const {node} = Astro.props;
                     value={poi.content}
                     components={{
                       type: {
-                        button: Button,
-                      },
+                        button: Button
+                      }
                     }}
                   />
                 </div>
@@ -109,7 +110,6 @@ const {node} = Astro.props;
       ))
   }
 </section>
-
 <style>
   section.reverse > *:first-child {
     order: 1;
@@ -240,7 +240,8 @@ Usage: codyhouse.co/license
       transition:
         transform var(--modal-transition-duration)
           cubic-bezier(0.215, 0.61, 0.355, 1),
-        -webkit-transform var(--modal-transition-duration) cubic-bezier(0.215, 0.61, 0.355, 1);
+        -webkit-transform var(--modal-transition-duration)
+          cubic-bezier(0.215, 0.61, 0.355, 1);
     }
     .modal--animate-scale.modal--is-visible,
     .modal--animate-translate-up.modal--is-visible,
@@ -283,7 +284,8 @@ Usage: codyhouse.co/license
       transition:
         transform var(--modal-transition-duration)
           cubic-bezier(0.215, 0.61, 0.355, 1),
-        -webkit-transform var(--modal-transition-duration) cubic-bezier(0.215, 0.61, 0.355, 1);
+        -webkit-transform var(--modal-transition-duration)
+          cubic-bezier(0.215, 0.61, 0.355, 1);
     }
     .modal--animate-slide-up.modal--is-visible,
     .modal--animate-slide-down.modal--is-visible,
@@ -477,19 +479,19 @@ Usage: codyhouse.co/license
 <script>
   // File#: _2_points-of-interest
   // Usage: codyhouse.co/license
-  (function () {
+  ;(function () {
     function initPoi(element) {
       element.addEventListener("click", function (event) {
-        var poiItem = event.target.closest(".js-poi__item");
-        if (poiItem) poiItem.classList.add("poi__item--visited");
-      });
+        var poiItem = event.target.closest(".js-poi__item")
+        if (poiItem) poiItem.classList.add("poi__item--visited")
+      })
     }
 
-    var poi = document.getElementsByClassName("js-poi");
+    var poi = document.getElementsByClassName("js-poi")
     for (var i = 0; i < poi.length; i++) {
-      (function (i) {
-        initPoi(poi[i]);
-      })(i);
+      ;(function (i) {
+        initPoi(poi[i])
+      })(i)
     }
-  })();
+  })()
 </script>
