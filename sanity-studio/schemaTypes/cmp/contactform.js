@@ -121,6 +121,45 @@ export default {
           ],
         },
         {
+          name: 'statut',
+          type: 'object',
+          title: 'Champ Professionnel / Particulier',
+          fields: [
+            {name: 'title', type: 'string', title: 'Titre du champ'},
+            {
+              name: 'placeholder',
+              type: 'string',
+              title: 'Placeholder (exemple de valeur acceptée)',
+            },
+          ],
+        },
+        {
+          name: 'siret',
+          type: 'object',
+          title: 'Champ N° SIRET',
+          fields: [
+            {name: 'title', type: 'string', title: 'Titre du champ'},
+            {
+              name: 'placeholder',
+              type: 'string',
+              title: 'Placeholder (exemple de valeur acceptée)',
+            },
+          ],
+        },
+        {
+          name: 'tva',
+          type: 'object',
+          title: 'Champ N° de TVA intracommunautaire',
+          fields: [
+            {name: 'title', type: 'string', title: 'Titre du champ'},
+            {
+              name: 'placeholder',
+              type: 'string',
+              title: 'Placeholder (exemple de valeur acceptée)',
+            },
+          ],
+        },
+        {
           name: 'message',
           type: 'object',
           title: 'Champ Message',
