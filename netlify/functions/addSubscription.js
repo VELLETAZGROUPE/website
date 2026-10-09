@@ -1,4 +1,4 @@
-exports.handler = async (event) => {
+export const handler = async (event) => {
   const {list, email, template, redirect} = event.queryStringParameters;
   const url = "https://api.brevo.com/v3/contacts/doubleOptinConfirmation";
   let body = JSON.stringify({
